@@ -1,0 +1,143 @@
+---
+title: "Analysis Progress Meeting 3/24"
+author: "Matt Clark"
+date: "3/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(rstan)
+library(tidyverse)
+dat<-read_csv("~/Smoke_Proj/Data/MergedDataComplete.csv")
+x<-dat%>%group_by(UnitCode,Season)%>%
+  summarise(mv=max(RecreationVisits))%>%ungroup()%>%
+  group_by(UnitCode)%>%filter(mv==max(mv))%>%mutate(cc=paste0(UnitCode,Season))
+  
+x2<-dat%>%group_by(UnitCode,Season)%>%
+  summarise(mv=min(RecreationVisits))%>%ungroup()%>%
+  group_by(UnitCode)%>%filter(mv==min(mv))%>%mutate(cc=paste0(UnitCode,Season))
+
+dat$SeasType<-ifelse(dat$CatColS %in% x$cc,
+                       "High",ifelse(dat$CatColS %in% x2$cc,"Low","Shoulder"))
+#load(fit)
+#load(fit2)
+```
+
+# Overall data
+
+Looking at the overall, linear trends of smoke on vis didn't yeild any immediatly apparent insights
+```{r echo=FALSE}
+ggplot(dat,aes(x=stdsmoke,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=F,alpha=0.6,method="lm")+
+  theme_classic()+ggtitle("Smoke values standardized accross all parks")
+
+ggplot(dat,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=F,alpha=0.6,method="lm")+
+  theme_classic()+ggtitle("Smoke values standardized for each park individually")
+
+```
+
+
+So I also looked at the polynomial curves
+```{r echo=FALSE}
+ggplot(dat,aes(x=stdsmoke,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=F,alpha=0.6)+
+  theme_classic()+ggtitle("Smoke values standardized accross all parks")
+
+ggplot(dat,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=F,alpha=0.6)+
+  theme_classic()+ggtitle("Smoke values standardized for each park individually")
+```
+
+These apprear to have a breakpoint, i.e. vis increases with smoke (due to season) up to a certain point, but then rapidly drops off. We can model this and get breakpoint estimates at least for a subset of parks 
+
+I don't actually think that this is a good idea though. I think these plots have an overwhelming effect of season. Many parks when there is no smoke, it actually makes no sense to go there e.g. Rocky Mountain. The problem is that not all parks have the same visitation or smoke trends by season. 
+
+```{r echo=FALSE}
+ggplot(dat,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(aes(color=Season))+
+  theme_classic()+ggtitle("Smoke values standardized accross all parks")
+```
+
+It might be better to just compare between high, low, and shoulder seasons for each park. 
+
+```{r echo = FALSE}
+ggplot(dat,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(aes(color=SeasType))+
+  theme_classic()+ggtitle("Smoke values standardized for each park individually")
+```
+
+
+One obvious starting place here is to just look at the high season for each park. 
+
+We can look at the by park standardization and the overall standardiztion.
+
+```{r echo= F}
+dat%>%filter(SeasType =="High")%>%
+ggplot(.,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=F,alpha=0.6,method="lm")+
+  theme_classic()+ggtitle("Smoke values standardized for each park individually")
+
+dat%>%filter(SeasType =="High")%>%
+ggplot(.,aes(x=stdsmoke,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=F,alpha=0.6,method="lm")+
+  theme_classic()+ggtitle("Smoke values standardized for each park individually")
+```
+
+
+Let's look at some simple model outputs for these
+
+Standardized overall
+
+__Didn't converge for some reason, I'll work on it today__
+
+Standardized by park
+
+__Didn't converge for some reason, I'll work on it today__
+
+We can see from this that the effect of smoke on visitation is stronger when you consider the change from a baseline for each park. 
+
+Let's look at this for the other seasons now
+
+```{r}
+ggplot(dat,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(aes(color=SeasType),se=F,alpha=0.6,method="lm")+
+  theme_classic()+ggtitle("Smoke values standardized for each park individually")
+```
+
+Might be interesting to look at the polynomials for those too
+
+```{r}
+ggplot(dat,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(aes(color=SeasType),se=F,alpha=0.6)+
+  theme_classic()+ggtitle("Smoke values standardized for each park individually")
+```
+
+I'm not really sure what to make of that weird upswing that we see. I ran a breakpoint model on just the high season for these data and it picked up the upswing at the primary breakpoint. Basically the opposite of our hypothesis. I think that there's just a few high leverage points causing this though, I think this because of how wide the std error gets over there.
+
+```{r echo = F}
+dat%>%filter(SeasType =="High")%>%
+  ggplot(.,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(aes(color=SeasType),alpha=0.6)+
+  theme_classic()+ggtitle("Smoke values standardized for each park individually")
+```
+
+# Overall insights
+
+I think overall what we're seeing is a ton of noise intoduced by the low seasons at parks. When we look at just the high season we see a negative impact of smoke to a very slight degree. We see that this effect is stronger when we scale the smoke by each park individually. We can say something about relative baselines with this as well as give projections about visitation lost for each park. 
+
+
+
+
+
+
+

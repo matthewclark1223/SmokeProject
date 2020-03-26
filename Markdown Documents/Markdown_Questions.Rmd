@@ -1,0 +1,21 @@
+---
+title: "Markdown/Github Questions for Matt Williamson"
+author: "Matt Clark and Alex Killion"
+date: "11/25/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Questions
+1. Standard process for organizing citations using markdown.
+2. Highlighting and commenting on text (analog to Word comment bubble)
+3. How to work at the same time without creating merg conflicts
+4. Should we be using .md files for writing, and only .rmd for anaylsis? Is there an advantage to .md?
+
+### Answers
+1.
+2. I think you can do the comment stuff from the webpage using the 'inline comment' comment bit on the webpage
+3. As far as writing at the same time, I'd use local branches (i.e., forks) to avoid that. So you create a fork called "IntroMC" and write that while Alex works on a fork called "mehtodsAK" when you're ready to pass it back, issue a pull request and merge te changes back to the master branch

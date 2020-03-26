@@ -1,0 +1,156 @@
+---
+title: "SmokeBreakPointEEB607"
+author: "Matt Clark"
+date: "3/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rstan)
+dat<-read_csv("~/Smoke_Proj/Data/MergedDataComplete.csv")
+dat<-dat%>% filter(UnitCode !=c("GRSM"))
+x<-dat%>%group_by(UnitCode)%>%summarize(max=max(RecreationVisits))%>%arrange(desc(max))
+x<-x[1:8,]$UnitCode
+dat<-dat%>% filter(UnitCode !=c("GRCA"))
+dat<-dat%>% filter(UnitCode !=c("JEFF"))
+dat<-dat%>% filter(UnitCode !=c("ACAD"))
+dat<-dat%>% filter(UnitCode !=c("OLYM"))
+dat<-dat%>% filter(UnitCode !=c("GLAC"))
+dat<-dat%>%filter(UnitCode %in% x)
+load("l.rda")
+```
+
+## Look at the data
+
+These data have monthly visitation to 60 National Parks from 1980 - 2018. We have also gathered the maximum smoke (pm 2.5) values for each of the park boundaries for each of those months. We want to use these data to assess the impact of wildfire smoke on people's recreation behavior.
+
+For this exercise let's just use 3 national parks for this example.
+
+Here's what the data look like:
+
+```{r }
+head(dat)
+```
+
+## What we think is going on
+
+We suspect that smoke doesn't actually keep people away from parks until it gets pretty bad, i.e. the effect is non-linear. We want to know what actually causes the drop off in visitation. Is it that people stop coming once it gets smokey enough? Smokey for long enough? When it's publicized enough? When the Air quality indexes get to a certain level? We think we may be able to use a break point model to figure this out. 
+
+One way we've started exploring this is by looking at the smoke variable standardized accross all parks vs standardized for each park individually. This may answe the question of whether people change their behavior based on some absolute level of smokiness or based on a deviation from a norm for that area. Here's a visual representaion of both of those. 
+
+```{r pressure, echo=FALSE}
+ggplot(data=dat,aes(x=stdsmoke,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=FALSE,alpha=0.1)+
+  theme_classic()+ggtitle("Standardized Overall")
+
+ggplot(data=dat,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=FALSE,alpha=0.1)+
+  theme_classic()+ggtitle("Standardized by Park")
+
+
+```
+
+## Modeling
+
+It looks to me like the "standardized by park" version might land on one specific break point more so than the overall standardization. We can see if that's true using a break point model.
+
+
+```{stan output.var='mod', eval = FALSE, tidy = FALSE}
+
+  data {
+  int N;
+  real smoke[N];
+  int count[N];
+  int Nprk;
+  int pcode[N];
+}
+parameters {
+  real intercept;
+  real slope1; //the regression parameters
+  real slope2; //the regression parameters
+  real<lower=0> phi; //the overdispersion parameters
+  real<lower=0> sigma_pr;
+  real ran_intercept[Nprk];
+  real<lower=-1,upper=2> bkpoint;
+  
+}
+model {  
+  intercept ~ normal(0,1); //prior for the intercept following Gelman 2008
+  slope1 ~ cauchy(0,2.5); //prior for the slopes following Gelman 2008
+  slope2 ~ cauchy(0,2.5); //prior for the slopes following Gelman 2008
+  phi ~ cauchy(0, 3);
+  sigma_pr ~normal(0,1);
+  bkpoint~normal(0,1);
+  
+for(i in 1:N){
+if(smoke[i]<bkpoint){
+  count[i] ~ neg_binomial_2(exp(intercept+slope1*smoke[i]+ran_intercept[pcode[i]]) ,phi);
+}
+else{
+  count[i] ~ neg_binomial_2(exp(intercept+slope1*bkpoint+(smoke[i]-bkpoint)*slope2+ran_intercept[pcode[i]]) ,phi);
+}
+}
+for(j in 1:Nprk){
+  ran_intercept[j]~normal(0,sigma_pr);
+}
+}
+
+
+```
+
+```{r}
+data_list <- list(
+  N = nrow(dat),
+  Nprk = length(unique(dat$UnitCode)),
+  count = dat$RecreationVisits,
+  smoke = dat$stdsmokepark,
+  pcode = as.numeric(as.factor(dat$UnitCode )))
+
+options(mc.cores=3)
+```
+```{r,eval=FALSE}
+l<- stan( file="SmokePointBreak.stan" , data=data_list,chains=3 )
+
+```
+
+## Output
+```{r}
+print( l , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
+```
+
+We can see that the first slope is positive and the second is negative. This is what we might expect based on the visualization. It also tells us that the bkpoint is at -0.35 standard deviations below the mean which is weird. Not sure how to interpret that.
+
+## Next Steps
+I want to apply a version of this to all of the parks (or at least most of them).
+That data looks a lot messier.
+
+```{r include=FALSE}
+datt<-read_csv("~/Smoke_Proj/Data/MergedDataComplete.csv")
+```
+
+```{r echo=FALSE}
+ggplot(data=datt,aes(x=stdsmoke,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=FALSE,alpha=0.1)+
+  theme_classic()+ggtitle("Standardized Overall")
+
+ggplot(data=datt,aes(x=stdsmokepark,y=RecreationVisits,by=UnitCode))+
+  geom_point(alpha=0.2)+
+  geom_smooth(color="red",se=FALSE,alpha=0.1)+
+  theme_classic()+ggtitle("Standardized by Park")
+
+
+```
+
+
+
+I think what we want to do is link the breakpoints to external events. Totally open to what those might be. We may want to even put time on the X axis and have the breakpoints be wildfires or something? Not sure about the math there. 
+
+We'll take any/all help and insights!
+
+Thanks!
+
