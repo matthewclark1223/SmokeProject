@@ -1,3 +1,6 @@
+library(tidyverse)
+library(rstan)
+library(shinystan)
 dat<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")
 x<-dat%>%group_by(UnitCode,Season)%>%
   summarise(mv=mean(RecreationVisits))%>%ungroup()%>%
@@ -21,7 +24,7 @@ data_list <- list(
 
 options(mc.cores=3)
 
-l<- stan( file="SmokeNegBinom.stan" , data=data_list,chains=3 ,warmup = 1000 ,iter = 10000)
+l<- stan( file="~/SmokeProject/StanCode/SmokeNegBinom.stan" , data=data_list,chains=3 ,warmup = 1000 ,iter = 10000)
 
 print( l , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
@@ -34,7 +37,7 @@ data_list2 <- list(
   smoke = dat$stdsmoke,
   pcode = as.numeric(as.factor(dat$UnitCode )))
 
-l2<- stan( file="SmokeNegBinom.stan" , data=data_list2,chains=3 ,warmup=1000 ,iter = 6000)
+l2<- stan( file="~/SmokeProject/StanCode/SmokeNegBinom.stan" , data=data_list2,chains=3 ,warmup=1000 ,iter = 6000)
 print( l2 , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
 save(l2, file="stdsmokeNbinom.rda")
@@ -42,10 +45,11 @@ save(l2, file="stdsmokeNbinom.rda")
 
 #Plot outputs
 x<-as.data.frame(summary(l))
+zz<-row.names(x[2:61,])
 stan_plot(l,pars = c(zz) ,fill_color = "purple", )
 stan_plot(l2,pars = c(zz) ,fill_color = "purple", )
 ########Compare outputs to overall smokiness
-datAll<-read_csv("~/Smoke_Proj/Data/MergedDataComplete.csv")
+datAll<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")
 MeanSlopes<-data.frame(Park=unique(dat$UnitCode),slopeSmokePark=(as.data.frame(summary(l))[2:61,1]),
                        slopeSmokeOverall=(as.data.frame(summary(l2))[2:61,1]),
                        MedSmoke= (summarise(group_by(dat,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke,
@@ -53,8 +57,8 @@ MeanSlopes<-data.frame(Park=unique(dat$UnitCode),slopeSmokePark=(as.data.frame(s
 
 cor(MeanSlopes$MedSmokeAll,MeanSlopes$slopeSmokeOverall)
 ggplot(MeanSlopes,aes(x=MedSmokeAll,y=slopeSmokeOverall))+
-  geom_point()+ggtitle("Median Year round smokiness by slope of smoke in high season\nCor = 0.21")
+  geom_point()+ggtitle("Median Year round smokiness by slope of smoke in high season\nCor = 0.3")
 
 cor(MeanSlopes$MedSmoke,MeanSlopes$slopeSmokeOverall)
 ggplot(MeanSlopes,aes(x=MedSmoke,y=slopeSmokeOverall))+
-  geom_point()+ggtitle("Median high season smokiness by slope of smoke in high season\nCor = 0.27")
+  geom_point()+ggtitle("Median high season smokiness by slope of smoke in high season\nCor = 0.37")
