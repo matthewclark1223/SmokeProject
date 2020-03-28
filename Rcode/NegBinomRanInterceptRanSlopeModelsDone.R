@@ -1,4 +1,4 @@
-dat<-read_csv("~/Smoke_Proj/Data/MergedDataComplete.csv")
+dat<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")
 x<-dat%>%group_by(UnitCode,Season)%>%
   summarise(mv=mean(RecreationVisits))%>%ungroup()%>%
   group_by(UnitCode)%>%filter(mv==max(mv))%>%mutate(cc=paste0(UnitCode,Season))
