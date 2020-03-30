@@ -44,6 +44,8 @@ save(l2, file="stdsmokeNbinom.rda")
 
 
 #Plot outputs
+load("stdsmokeparkNbinom.rda")
+load("stdsmokeNbinom.rda")
 x<-as.data.frame(summary(l))
 zz<-row.names(x[2:61,])
 stan_plot(l,pars = c(zz) ,fill_color = "purple", )
@@ -54,6 +56,8 @@ MeanSlopes<-data.frame(Park=unique(dat$UnitCode),slopeSmokePark=(as.data.frame(s
                        slopeSmokeOverall=(as.data.frame(summary(l2))[2:61,1]),
                        MedSmoke= (summarise(group_by(dat,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke,
                        MedSmokeAll= (summarise(group_by(datAll,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke) 
+
+write.csv(MeanSlopes,file="ParameterOutputs")
 
 cor(MeanSlopes$MedSmokeAll,MeanSlopes$slopeSmokeOverall)
 ggplot(MeanSlopes,aes(x=MedSmokeAll,y=slopeSmokeOverall))+
