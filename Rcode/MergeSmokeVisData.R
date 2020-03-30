@@ -60,5 +60,17 @@ mdat<-mdat%>%group_by(UnitCode)%>%
 
 #delete int vector
 mdat<-mdat[,-11]
+
+#add vis season
+x<-mdat%>%group_by(UnitCode,Season)%>%
+  summarise(mv=mean(RecreationVisits))%>%ungroup()%>%
+  group_by(UnitCode)%>%filter(mv==max(mv))%>%mutate(cc=paste0(UnitCode,Season))
+
+x2<-mdat%>%group_by(UnitCode,Season)%>%
+  summarise(mv=mean(RecreationVisits))%>%ungroup()%>%
+  group_by(UnitCode)%>%filter(mv==min(mv))%>%mutate(cc=paste0(UnitCode,Season))
+
+mdat$SeasType<-ifelse(mdat$CatColS %in% x$cc,
+                     "High",ifelse(mdat$CatColS %in% x2$cc,"Low","Shoulder"))
 #create the csv
 write.csv(mdat, file="MergedDataComplete.csv")
