@@ -1,0 +1,108 @@
+---
+title: "Laura Stoddard VIP Timeline"
+author: "Matt Clark"
+date: "3/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(rstanarm)
+
+load("feefit.rda")
+SMdat<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")
+FEdat<-read_csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
+```
+
+Schedule
+======
+
+| Week| Focus |Deliverable
+:---:|:---:|:---
+3/30/2020 | Data Cleaning | Cleaned up dataset with projected fees for relevant parks
+4/6/2020 | Plotting 1| Previous smoke effects plot
+4/13/2020 | Plotting 2| Projected smoke effects plot
+4/20/2020 | Write-up / Catch-up| Brief write-up of results
+4/27/2020 | Lightening talk | Lightening talk 
+
+Weekly Specifics
+======
+
+3/30/2020 - Data Cleaning
+------
+
+This week, it would be great if you could clean up the dataset that you collected and fill in what we think the entry fees may have been for each park for the years we don't have data on. 
+
+To do this, you will need to do 4 main steps.
+
+1. Upload the data
+2. Remove rows that we don't know
+3. Make a very simple model
+4. Use that model to predict what the unknown fees likely would have been 
+
+I'll give you some guidance on how to do all 4 of these steps, but I do kind of want you to struggle through some of it on your own. Here's an example of how you would do this for just 2 parks for 2 years. I want you to take these steps and apply them to all parks for all the years we don't know
+
+```{r}
+library(tidyverse)
+FEdat<-read_csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv") #you can call this whatever you want. Keep in mind that your file path will be different than mine!
+head(FEdat) #make sure the data came through
+
+```
+
+Now that we've loaded the data, we want to remove the single vehicle column. We aren't using it yet and it has rows with NAs that the single visitor column doesn't. We will filter by NAs later so we want this column gone.
+
+```{r}
+d<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
+d<-na.omit(d) #get rid of rows with any NA
+head(d) #check it out
+```
+
+Now we're going to make a model based on these data. Think of this as y=mx+b that you learned in algebra. Y is the predicted fee, x is the year, m is the slope, and b is an intercept. In this case we also have a x2 and m2 which are a 1 or 0 for each park and a slope (m2) for each park. 
+
+This is what's called an generalized linear model. The "poisson" part just tells the computer that we are modeling values that are discrete counts (1,4,7,etc.)
+
+```{r, eval=FALSE}
+feefit<-stan_glm(SingleVisitorEntryFee~Year+Park,family="poisson",data=d,iter=6000)
+```
+
+Now we can use this model to predict the fees for the parks we don't know.
+
+Here's an example of that
+
+```{r}
+preddata<-data.frame(Year = c(2012,2016), Park = c("Arches NP", "Acadia NP")) #make a small, 2 row data frame
+
+apply(posterior_predict(feefit,preddata),2,mean)     #predict our fees for thse parks for those years based on our model. 
+
+```
+Notice that this gives predictions for those two parks for those years.
+
+We want predictions for every row that we are missing. We definitely don't want to type this in by hand.
+
+On your own, subset the original datframe by just the rows which have NA in the fee column. Use this new dataframe in the place of preddat in the example.
+
+#### Hint: 
+```{r eval=FALSE}
+NAdata<-data%>%dplyr::filter(fee == NA)
+
+apply(posterior_predict(feefit,NAdata),2,mean)  
+```
+You should then be able to add this output as a column to the dataframe with all nas that you made. 
+
+#### Hint: 
+```{r eval=FALSE}
+NAdata$PredictedVis<-apply(posterior_predict(feefit,NAdata),2,mean) 
+```
+
+Ideally, you will then use R to fill in all of the nas in the original data frame with our predicted values. You should also make a new column indicating if the value is real or a projection. 
+
+#### Hint: 
+```{r eval=FALSE}
+merge(FEdata,NAdata, by=1:2)
+
+```
+
+
+
+
+
