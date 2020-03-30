@@ -57,7 +57,7 @@ MeanSlopes<-data.frame(Park=unique(dat$UnitCode),slopeSmokePark=(as.data.frame(s
                        MedSmoke= (summarise(group_by(dat,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke,
                        MedSmokeAll= (summarise(group_by(datAll,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke) 
 
-write.csv(MeanSlopes,file="ParameterOutputs")
+write.csv(MeanSlopes,file="ParameterOutputs.csv")
 
 cor(MeanSlopes$MedSmokeAll,MeanSlopes$slopeSmokeOverall)
 ggplot(MeanSlopes,aes(x=MedSmokeAll,y=slopeSmokeOverall))+
