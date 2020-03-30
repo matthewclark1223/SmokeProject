@@ -1,0 +1,2341 @@
+Park,Year,SingleVisitorEntryFee,SingleVehicleEntry
+Acadia NP,1980,NA,NA
+Acadia NP,1981,NA,NA
+Acadia NP,1982,NA,NA
+Acadia NP,1983,NA,NA
+Acadia NP,1984,NA,NA
+Acadia NP,1985,NA,NA
+Acadia NP,1986,NA,NA
+Acadia NP,1987,NA,NA
+Acadia NP,1988,NA,NA
+Acadia NP,1989,NA,NA
+Acadia NP,1990,NA,NA
+Acadia NP,1991,NA,NA
+Acadia NP,1992,NA,NA
+Acadia NP,1993,NA,NA
+Acadia NP,1994,NA,NA
+Acadia NP,1995,NA,NA
+Acadia NP,1996,NA,NA
+Acadia NP,1997,3,5
+Acadia NP,1998,3,5
+Acadia NP,1999,5,10
+Acadia NP,2000,5,10
+Acadia NP,2001,5,10
+Acadia NP,2002,5,10
+Acadia NP,2003,5,10
+Acadia NP,2004,5,20
+Acadia NP,2005,5,20
+Acadia NP,2006,5,20
+Acadia NP,2007,5,20
+Acadia NP,2008,5,20
+Acadia NP,2009,5,20
+Acadia NP,2010,5,20
+Acadia NP,2011,5,20
+Acadia NP,2012,5,20
+Acadia NP,2013,5,20
+Acadia NP,2014,5,20
+Acadia NP,2015,12,25
+Acadia NP,2016,12,25
+Acadia NP,2017,12,25
+Acadia NP,2018,15,30
+Arches NP,1980,NA,NA
+Arches NP,1981,NA,NA
+Arches NP,1982,NA,NA
+Arches NP,1983,NA,NA
+Arches NP,1984,NA,NA
+Arches NP,1985,NA,NA
+Arches NP,1986,NA,NA
+Arches NP,1987,NA,NA
+Arches NP,1988,NA,NA
+Arches NP,1989,NA,NA
+Arches NP,1990,NA,NA
+Arches NP,1991,NA,NA
+Arches NP,1992,NA,NA
+Arches NP,1993,NA,NA
+Arches NP,1994,NA,NA
+Arches NP,1995,NA,NA
+Arches NP,1996,NA,NA
+Arches NP,1997,5,10
+Arches NP,1998,5,10
+Arches NP,1999,5,10
+Arches NP,2000,5,10
+Arches NP,2001,5,10
+Arches NP,2002,5,10
+Arches NP,2003,5,10
+Arches NP,2004,5,10
+Arches NP,2005,5,10
+Arches NP,2006,5,10
+Arches NP,2007,5,10
+Arches NP,2008,5,10
+Arches NP,2009,5,10
+Arches NP,2010,5,10
+Arches NP,2011,5,10
+Arches NP,2012,5,10
+Arches NP,2013,5,10
+Arches NP,2014,5,10
+Arches NP,2015,5,10
+Arches NP,2016,10,25
+Arches NP,2017,10,25
+Arches NP,2018,15,30
+Badlands NP,1980,NA,NA
+Badlands NP,1981,NA,NA
+Badlands NP,1982,NA,NA
+Badlands NP,1983,NA,NA
+Badlands NP,1984,NA,NA
+Badlands NP,1985,NA,NA
+Badlands NP,1986,NA,NA
+Badlands NP,1987,NA,NA
+Badlands NP,1988,NA,NA
+Badlands NP,1989,NA,NA
+Badlands NP,1990,NA,NA
+Badlands NP,1991,NA,NA
+Badlands NP,1992,NA,NA
+Badlands NP,1993,NA,NA
+Badlands NP,1994,NA,NA
+Badlands NP,1995,NA,NA
+Badlands NP,1996,NA,NA
+Badlands NP,1997,5,10
+Badlands NP,1998,5,10
+Badlands NP,1999,5,10
+Badlands NP,2000,5,10
+Badlands NP,2001,5,10
+Badlands NP,2002,5,10
+Badlands NP,2003,5,10
+Badlands NP,2004,5,10
+Badlands NP,2005,5,10
+Badlands NP,2006,7,15
+Badlands NP,2007,7,15
+Badlands NP,2008,7,15
+Badlands NP,2009,7,15
+Badlands NP,2010,7,15
+Badlands NP,2011,7,15
+Badlands NP,2012,7,15
+Badlands NP,2013,7,15
+Badlands NP,2014,7,15
+Badlands NP,2015,7,15
+Badlands NP,2016,7,15
+Badlands NP,2017,10,20
+Badlands NP,2018,10,20
+Big Bend NP,1980,NA,NA
+Big Bend NP,1981,NA,NA
+Big Bend NP,1982,NA,NA
+Big Bend NP,1983,NA,NA
+Big Bend NP,1984,NA,NA
+Big Bend NP,1985,NA,NA
+Big Bend NP,1986,NA,NA
+Big Bend NP,1987,NA,NA
+Big Bend NP,1988,NA,NA
+Big Bend NP,1989,NA,NA
+Big Bend NP,1990,NA,NA
+Big Bend NP,1991,NA,NA
+Big Bend NP,1992,NA,NA
+Big Bend NP,1993,NA,NA
+Big Bend NP,1994,NA,NA
+Big Bend NP,1995,NA,NA
+Big Bend NP,1996,NA,NA
+Big Bend NP,1997,5,10
+Big Bend NP,1998,5,10
+Big Bend NP,1999,5,10
+Big Bend NP,2000,5,10
+Big Bend NP,2001,5,10
+Big Bend NP,2002,5,10
+Big Bend NP,2003,5,15
+Big Bend NP,2004,5,15
+Big Bend NP,2005,5,15
+Big Bend NP,2006,5,15
+Big Bend NP,2007,10,20
+Big Bend NP,2008,10,20
+Big Bend NP,2009,10,20
+Big Bend NP,2010,10,20
+Big Bend NP,2011,10,20
+Big Bend NP,2012,10,20
+Big Bend NP,2013,10,20
+Big Bend NP,2014,10,20
+Big Bend NP,2015,10,25
+Big Bend NP,2016,12,25
+Big Bend NP,2017,12,25
+Big Bend NP,2018,15,30
+Biscayne NP,1980,NA,NA
+Biscayne NP,1981,NA,NA
+Biscayne NP,1982,NA,NA
+Biscayne NP,1983,NA,NA
+Biscayne NP,1984,NA,NA
+Biscayne NP,1985,NA,NA
+Biscayne NP,1986,NA,NA
+Biscayne NP,1987,NA,NA
+Biscayne NP,1988,NA,NA
+Biscayne NP,1989,NA,NA
+Biscayne NP,1990,NA,NA
+Biscayne NP,1991,NA,NA
+Biscayne NP,1992,NA,NA
+Biscayne NP,1993,NA,NA
+Biscayne NP,1994,NA,NA
+Biscayne NP,1995,NA,NA
+Biscayne NP,1996,NA,NA
+Biscayne NP,1997,NA,NA
+Biscayne NP,1998,NA,NA
+Biscayne NP,1999,NA,NA
+Biscayne NP,2000,0,0
+Biscayne NP,2001,0,0
+Biscayne NP,2002,0,0
+Biscayne NP,2003,0,0
+Biscayne NP,2004,0,0
+Biscayne NP,2005,0,0
+Biscayne NP,2006,0,0
+Biscayne NP,2007,0,0
+Biscayne NP,2008,0,0
+Biscayne NP,2009,0,0
+Biscayne NP,2010,0,0
+Biscayne NP,2011,0,0
+Biscayne NP,2012,0,0
+Biscayne NP,2013,0,0
+Biscayne NP,2014,0,0
+Biscayne NP,2015,0,0
+Biscayne NP,2016,0,0
+Biscayne NP,2017,0,0
+Biscayne NP,2018,0,0
+Black Canyon of the Gunnison NP,1980,NA,NA
+Black Canyon of the Gunnison NP,1981,NA,NA
+Black Canyon of the Gunnison NP,1982,NA,NA
+Black Canyon of the Gunnison NP,1983,NA,NA
+Black Canyon of the Gunnison NP,1984,NA,NA
+Black Canyon of the Gunnison NP,1985,NA,NA
+Black Canyon of the Gunnison NP,1986,NA,NA
+Black Canyon of the Gunnison NP,1987,NA,NA
+Black Canyon of the Gunnison NP,1988,NA,NA
+Black Canyon of the Gunnison NP,1989,NA,NA
+Black Canyon of the Gunnison NP,1990,NA,NA
+Black Canyon of the Gunnison NP,1991,NA,NA
+Black Canyon of the Gunnison NP,1992,NA,NA
+Black Canyon of the Gunnison NP,1993,NA,NA
+Black Canyon of the Gunnison NP,1994,NA,NA
+Black Canyon of the Gunnison NP,1995,NA,NA
+Black Canyon of the Gunnison NP,1996,NA,NA
+Black Canyon of the Gunnison NP,1997,4,7
+Black Canyon of the Gunnison NP,1998,4,7
+Black Canyon of the Gunnison NP,1999,4,7
+Black Canyon of the Gunnison NP,2000,4,7
+Black Canyon of the Gunnison NP,2001,4,7
+Black Canyon of the Gunnison NP,2002,4,7
+Black Canyon of the Gunnison NP,2003,4,7
+Black Canyon of the Gunnison NP,2004,4,8
+Black Canyon of the Gunnison NP,2005,4,8
+Black Canyon of the Gunnison NP,2006,4,8
+Black Canyon of the Gunnison NP,2007,7,15
+Black Canyon of the Gunnison NP,2008,7,15
+Black Canyon of the Gunnison NP,2009,7,15
+Black Canyon of the Gunnison NP,2010,7,15
+Black Canyon of the Gunnison NP,2011,7,15
+Black Canyon of the Gunnison NP,2012,7,15
+Black Canyon of the Gunnison NP,2013,7,15
+Black Canyon of the Gunnison NP,2014,7,15
+Black Canyon of the Gunnison NP,2015,7,15
+Black Canyon of the Gunnison NP,2016,7,15
+Black Canyon of the Gunnison NP,2017,7,15
+Black Canyon of the Gunnison NP,2018,7,15
+Bryce Canyon NP,1980,NA,NA
+Bryce Canyon NP,1981,NA,NA
+Bryce Canyon NP,1982,NA,NA
+Bryce Canyon NP,1983,NA,NA
+Bryce Canyon NP,1984,NA,NA
+Bryce Canyon NP,1985,NA,NA
+Bryce Canyon NP,1986,NA,NA
+Bryce Canyon NP,1987,NA,NA
+Bryce Canyon NP,1988,NA,NA
+Bryce Canyon NP,1989,NA,NA
+Bryce Canyon NP,1990,NA,NA
+Bryce Canyon NP,1991,NA,NA
+Bryce Canyon NP,1992,NA,NA
+Bryce Canyon NP,1993,NA,NA
+Bryce Canyon NP,1994,NA,NA
+Bryce Canyon NP,1995,NA,NA
+Bryce Canyon NP,1996,NA,NA
+Bryce Canyon NP,1997,5,10
+Bryce Canyon NP,1998,5,10
+Bryce Canyon NP,1999,5,10
+Bryce Canyon NP,2000,10,20
+Bryce Canyon NP,2001,10,20
+Bryce Canyon NP,2002,10,20
+Bryce Canyon NP,2003,10,20
+Bryce Canyon NP,2004,10,20
+Bryce Canyon NP,2005,10,20
+Bryce Canyon NP,2006,10,20
+Bryce Canyon NP,2007,12,25
+Bryce Canyon NP,2008,12,25
+Bryce Canyon NP,2009,12,25
+Bryce Canyon NP,2010,12,25
+Bryce Canyon NP,2011,12,25
+Bryce Canyon NP,2012,12,25
+Bryce Canyon NP,2013,12,25
+Bryce Canyon NP,2014,12,25
+Bryce Canyon NP,2015,15,30
+Bryce Canyon NP,2016,15,30
+Bryce Canyon NP,2017,15,30
+Bryce Canyon NP,2018,20,35
+Canyonlands NP,1980,NA,NA
+Canyonlands NP,1981,NA,NA
+Canyonlands NP,1982,NA,NA
+Canyonlands NP,1983,NA,NA
+Canyonlands NP,1984,NA,NA
+Canyonlands NP,1985,NA,NA
+Canyonlands NP,1986,NA,NA
+Canyonlands NP,1987,NA,NA
+Canyonlands NP,1988,NA,NA
+Canyonlands NP,1989,NA,NA
+Canyonlands NP,1990,NA,NA
+Canyonlands NP,1991,NA,NA
+Canyonlands NP,1992,NA,NA
+Canyonlands NP,1993,NA,NA
+Canyonlands NP,1994,NA,NA
+Canyonlands NP,1995,NA,NA
+Canyonlands NP,1996,NA,NA
+Canyonlands NP,1997,5,10
+Canyonlands NP,1998,5,10
+Canyonlands NP,1999,5,10
+Canyonlands NP,2000,5,10
+Canyonlands NP,2001,5,10
+Canyonlands NP,2002,5,10
+Canyonlands NP,2003,5,10
+Canyonlands NP,2004,5,10
+Canyonlands NP,2005,5,10
+Canyonlands NP,2006,5,10
+Canyonlands NP,2007,5,10
+Canyonlands NP,2008,5,10
+Canyonlands NP,2009,5,10
+Canyonlands NP,2010,5,10
+Canyonlands NP,2011,5,10
+Canyonlands NP,2012,5,10
+Canyonlands NP,2013,5,10
+Canyonlands NP,2014,5,10
+Canyonlands NP,2015,5,10
+Canyonlands NP,2016,10,25
+Canyonlands NP,2017,10,25
+Canyonlands NP,2018,15,30
+Capitol Reef NP,1980,NA,NA
+Capitol Reef NP,1981,NA,NA
+Capitol Reef NP,1982,NA,NA
+Capitol Reef NP,1983,NA,NA
+Capitol Reef NP,1984,NA,NA
+Capitol Reef NP,1985,NA,NA
+Capitol Reef NP,1986,NA,NA
+Capitol Reef NP,1987,NA,NA
+Capitol Reef NP,1988,NA,NA
+Capitol Reef NP,1989,NA,NA
+Capitol Reef NP,1990,NA,NA
+Capitol Reef NP,1991,NA,NA
+Capitol Reef NP,1992,NA,NA
+Capitol Reef NP,1993,NA,NA
+Capitol Reef NP,1994,NA,NA
+Capitol Reef NP,1995,NA,NA
+Capitol Reef NP,1996,NA,NA
+Capitol Reef NP,1997,2,4
+Capitol Reef NP,1998,2,4
+Capitol Reef NP,1999,NA,4
+Capitol Reef NP,2000,NA,4
+Capitol Reef NP,2001,NA,4
+Capitol Reef NP,2002,NA,5
+Capitol Reef NP,2003,NA,5
+Capitol Reef NP,2004,NA,5
+Capitol Reef NP,2005,NA,5
+Capitol Reef NP,2006,NA,5
+Capitol Reef NP,2007,3,5
+Capitol Reef NP,2008,3,5
+Capitol Reef NP,2009,3,5
+Capitol Reef NP,2010,3,5
+Capitol Reef NP,2011,3,5
+Capitol Reef NP,2012,3,5
+Capitol Reef NP,2013,3,5
+Capitol Reef NP,2014,3,5
+Capitol Reef NP,2015,3,5
+Capitol Reef NP,2016,7,10
+Capitol Reef NP,2017,7,10
+Capitol Reef NP,2018,7,15
+Carlsbad Caverns NP,1980,NA,NA
+Carlsbad Caverns NP,1981,NA,NA
+Carlsbad Caverns NP,1982,NA,NA
+Carlsbad Caverns NP,1983,NA,NA
+Carlsbad Caverns NP,1984,NA,NA
+Carlsbad Caverns NP,1985,NA,NA
+Carlsbad Caverns NP,1986,NA,NA
+Carlsbad Caverns NP,1987,NA,NA
+Carlsbad Caverns NP,1988,NA,NA
+Carlsbad Caverns NP,1989,NA,NA
+Carlsbad Caverns NP,1990,NA,NA
+Carlsbad Caverns NP,1991,NA,NA
+Carlsbad Caverns NP,1992,NA,NA
+Carlsbad Caverns NP,1993,NA,NA
+Carlsbad Caverns NP,1994,NA,NA
+Carlsbad Caverns NP,1995,NA,NA
+Carlsbad Caverns NP,1996,NA,NA
+Carlsbad Caverns NP,1997,6,NA
+Carlsbad Caverns NP,1998,6,NA
+Carlsbad Caverns NP,1999,6,NA
+Carlsbad Caverns NP,2000,6,NA
+Carlsbad Caverns NP,2001,6,NA
+Carlsbad Caverns NP,2002,6,NA
+Carlsbad Caverns NP,2003,6,NA
+Carlsbad Caverns NP,2004,6,NA
+Carlsbad Caverns NP,2005,6,NA
+Carlsbad Caverns NP,2006,6,NA
+Carlsbad Caverns NP,2007,6,NA
+Carlsbad Caverns NP,2008,6,NA
+Carlsbad Caverns NP,2009,6,NA
+Carlsbad Caverns NP,2010,6,NA
+Carlsbad Caverns NP,2011,6,NA
+Carlsbad Caverns NP,2012,6,NA
+Carlsbad Caverns NP,2013,6,NA
+Carlsbad Caverns NP,2014,10,NA
+Carlsbad Caverns NP,2015,10,NA
+Carlsbad Caverns NP,2016,10,NA
+Carlsbad Caverns NP,2017,10,NA
+Carlsbad Caverns NP,2018,12,NA
+Channel Islands NP,1980,NA,NA
+Channel Islands NP,1981,NA,NA
+Channel Islands NP,1982,NA,NA
+Channel Islands NP,1983,NA,NA
+Channel Islands NP,1984,NA,NA
+Channel Islands NP,1985,NA,NA
+Channel Islands NP,1986,NA,NA
+Channel Islands NP,1987,NA,NA
+Channel Islands NP,1988,NA,NA
+Channel Islands NP,1989,NA,NA
+Channel Islands NP,1990,NA,NA
+Channel Islands NP,1991,NA,NA
+Channel Islands NP,1992,NA,NA
+Channel Islands NP,1993,NA,NA
+Channel Islands NP,1994,NA,NA
+Channel Islands NP,1995,NA,NA
+Channel Islands NP,1996,NA,NA
+Channel Islands NP,1997,0,0
+Channel Islands NP,1998,0,0
+Channel Islands NP,1999,0,0
+Channel Islands NP,2000,0,0
+Channel Islands NP,2001,0,0
+Channel Islands NP,2002,0,0
+Channel Islands NP,2003,0,0
+Channel Islands NP,2004,0,0
+Channel Islands NP,2005,0,0
+Channel Islands NP,2006,0,0
+Channel Islands NP,2007,0,0
+Channel Islands NP,2008,0,0
+Channel Islands NP,2009,0,0
+Channel Islands NP,2010,0,0
+Channel Islands NP,2011,0,0
+Channel Islands NP,2012,0,0
+Channel Islands NP,2013,0,0
+Channel Islands NP,2014,0,0
+Channel Islands NP,2015,0,0
+Channel Islands NP,2016,0,0
+Channel Islands NP,2017,0,0
+Channel Islands NP,2018,0,0
+Congaree NP,1980,NA,NA
+Congaree NP,1981,NA,NA
+Congaree NP,1982,NA,NA
+Congaree NP,1983,NA,NA
+Congaree NP,1984,NA,NA
+Congaree NP,1985,NA,NA
+Congaree NP,1986,NA,NA
+Congaree NP,1987,NA,NA
+Congaree NP,1988,NA,NA
+Congaree NP,1989,NA,NA
+Congaree NP,1990,NA,NA
+Congaree NP,1991,NA,NA
+Congaree NP,1992,NA,NA
+Congaree NP,1993,NA,NA
+Congaree NP,1994,NA,NA
+Congaree NP,1995,NA,NA
+Congaree NP,1996,NA,NA
+Congaree NP,1997,0,0
+Congaree NP,1998,0,0
+Congaree NP,1999,0,0
+Congaree NP,2000,0,0
+Congaree NP,2001,0,0
+Congaree NP,2002,0,0
+Congaree NP,2003,0,0
+Congaree NP,2004,0,0
+Congaree NP,2005,0,0
+Congaree NP,2006,0,0
+Congaree NP,2007,0,0
+Congaree NP,2008,0,0
+Congaree NP,2009,0,0
+Congaree NP,2010,0,0
+Congaree NP,2011,0,0
+Congaree NP,2012,0,0
+Congaree NP,2013,0,0
+Congaree NP,2014,0,0
+Congaree NP,2015,0,0
+Congaree NP,2016,0,0
+Congaree NP,2017,0,0
+Congaree NP,2018,0,0
+Crater Lake NP,1980,NA,NA
+Crater Lake NP,1981,NA,NA
+Crater Lake NP,1982,NA,NA
+Crater Lake NP,1983,NA,NA
+Crater Lake NP,1984,NA,NA
+Crater Lake NP,1985,NA,NA
+Crater Lake NP,1986,NA,NA
+Crater Lake NP,1987,NA,NA
+Crater Lake NP,1988,NA,NA
+Crater Lake NP,1989,NA,NA
+Crater Lake NP,1990,NA,NA
+Crater Lake NP,1991,NA,NA
+Crater Lake NP,1992,NA,NA
+Crater Lake NP,1993,NA,NA
+Crater Lake NP,1994,NA,NA
+Crater Lake NP,1995,NA,NA
+Crater Lake NP,1996,NA,NA
+Crater Lake NP,1997,5,10
+Crater Lake NP,1998,5,10
+Crater Lake NP,1999,5,10
+Crater Lake NP,2000,5,10
+Crater Lake NP,2001,5,10
+Crater Lake NP,2002,5,10
+Crater Lake NP,2003,5,10
+Crater Lake NP,2004,5,10
+Crater Lake NP,2005,5,10
+Crater Lake NP,2006,5,10
+Crater Lake NP,2007,5,10
+Crater Lake NP,2008,5,10
+Crater Lake NP,2009,5,10
+Crater Lake NP,2010,5,10
+Crater Lake NP,2011,5,10
+Crater Lake NP,2012,5,10
+Crater Lake NP,2013,5,10
+Crater Lake NP,2014,5,10
+Crater Lake NP,2015,10,15
+Crater Lake NP,2016,10,15
+Crater Lake NP,2017,10,20
+Crater Lake NP,2018,12,25
+Cuyahoga Valley NP,1980,NA,NA
+Cuyahoga Valley NP,1981,NA,NA
+Cuyahoga Valley NP,1982,NA,NA
+Cuyahoga Valley NP,1983,NA,NA
+Cuyahoga Valley NP,1984,NA,NA
+Cuyahoga Valley NP,1985,NA,NA
+Cuyahoga Valley NP,1986,NA,NA
+Cuyahoga Valley NP,1987,NA,NA
+Cuyahoga Valley NP,1988,NA,NA
+Cuyahoga Valley NP,1989,NA,NA
+Cuyahoga Valley NP,1990,NA,NA
+Cuyahoga Valley NP,1991,NA,NA
+Cuyahoga Valley NP,1992,NA,NA
+Cuyahoga Valley NP,1993,NA,NA
+Cuyahoga Valley NP,1994,NA,NA
+Cuyahoga Valley NP,1995,NA,NA
+Cuyahoga Valley NP,1996,NA,NA
+Cuyahoga Valley NP,1997,NA,NA
+Cuyahoga Valley NP,1998,NA,NA
+Cuyahoga Valley NP,1999,0,0
+Cuyahoga Valley NP,2000,0,0
+Cuyahoga Valley NP,2001,0,0
+Cuyahoga Valley NP,2002,0,0
+Cuyahoga Valley NP,2003,0,0
+Cuyahoga Valley NP,2004,0,0
+Cuyahoga Valley NP,2005,0,0
+Cuyahoga Valley NP,2006,0,0
+Cuyahoga Valley NP,2007,0,0
+Cuyahoga Valley NP,2008,0,0
+Cuyahoga Valley NP,2009,0,0
+Cuyahoga Valley NP,2010,0,0
+Cuyahoga Valley NP,2011,0,0
+Cuyahoga Valley NP,2012,0,0
+Cuyahoga Valley NP,2013,0,0
+Cuyahoga Valley NP,2014,0,0
+Cuyahoga Valley NP,2015,0,0
+Cuyahoga Valley NP,2016,0,0
+Cuyahoga Valley NP,2017,0,0
+Cuyahoga Valley NP,2018,0,0
+Denali NP & PRES,1980,NA,NA
+Denali NP & PRES,1981,NA,NA
+Denali NP & PRES,1982,NA,NA
+Denali NP & PRES,1983,NA,NA
+Denali NP & PRES,1984,NA,NA
+Denali NP & PRES,1985,NA,NA
+Denali NP & PRES,1986,NA,NA
+Denali NP & PRES,1987,NA,NA
+Denali NP & PRES,1988,NA,NA
+Denali NP & PRES,1989,NA,NA
+Denali NP & PRES,1990,NA,NA
+Denali NP & PRES,1991,NA,NA
+Denali NP & PRES,1992,NA,NA
+Denali NP & PRES,1993,NA,NA
+Denali NP & PRES,1994,NA,NA
+Denali NP & PRES,1995,NA,NA
+Denali NP & PRES,1996,NA,NA
+Denali NP & PRES,1997,5,10
+Denali NP & PRES,1998,5,10
+Denali NP & PRES,1999,5,10
+Denali NP & PRES,2000,5,10
+Denali NP & PRES,2001,5,10
+Denali NP & PRES,2002,5,10
+Denali NP & PRES,2003,5,10
+Denali NP & PRES,2004,5,10
+Denali NP & PRES,2005,10,20
+Denali NP & PRES,2006,10,20
+Denali NP & PRES,2007,10,20
+Denali NP & PRES,2008,10,20
+Denali NP & PRES,2009,10,20
+Denali NP & PRES,2010,10,20
+Denali NP & PRES,2011,10,20
+Denali NP & PRES,2012,10,NA
+Denali NP & PRES,2013,10,NA
+Denali NP & PRES,2014,10,NA
+Denali NP & PRES,2015,10,NA
+Denali NP & PRES,2016,10,NA
+Denali NP & PRES,2017,10,NA
+Denali NP & PRES,2018,10,NA
+Death Valley NP,1980,NA,NA
+Death Valley NP,1981,NA,NA
+Death Valley NP,1982,NA,NA
+Death Valley NP,1983,NA,NA
+Death Valley NP,1984,NA,NA
+Death Valley NP,1985,NA,NA
+Death Valley NP,1986,NA,NA
+Death Valley NP,1987,NA,NA
+Death Valley NP,1988,NA,NA
+Death Valley NP,1989,NA,NA
+Death Valley NP,1990,NA,NA
+Death Valley NP,1991,NA,NA
+Death Valley NP,1992,NA,NA
+Death Valley NP,1993,NA,NA
+Death Valley NP,1994,NA,NA
+Death Valley NP,1995,NA,NA
+Death Valley NP,1996,NA,NA
+Death Valley NP,1997,5,10
+Death Valley NP,1998,5,10
+Death Valley NP,1999,5,10
+Death Valley NP,2000,5,10
+Death Valley NP,2001,5,10
+Death Valley NP,2002,5,10
+Death Valley NP,2003,5,10
+Death Valley NP,2004,5,10
+Death Valley NP,2005,5,10
+Death Valley NP,2006,10,20
+Death Valley NP,2007,10,20
+Death Valley NP,2008,10,20
+Death Valley NP,2009,10,20
+Death Valley NP,2010,10,20
+Death Valley NP,2011,10,20
+Death Valley NP,2012,10,20
+Death Valley NP,2013,10,20
+Death Valley NP,2014,10,20
+Death Valley NP,2015,10,20
+Death Valley NP,2016,10,20
+Death Valley NP,2017,15,25
+Death Valley NP,2018,15,25
+Dry Tortugas NP,1980,NA,NA
+Dry Tortugas NP,1981,NA,NA
+Dry Tortugas NP,1982,NA,NA
+Dry Tortugas NP,1983,NA,NA
+Dry Tortugas NP,1984,NA,NA
+Dry Tortugas NP,1985,NA,NA
+Dry Tortugas NP,1986,NA,NA
+Dry Tortugas NP,1987,NA,NA
+Dry Tortugas NP,1988,NA,NA
+Dry Tortugas NP,1989,NA,NA
+Dry Tortugas NP,1990,NA,NA
+Dry Tortugas NP,1991,NA,NA
+Dry Tortugas NP,1992,NA,NA
+Dry Tortugas NP,1993,NA,NA
+Dry Tortugas NP,1994,NA,NA
+Dry Tortugas NP,1995,NA,NA
+Dry Tortugas NP,1996,NA,NA
+Dry Tortugas NP,1997,NA,NA
+Dry Tortugas NP,1998,NA,NA
+Dry Tortugas NP,1999,0,NA
+Dry Tortugas NP,2000,0,NA
+Dry Tortugas NP,2001,0,NA
+Dry Tortugas NP,2002,0,NA
+Dry Tortugas NP,2003,0,NA
+Dry Tortugas NP,2004,5,NA
+Dry Tortugas NP,2005,5,NA
+Dry Tortugas NP,2006,5,NA
+Dry Tortugas NP,2007,5,NA
+Dry Tortugas NP,2008,5,NA
+Dry Tortugas NP,2009,5,NA
+Dry Tortugas NP,2010,5,NA
+Dry Tortugas NP,2011,5,NA
+Dry Tortugas NP,2012,5,NA
+Dry Tortugas NP,2013,5,NA
+Dry Tortugas NP,2014,5,NA
+Dry Tortugas NP,2015,5,NA
+Dry Tortugas NP,2016,10,NA
+Dry Tortugas NP,2017,10,NA
+Dry Tortugas NP,2018,15,NA
+Everglades NP,1980,NA,NA
+Everglades NP,1981,NA,NA
+Everglades NP,1982,NA,NA
+Everglades NP,1983,NA,NA
+Everglades NP,1984,NA,NA
+Everglades NP,1985,NA,NA
+Everglades NP,1986,NA,NA
+Everglades NP,1987,NA,NA
+Everglades NP,1988,NA,NA
+Everglades NP,1989,NA,NA
+Everglades NP,1990,NA,NA
+Everglades NP,1991,NA,NA
+Everglades NP,1992,NA,NA
+Everglades NP,1993,NA,NA
+Everglades NP,1994,NA,NA
+Everglades NP,1995,NA,NA
+Everglades NP,1996,NA,NA
+Everglades NP,1997,5,10
+Everglades NP,1998,5,10
+Everglades NP,1999,5,10
+Everglades NP,2000,5,10
+Everglades NP,2001,5,10
+Everglades NP,2002,5,10
+Everglades NP,2003,5,10
+Everglades NP,2004,5,10
+Everglades NP,2005,5,10
+Everglades NP,2006,5,10
+Everglades NP,2007,5,10
+Everglades NP,2008,5,10
+Everglades NP,2009,5,10
+Everglades NP,2010,5,10
+Everglades NP,2011,5,10
+Everglades NP,2012,5,10
+Everglades NP,2013,5,10
+Everglades NP,2014,5,10
+Everglades NP,2015,5,10
+Everglades NP,2016,8,20
+Everglades NP,2017,8,25
+Everglades NP,2018,8,25
+Gates of the Arctic NP & PRES,1980,NA,NA
+Gates of the Arctic NP & PRES,1981,NA,NA
+Gates of the Arctic NP & PRES,1982,NA,NA
+Gates of the Arctic NP & PRES,1983,NA,NA
+Gates of the Arctic NP & PRES,1984,NA,NA
+Gates of the Arctic NP & PRES,1985,NA,NA
+Gates of the Arctic NP & PRES,1986,NA,NA
+Gates of the Arctic NP & PRES,1987,NA,NA
+Gates of the Arctic NP & PRES,1988,NA,NA
+Gates of the Arctic NP & PRES,1989,NA,NA
+Gates of the Arctic NP & PRES,1990,NA,NA
+Gates of the Arctic NP & PRES,1991,NA,NA
+Gates of the Arctic NP & PRES,1992,NA,NA
+Gates of the Arctic NP & PRES,1993,NA,NA
+Gates of the Arctic NP & PRES,1994,NA,NA
+Gates of the Arctic NP & PRES,1995,NA,NA
+Gates of the Arctic NP & PRES,1996,NA,NA
+Gates of the Arctic NP & PRES,1997,0,0
+Gates of the Arctic NP & PRES,1998,0,0
+Gates of the Arctic NP & PRES,1999,0,0
+Gates of the Arctic NP & PRES,2000,0,0
+Gates of the Arctic NP & PRES,2001,0,0
+Gates of the Arctic NP & PRES,2002,0,0
+Gates of the Arctic NP & PRES,2003,0,0
+Gates of the Arctic NP & PRES,2004,0,0
+Gates of the Arctic NP & PRES,2005,0,0
+Gates of the Arctic NP & PRES,2006,0,0
+Gates of the Arctic NP & PRES,2007,0,0
+Gates of the Arctic NP & PRES,2008,0,0
+Gates of the Arctic NP & PRES,2009,0,0
+Gates of the Arctic NP & PRES,2010,0,0
+Gates of the Arctic NP & PRES,2011,0,0
+Gates of the Arctic NP & PRES,2012,0,0
+Gates of the Arctic NP & PRES,2013,0,0
+Gates of the Arctic NP & PRES,2014,0,0
+Gates of the Arctic NP & PRES,2015,0,0
+Gates of the Arctic NP & PRES,2016,0,0
+Gates of the Arctic NP & PRES,2017,0,0
+Gates of the Arctic NP & PRES,2018,0,0
+Glacier NP,1980,NA,NA
+Glacier NP,1981,NA,NA
+Glacier NP,1982,NA,NA
+Glacier NP,1983,NA,NA
+Glacier NP,1984,NA,NA
+Glacier NP,1985,NA,NA
+Glacier NP,1986,NA,NA
+Glacier NP,1987,NA,NA
+Glacier NP,1988,NA,NA
+Glacier NP,1989,NA,NA
+Glacier NP,1990,NA,NA
+Glacier NP,1991,NA,NA
+Glacier NP,1992,NA,NA
+Glacier NP,1993,NA,NA
+Glacier NP,1994,NA,NA
+Glacier NP,1995,NA,NA
+Glacier NP,1996,NA,NA
+Glacier NP,1997,5,10
+Glacier NP,1998,5,10
+Glacier NP,1999,5,10
+Glacier NP,2000,5,10
+Glacier NP,2001,5,10
+Glacier NP,2002,5,10
+Glacier NP,2003,5,10
+Glacier NP,2004,5,20
+Glacier NP,2005,10,25
+Glacier NP,2006,12,25
+Glacier NP,2007,12,25
+Glacier NP,2008,12,25
+Glacier NP,2009,12,25
+Glacier NP,2010,12,25
+Glacier NP,2011,12,25
+Glacier NP,2012,12,25
+Glacier NP,2013,12,25
+Glacier NP,2014,12,25
+Glacier NP,2015,12,25
+Glacier NP,2016,15,30
+Glacier NP,2017,15,30
+Glacier NP,2018,20,35
+Glacier Bay NP & PRES,1980,NA,NA
+Glacier Bay NP & PRES,1981,NA,NA
+Glacier Bay NP & PRES,1982,NA,NA
+Glacier Bay NP & PRES,1983,NA,NA
+Glacier Bay NP & PRES,1984,NA,NA
+Glacier Bay NP & PRES,1985,NA,NA
+Glacier Bay NP & PRES,1986,NA,NA
+Glacier Bay NP & PRES,1987,NA,NA
+Glacier Bay NP & PRES,1988,NA,NA
+Glacier Bay NP & PRES,1989,NA,NA
+Glacier Bay NP & PRES,1990,NA,NA
+Glacier Bay NP & PRES,1991,NA,NA
+Glacier Bay NP & PRES,1992,NA,NA
+Glacier Bay NP & PRES,1993,NA,NA
+Glacier Bay NP & PRES,1994,NA,NA
+Glacier Bay NP & PRES,1995,NA,NA
+Glacier Bay NP & PRES,1996,NA,NA
+Glacier Bay NP & PRES,1997,0,0
+Glacier Bay NP & PRES,1998,0,0
+Glacier Bay NP & PRES,1999,0,0
+Glacier Bay NP & PRES,2000,0,0
+Glacier Bay NP & PRES,2001,0,0
+Glacier Bay NP & PRES,2002,0,0
+Glacier Bay NP & PRES,2003,0,0
+Glacier Bay NP & PRES,2004,0,0
+Glacier Bay NP & PRES,2005,0,0
+Glacier Bay NP & PRES,2006,0,0
+Glacier Bay NP & PRES,2007,0,0
+Glacier Bay NP & PRES,2008,0,0
+Glacier Bay NP & PRES,2009,0,0
+Glacier Bay NP & PRES,2010,0,0
+Glacier Bay NP & PRES,2011,0,0
+Glacier Bay NP & PRES,2012,0,0
+Glacier Bay NP & PRES,2013,0,0
+Glacier Bay NP & PRES,2014,0,0
+Glacier Bay NP & PRES,2015,0,0
+Glacier Bay NP & PRES,2016,0,0
+Glacier Bay NP & PRES,2017,0,0
+Glacier Bay NP & PRES,2018,0,0
+Great Basin NP,1980,NA,NA
+Great Basin NP,1981,NA,NA
+Great Basin NP,1982,NA,NA
+Great Basin NP,1983,NA,NA
+Great Basin NP,1984,NA,NA
+Great Basin NP,1985,NA,NA
+Great Basin NP,1986,NA,NA
+Great Basin NP,1987,NA,NA
+Great Basin NP,1988,NA,NA
+Great Basin NP,1989,NA,NA
+Great Basin NP,1990,NA,NA
+Great Basin NP,1991,NA,NA
+Great Basin NP,1992,NA,NA
+Great Basin NP,1993,NA,NA
+Great Basin NP,1994,NA,NA
+Great Basin NP,1995,NA,NA
+Great Basin NP,1996,NA,NA
+Great Basin NP,1997,NA,NA
+Great Basin NP,1998,NA,NA
+Great Basin NP,1999,0,0
+Great Basin NP,2000,0,0
+Great Basin NP,2001,0,0
+Great Basin NP,2002,0,0
+Great Basin NP,2003,0,0
+Great Basin NP,2004,0,0
+Great Basin NP,2005,0,0
+Great Basin NP,2006,0,0
+Great Basin NP,2007,0,0
+Great Basin NP,2008,0,0
+Great Basin NP,2009,0,0
+Great Basin NP,2010,0,0
+Great Basin NP,2011,0,0
+Great Basin NP,2012,0,0
+Great Basin NP,2013,0,0
+Great Basin NP,2014,0,0
+Great Basin NP,2015,0,0
+Great Basin NP,2016,0,0
+Great Basin NP,2017,0,0
+Great Basin NP,2018,0,0
+Grand Canyon NP,1980,NA,NA
+Grand Canyon NP,1981,NA,NA
+Grand Canyon NP,1982,NA,NA
+Grand Canyon NP,1983,NA,NA
+Grand Canyon NP,1984,NA,NA
+Grand Canyon NP,1985,NA,NA
+Grand Canyon NP,1986,NA,NA
+Grand Canyon NP,1987,NA,NA
+Grand Canyon NP,1988,NA,NA
+Grand Canyon NP,1989,NA,NA
+Grand Canyon NP,1990,NA,NA
+Grand Canyon NP,1991,NA,NA
+Grand Canyon NP,1992,NA,NA
+Grand Canyon NP,1993,NA,NA
+Grand Canyon NP,1994,NA,NA
+Grand Canyon NP,1995,NA,NA
+Grand Canyon NP,1996,NA,NA
+Grand Canyon NP,1997,10,20
+Grand Canyon NP,1998,10,20
+Grand Canyon NP,1999,10,20
+Grand Canyon NP,2000,10,20
+Grand Canyon NP,2001,10,20
+Grand Canyon NP,2002,10,20
+Grand Canyon NP,2003,10,20
+Grand Canyon NP,2004,10,20
+Grand Canyon NP,2005,10,20
+Grand Canyon NP,2006,10,20
+Grand Canyon NP,2007,12,25
+Grand Canyon NP,2008,12,25
+Grand Canyon NP,2009,12,25
+Grand Canyon NP,2010,12,25
+Grand Canyon NP,2011,12,25
+Grand Canyon NP,2012,12,25
+Grand Canyon NP,2013,12,25
+Grand Canyon NP,2014,12,25
+Grand Canyon NP,2015,15,30
+Grand Canyon NP,2016,15,30
+Grand Canyon NP,2017,15,30
+Grand Canyon NP,2018,20,35
+Great Sand Dunes NP & PRES,1980,NA,NA
+Great Sand Dunes NP & PRES,1981,NA,NA
+Great Sand Dunes NP & PRES,1982,NA,NA
+Great Sand Dunes NP & PRES,1983,NA,NA
+Great Sand Dunes NP & PRES,1984,NA,NA
+Great Sand Dunes NP & PRES,1985,NA,NA
+Great Sand Dunes NP & PRES,1986,NA,NA
+Great Sand Dunes NP & PRES,1987,NA,NA
+Great Sand Dunes NP & PRES,1988,NA,NA
+Great Sand Dunes NP & PRES,1989,NA,NA
+Great Sand Dunes NP & PRES,1990,NA,NA
+Great Sand Dunes NP & PRES,1991,NA,NA
+Great Sand Dunes NP & PRES,1992,NA,NA
+Great Sand Dunes NP & PRES,1993,NA,NA
+Great Sand Dunes NP & PRES,1994,NA,NA
+Great Sand Dunes NP & PRES,1995,NA,NA
+Great Sand Dunes NP & PRES,1996,NA,NA
+Great Sand Dunes NP & PRES,1997,3,NA
+Great Sand Dunes NP & PRES,1998,3,NA
+Great Sand Dunes NP & PRES,1999,3,NA
+Great Sand Dunes NP & PRES,2000,3,NA
+Great Sand Dunes NP & PRES,2001,3,NA
+Great Sand Dunes NP & PRES,2002,3,NA
+Great Sand Dunes NP & PRES,2003,3,NA
+Great Sand Dunes NP & PRES,2004,3,NA
+Great Sand Dunes NP & PRES,2005,3,NA
+Great Sand Dunes NP & PRES,2006,3,NA
+Great Sand Dunes NP & PRES,2007,3,NA
+Great Sand Dunes NP & PRES,2008,3,NA
+Great Sand Dunes NP & PRES,2009,3,NA
+Great Sand Dunes NP & PRES,2010,3,NA
+Great Sand Dunes NP & PRES,2011,3,NA
+Great Sand Dunes NP & PRES,2012,3,NA
+Great Sand Dunes NP & PRES,2013,3,NA
+Great Sand Dunes NP & PRES,2014,3,NA
+Great Sand Dunes NP & PRES,2015,3,NA
+Great Sand Dunes NP & PRES,2016,7,15
+Great Sand Dunes NP & PRES,2017,7,15
+Great Sand Dunes NP & PRES,2018,10,20
+Great Smoky Mountains NP,1980,NA,NA
+Great Smoky Mountains NP,1981,NA,NA
+Great Smoky Mountains NP,1982,NA,NA
+Great Smoky Mountains NP,1983,NA,NA
+Great Smoky Mountains NP,1984,NA,NA
+Great Smoky Mountains NP,1985,NA,NA
+Great Smoky Mountains NP,1986,NA,NA
+Great Smoky Mountains NP,1987,NA,NA
+Great Smoky Mountains NP,1988,NA,NA
+Great Smoky Mountains NP,1989,NA,NA
+Great Smoky Mountains NP,1990,NA,NA
+Great Smoky Mountains NP,1991,NA,NA
+Great Smoky Mountains NP,1992,NA,NA
+Great Smoky Mountains NP,1993,NA,NA
+Great Smoky Mountains NP,1994,NA,NA
+Great Smoky Mountains NP,1995,NA,NA
+Great Smoky Mountains NP,1996,NA,NA
+Great Smoky Mountains NP,1997,0,0
+Great Smoky Mountains NP,1998,0,0
+Great Smoky Mountains NP,1999,0,0
+Great Smoky Mountains NP,2000,0,0
+Great Smoky Mountains NP,2001,0,0
+Great Smoky Mountains NP,2002,0,0
+Great Smoky Mountains NP,2003,0,0
+Great Smoky Mountains NP,2004,0,0
+Great Smoky Mountains NP,2005,0,0
+Great Smoky Mountains NP,2006,0,0
+Great Smoky Mountains NP,2007,0,0
+Great Smoky Mountains NP,2008,0,0
+Great Smoky Mountains NP,2009,0,0
+Great Smoky Mountains NP,2010,0,0
+Great Smoky Mountains NP,2011,0,0
+Great Smoky Mountains NP,2012,0,0
+Great Smoky Mountains NP,2013,0,0
+Great Smoky Mountains NP,2014,0,0
+Great Smoky Mountains NP,2015,0,0
+Great Smoky Mountains NP,2016,0,0
+Great Smoky Mountains NP,2017,0,0
+Great Smoky Mountains NP,2018,0,0
+Grand Teton NP,1980,NA,NA
+Grand Teton NP,1981,NA,NA
+Grand Teton NP,1982,NA,NA
+Grand Teton NP,1983,NA,NA
+Grand Teton NP,1984,NA,NA
+Grand Teton NP,1985,NA,NA
+Grand Teton NP,1986,NA,NA
+Grand Teton NP,1987,NA,NA
+Grand Teton NP,1988,NA,NA
+Grand Teton NP,1989,NA,NA
+Grand Teton NP,1990,NA,NA
+Grand Teton NP,1991,NA,NA
+Grand Teton NP,1992,NA,NA
+Grand Teton NP,1993,NA,NA
+Grand Teton NP,1994,NA,NA
+Grand Teton NP,1995,NA,NA
+Grand Teton NP,1996,NA,NA
+Grand Teton NP,1997,10,20
+Grand Teton NP,1998,10,20
+Grand Teton NP,1999,10,20
+Grand Teton NP,2000,10,20
+Grand Teton NP,2001,10,20
+Grand Teton NP,2002,10,20
+Grand Teton NP,2003,10,20
+Grand Teton NP,2004,10,25
+Grand Teton NP,2005,10,25
+Grand Teton NP,2006,12,25
+Grand Teton NP,2007,12,25
+Grand Teton NP,2008,12,25
+Grand Teton NP,2009,12,25
+Grand Teton NP,2010,12,25
+Grand Teton NP,2011,12,25
+Grand Teton NP,2012,12,25
+Grand Teton NP,2013,12,25
+Grand Teton NP,2014,12,25
+Grand Teton NP,2015,15,30
+Grand Teton NP,2016,15,30
+Grand Teton NP,2017,15,30
+Grand Teton NP,2018,20,35
+Guadalupe Mountains NP,1980,NA,NA
+Guadalupe Mountains NP,1981,NA,NA
+Guadalupe Mountains NP,1982,NA,NA
+Guadalupe Mountains NP,1983,NA,NA
+Guadalupe Mountains NP,1984,NA,NA
+Guadalupe Mountains NP,1985,NA,NA
+Guadalupe Mountains NP,1986,NA,NA
+Guadalupe Mountains NP,1987,NA,NA
+Guadalupe Mountains NP,1988,NA,NA
+Guadalupe Mountains NP,1989,NA,NA
+Guadalupe Mountains NP,1990,NA,NA
+Guadalupe Mountains NP,1991,NA,NA
+Guadalupe Mountains NP,1992,NA,NA
+Guadalupe Mountains NP,1993,NA,NA
+Guadalupe Mountains NP,1994,NA,NA
+Guadalupe Mountains NP,1995,NA,NA
+Guadalupe Mountains NP,1996,NA,NA
+Guadalupe Mountains NP,1997,0,NA
+Guadalupe Mountains NP,1998,0,NA
+Guadalupe Mountains NP,1999,0,NA
+Guadalupe Mountains NP,2000,0,NA
+Guadalupe Mountains NP,2001,0,NA
+Guadalupe Mountains NP,2002,0,NA
+Guadalupe Mountains NP,2003,3,NA
+Guadalupe Mountains NP,2004,3,NA
+Guadalupe Mountains NP,2005,3,NA
+Guadalupe Mountains NP,2006,3,NA
+Guadalupe Mountains NP,2007,5,NA
+Guadalupe Mountains NP,2008,5,NA
+Guadalupe Mountains NP,2009,5,NA
+Guadalupe Mountains NP,2010,5,NA
+Guadalupe Mountains NP,2011,5,NA
+Guadalupe Mountains NP,2012,5,NA
+Guadalupe Mountains NP,2013,5,NA
+Guadalupe Mountains NP,2014,5,NA
+Guadalupe Mountains NP,2015,5,NA
+Guadalupe Mountains NP,2016,5,NA
+Guadalupe Mountains NP,2017,5,NA
+Guadalupe Mountains NP,2018,5,NA
+Haleakala NP,1980,NA,NA
+Haleakala NP,1981,NA,NA
+Haleakala NP,1982,NA,NA
+Haleakala NP,1983,NA,NA
+Haleakala NP,1984,NA,NA
+Haleakala NP,1985,NA,NA
+Haleakala NP,1986,NA,NA
+Haleakala NP,1987,NA,NA
+Haleakala NP,1988,NA,NA
+Haleakala NP,1989,NA,NA
+Haleakala NP,1990,NA,NA
+Haleakala NP,1991,NA,NA
+Haleakala NP,1992,NA,NA
+Haleakala NP,1993,NA,NA
+Haleakala NP,1994,NA,NA
+Haleakala NP,1995,NA,NA
+Haleakala NP,1996,NA,NA
+Haleakala NP,1997,2,4
+Haleakala NP,1998,5,10
+Haleakala NP,1999,5,10
+Haleakala NP,2000,5,10
+Haleakala NP,2001,5,10
+Haleakala NP,2002,5,10
+Haleakala NP,2003,5,10
+Haleakala NP,2004,5,10
+Haleakala NP,2005,5,10
+Haleakala NP,2006,5,10
+Haleakala NP,2007,5,10
+Haleakala NP,2008,5,10
+Haleakala NP,2009,5,10
+Haleakala NP,2010,5,10
+Haleakala NP,2011,5,10
+Haleakala NP,2012,5,10
+Haleakala NP,2013,5,10
+Haleakala NP,2014,5,10
+Haleakala NP,2015,8,15
+Haleakala NP,2016,10,20
+Haleakala NP,2017,10,20
+Haleakala NP,2018,12,25
+Hawaii Volcanoes NP,1980,NA,NA
+Hawaii Volcanoes NP,1981,NA,NA
+Hawaii Volcanoes NP,1982,NA,NA
+Hawaii Volcanoes NP,1983,NA,NA
+Hawaii Volcanoes NP,1984,NA,NA
+Hawaii Volcanoes NP,1985,NA,NA
+Hawaii Volcanoes NP,1986,NA,NA
+Hawaii Volcanoes NP,1987,NA,NA
+Hawaii Volcanoes NP,1988,NA,NA
+Hawaii Volcanoes NP,1989,NA,NA
+Hawaii Volcanoes NP,1990,NA,NA
+Hawaii Volcanoes NP,1991,NA,NA
+Hawaii Volcanoes NP,1992,NA,NA
+Hawaii Volcanoes NP,1993,NA,NA
+Hawaii Volcanoes NP,1994,NA,NA
+Hawaii Volcanoes NP,1995,NA,NA
+Hawaii Volcanoes NP,1996,NA,NA
+Hawaii Volcanoes NP,1997,5,10
+Hawaii Volcanoes NP,1998,5,10
+Hawaii Volcanoes NP,1999,5,10
+Hawaii Volcanoes NP,2000,5,10
+Hawaii Volcanoes NP,2001,5,10
+Hawaii Volcanoes NP,2002,5,10
+Hawaii Volcanoes NP,2003,5,10
+Hawaii Volcanoes NP,2004,5,10
+Hawaii Volcanoes NP,2005,5,10
+Hawaii Volcanoes NP,2006,5,10
+Hawaii Volcanoes NP,2007,5,10
+Hawaii Volcanoes NP,2008,5,10
+Hawaii Volcanoes NP,2009,5,10
+Hawaii Volcanoes NP,2010,5,10
+Hawaii Volcanoes NP,2011,5,10
+Hawaii Volcanoes NP,2012,5,10
+Hawaii Volcanoes NP,2013,5,10
+Hawaii Volcanoes NP,2014,5,10
+Hawaii Volcanoes NP,2015,8,15
+Hawaii Volcanoes NP,2016,10,20
+Hawaii Volcanoes NP,2017,12,25
+Hawaii Volcanoes NP,2018,12,25
+Hot Springs NP,1980,NA,NA
+Hot Springs NP,1981,NA,NA
+Hot Springs NP,1982,NA,NA
+Hot Springs NP,1983,NA,NA
+Hot Springs NP,1984,NA,NA
+Hot Springs NP,1985,NA,NA
+Hot Springs NP,1986,NA,NA
+Hot Springs NP,1987,NA,NA
+Hot Springs NP,1988,NA,NA
+Hot Springs NP,1989,NA,NA
+Hot Springs NP,1990,NA,NA
+Hot Springs NP,1991,NA,NA
+Hot Springs NP,1992,NA,NA
+Hot Springs NP,1993,NA,NA
+Hot Springs NP,1994,NA,NA
+Hot Springs NP,1995,NA,NA
+Hot Springs NP,1996,NA,NA
+Hot Springs NP,1997,NA,NA
+Hot Springs NP,1998,NA,NA
+Hot Springs NP,1999,0,0
+Hot Springs NP,2000,0,0
+Hot Springs NP,2001,0,0
+Hot Springs NP,2002,0,0
+Hot Springs NP,2003,0,0
+Hot Springs NP,2004,0,0
+Hot Springs NP,2005,0,0
+Hot Springs NP,2006,0,0
+Hot Springs NP,2007,0,0
+Hot Springs NP,2008,0,0
+Hot Springs NP,2009,0,0
+Hot Springs NP,2010,0,0
+Hot Springs NP,2011,0,0
+Hot Springs NP,2012,0,0
+Hot Springs NP,2013,0,0
+Hot Springs NP,2014,0,0
+Hot Springs NP,2015,0,0
+Hot Springs NP,2016,0,0
+Hot Springs NP,2017,0,0
+Hot Springs NP,2018,0,0
+Indiana Dunes NP,1980,NA,NA
+Indiana Dunes NP,1981,NA,NA
+Indiana Dunes NP,1982,NA,NA
+Indiana Dunes NP,1983,NA,NA
+Indiana Dunes NP,1984,NA,NA
+Indiana Dunes NP,1985,NA,NA
+Indiana Dunes NP,1986,NA,NA
+Indiana Dunes NP,1987,NA,NA
+Indiana Dunes NP,1988,NA,NA
+Indiana Dunes NP,1989,NA,NA
+Indiana Dunes NP,1990,NA,NA
+Indiana Dunes NP,1991,NA,NA
+Indiana Dunes NP,1992,NA,NA
+Indiana Dunes NP,1993,NA,NA
+Indiana Dunes NP,1994,NA,NA
+Indiana Dunes NP,1995,NA,NA
+Indiana Dunes NP,1996,NA,NA
+Indiana Dunes NP,1997,0,0
+Indiana Dunes NP,1998,0,0
+Indiana Dunes NP,1999,0,0
+Indiana Dunes NP,2000,0,0
+Indiana Dunes NP,2001,0,0
+Indiana Dunes NP,2002,0,0
+Indiana Dunes NP,2003,0,0
+Indiana Dunes NP,2004,0,0
+Indiana Dunes NP,2005,0,0
+Indiana Dunes NP,2006,0,0
+Indiana Dunes NP,2007,0,0
+Indiana Dunes NP,2008,0,0
+Indiana Dunes NP,2009,0,0
+Indiana Dunes NP,2010,0,0
+Indiana Dunes NP,2011,0,0
+Indiana Dunes NP,2012,0,0
+Indiana Dunes NP,2013,0,0
+Indiana Dunes NP,2014,0,0
+Indiana Dunes NP,2015,0,0
+Indiana Dunes NP,2016,0,0
+Indiana Dunes NP,2017,0,0
+Indiana Dunes NP,2018,0,0
+Isle Royale NP,1980,NA,NA
+Isle Royale NP,1981,NA,NA
+Isle Royale NP,1982,NA,NA
+Isle Royale NP,1983,NA,NA
+Isle Royale NP,1984,NA,NA
+Isle Royale NP,1985,NA,NA
+Isle Royale NP,1986,NA,NA
+Isle Royale NP,1987,NA,NA
+Isle Royale NP,1988,NA,NA
+Isle Royale NP,1989,NA,NA
+Isle Royale NP,1990,NA,NA
+Isle Royale NP,1991,NA,NA
+Isle Royale NP,1992,NA,NA
+Isle Royale NP,1993,NA,NA
+Isle Royale NP,1994,NA,NA
+Isle Royale NP,1995,NA,NA
+Isle Royale NP,1996,NA,NA
+Isle Royale NP,1997,4,NA
+Isle Royale NP,1998,4,NA
+Isle Royale NP,1999,4,NA
+Isle Royale NP,2000,4,NA
+Isle Royale NP,2001,4,NA
+Isle Royale NP,2002,4,NA
+Isle Royale NP,2003,4,NA
+Isle Royale NP,2004,4,NA
+Isle Royale NP,2005,4,NA
+Isle Royale NP,2006,4,NA
+Isle Royale NP,2007,4,NA
+Isle Royale NP,2008,4,NA
+Isle Royale NP,2009,4,NA
+Isle Royale NP,2010,4,NA
+Isle Royale NP,2011,4,NA
+Isle Royale NP,2012,4,NA
+Isle Royale NP,2013,4,NA
+Isle Royale NP,2014,4,NA
+Isle Royale NP,2015,4,NA
+Isle Royale NP,2016,4,NA
+Isle Royale NP,2017,7,NA
+Isle Royale NP,2018,7,NA
+Gateway Arch NP,1980,NA,NA
+Gateway Arch NP,1981,NA,NA
+Gateway Arch NP,1982,NA,NA
+Gateway Arch NP,1983,NA,NA
+Gateway Arch NP,1984,NA,NA
+Gateway Arch NP,1985,NA,NA
+Gateway Arch NP,1986,NA,NA
+Gateway Arch NP,1987,NA,NA
+Gateway Arch NP,1988,NA,NA
+Gateway Arch NP,1989,NA,NA
+Gateway Arch NP,1990,NA,NA
+Gateway Arch NP,1991,NA,NA
+Gateway Arch NP,1992,NA,NA
+Gateway Arch NP,1993,NA,NA
+Gateway Arch NP,1994,NA,NA
+Gateway Arch NP,1995,NA,NA
+Gateway Arch NP,1996,NA,NA
+Gateway Arch NP,1997,0,0
+Gateway Arch NP,1998,0,0
+Gateway Arch NP,1999,0,0
+Gateway Arch NP,2000,0,0
+Gateway Arch NP,2001,0,0
+Gateway Arch NP,2002,0,0
+Gateway Arch NP,2003,0,0
+Gateway Arch NP,2004,0,0
+Gateway Arch NP,2005,0,0
+Gateway Arch NP,2006,0,0
+Gateway Arch NP,2007,0,0
+Gateway Arch NP,2008,0,0
+Gateway Arch NP,2009,0,0
+Gateway Arch NP,2010,0,0
+Gateway Arch NP,2011,0,0
+Gateway Arch NP,2012,0,0
+Gateway Arch NP,2013,0,0
+Gateway Arch NP,2014,0,0
+Gateway Arch NP,2015,0,0
+Gateway Arch NP,2016,0,0
+Gateway Arch NP,2017,0,0
+Gateway Arch NP,2018,0,0
+Joshua Tree NP,1980,NA,NA
+Joshua Tree NP,1981,NA,NA
+Joshua Tree NP,1982,NA,NA
+Joshua Tree NP,1983,NA,NA
+Joshua Tree NP,1984,NA,NA
+Joshua Tree NP,1985,NA,NA
+Joshua Tree NP,1986,NA,NA
+Joshua Tree NP,1987,NA,NA
+Joshua Tree NP,1988,NA,NA
+Joshua Tree NP,1989,NA,NA
+Joshua Tree NP,1990,NA,NA
+Joshua Tree NP,1991,NA,NA
+Joshua Tree NP,1992,NA,NA
+Joshua Tree NP,1993,NA,NA
+Joshua Tree NP,1994,NA,NA
+Joshua Tree NP,1995,NA,NA
+Joshua Tree NP,1996,NA,NA
+Joshua Tree NP,1997,5,10
+Joshua Tree NP,1998,5,10
+Joshua Tree NP,1999,5,10
+Joshua Tree NP,2000,5,10
+Joshua Tree NP,2001,5,10
+Joshua Tree NP,2002,5,10
+Joshua Tree NP,2003,5,10
+Joshua Tree NP,2004,5,10
+Joshua Tree NP,2005,5,10
+Joshua Tree NP,2006,5,15
+Joshua Tree NP,2007,5,15
+Joshua Tree NP,2008,5,15
+Joshua Tree NP,2009,5,15
+Joshua Tree NP,2010,5,15
+Joshua Tree NP,2011,5,15
+Joshua Tree NP,2012,5,15
+Joshua Tree NP,2013,5,15
+Joshua Tree NP,2014,5,15
+Joshua Tree NP,2015,5,15
+Joshua Tree NP,2016,10,20
+Joshua Tree NP,2017,12,25
+Joshua Tree NP,2018,15,30
+Katmai NP & PRES,1980,NA,NA
+Katmai NP & PRES,1981,NA,NA
+Katmai NP & PRES,1982,NA,NA
+Katmai NP & PRES,1983,NA,NA
+Katmai NP & PRES,1984,NA,NA
+Katmai NP & PRES,1985,NA,NA
+Katmai NP & PRES,1986,NA,NA
+Katmai NP & PRES,1987,NA,NA
+Katmai NP & PRES,1988,NA,NA
+Katmai NP & PRES,1989,NA,NA
+Katmai NP & PRES,1990,NA,NA
+Katmai NP & PRES,1991,NA,NA
+Katmai NP & PRES,1992,NA,NA
+Katmai NP & PRES,1993,NA,NA
+Katmai NP & PRES,1994,NA,NA
+Katmai NP & PRES,1995,NA,NA
+Katmai NP & PRES,1996,NA,NA
+Katmai NP & PRES,1997,0,0
+Katmai NP & PRES,1998,0,0
+Katmai NP & PRES,1999,0,0
+Katmai NP & PRES,2000,0,0
+Katmai NP & PRES,2001,0,0
+Katmai NP & PRES,2002,0,0
+Katmai NP & PRES,2003,0,0
+Katmai NP & PRES,2004,0,0
+Katmai NP & PRES,2005,0,0
+Katmai NP & PRES,2006,0,0
+Katmai NP & PRES,2007,0,0
+Katmai NP & PRES,2008,0,0
+Katmai NP & PRES,2009,0,0
+Katmai NP & PRES,2010,0,0
+Katmai NP & PRES,2011,0,0
+Katmai NP & PRES,2012,0,0
+Katmai NP & PRES,2013,0,0
+Katmai NP & PRES,2014,0,0
+Katmai NP & PRES,2015,0,0
+Katmai NP & PRES,2016,0,0
+Katmai NP & PRES,2017,0,0
+Katmai NP & PRES,2018,0,0
+Kenai Fjords NP,1980,NA,NA
+Kenai Fjords NP,1981,NA,NA
+Kenai Fjords NP,1982,NA,NA
+Kenai Fjords NP,1983,NA,NA
+Kenai Fjords NP,1984,NA,NA
+Kenai Fjords NP,1985,NA,NA
+Kenai Fjords NP,1986,NA,NA
+Kenai Fjords NP,1987,NA,NA
+Kenai Fjords NP,1988,NA,NA
+Kenai Fjords NP,1989,NA,NA
+Kenai Fjords NP,1990,NA,NA
+Kenai Fjords NP,1991,NA,NA
+Kenai Fjords NP,1992,NA,NA
+Kenai Fjords NP,1993,NA,NA
+Kenai Fjords NP,1994,NA,NA
+Kenai Fjords NP,1995,NA,NA
+Kenai Fjords NP,1996,NA,NA
+Kenai Fjords NP,1997,NA,NA
+Kenai Fjords NP,1998,3,5
+Kenai Fjords NP,1999,NA,5
+Kenai Fjords NP,2000,NA,5
+Kenai Fjords NP,2001,2,5
+Kenai Fjords NP,2002,2,5
+Kenai Fjords NP,2003,2,5
+Kenai Fjords NP,2004,3,5
+Kenai Fjords NP,2005,NA,NA
+Kenai Fjords NP,2006,NA,NA
+Kenai Fjords NP,2007,0,0
+Kenai Fjords NP,2008,0,0
+Kenai Fjords NP,2009,0,0
+Kenai Fjords NP,2010,0,0
+Kenai Fjords NP,2011,0,0
+Kenai Fjords NP,2012,0,0
+Kenai Fjords NP,2013,0,0
+Kenai Fjords NP,2014,0,0
+Kenai Fjords NP,2015,0,0
+Kenai Fjords NP,2016,0,0
+Kenai Fjords NP,2017,0,0
+Kenai Fjords NP,2018,0,0
+Kings Canyon NP,1980,NA,NA
+Kings Canyon NP,1981,NA,NA
+Kings Canyon NP,1982,NA,NA
+Kings Canyon NP,1983,NA,NA
+Kings Canyon NP,1984,NA,NA
+Kings Canyon NP,1985,NA,NA
+Kings Canyon NP,1986,NA,NA
+Kings Canyon NP,1987,NA,NA
+Kings Canyon NP,1988,NA,NA
+Kings Canyon NP,1989,NA,NA
+Kings Canyon NP,1990,NA,NA
+Kings Canyon NP,1991,NA,NA
+Kings Canyon NP,1992,NA,NA
+Kings Canyon NP,1993,NA,NA
+Kings Canyon NP,1994,NA,NA
+Kings Canyon NP,1995,NA,NA
+Kings Canyon NP,1996,NA,NA
+Kings Canyon NP,1997,5,10
+Kings Canyon NP,1998,5,10
+Kings Canyon NP,1999,5,10
+Kings Canyon NP,2000,5,10
+Kings Canyon NP,2001,5,10
+Kings Canyon NP,2002,5,10
+Kings Canyon NP,2003,5,10
+Kings Canyon NP,2004,5,10
+Kings Canyon NP,2005,5,10
+Kings Canyon NP,2006,10,20
+Kings Canyon NP,2007,10,20
+Kings Canyon NP,2008,10,20
+Kings Canyon NP,2009,10,20
+Kings Canyon NP,2010,10,20
+Kings Canyon NP,2011,10,20
+Kings Canyon NP,2012,10,20
+Kings Canyon NP,2013,10,20
+Kings Canyon NP,2014,10,20
+Kings Canyon NP,2015,10,20
+Kings Canyon NP,2016,15,30
+Kings Canyon NP,2017,15,30
+Kings Canyon NP,2018,20,35
+Kobuk Valley NP,1980,NA,NA
+Kobuk Valley NP,1981,NA,NA
+Kobuk Valley NP,1982,NA,NA
+Kobuk Valley NP,1983,NA,NA
+Kobuk Valley NP,1984,NA,NA
+Kobuk Valley NP,1985,NA,NA
+Kobuk Valley NP,1986,NA,NA
+Kobuk Valley NP,1987,NA,NA
+Kobuk Valley NP,1988,NA,NA
+Kobuk Valley NP,1989,NA,NA
+Kobuk Valley NP,1990,NA,NA
+Kobuk Valley NP,1991,NA,NA
+Kobuk Valley NP,1992,NA,NA
+Kobuk Valley NP,1993,NA,NA
+Kobuk Valley NP,1994,NA,NA
+Kobuk Valley NP,1995,NA,NA
+Kobuk Valley NP,1996,NA,NA
+Kobuk Valley NP,1997,NA,NA
+Kobuk Valley NP,1998,NA,NA
+Kobuk Valley NP,1999,NA,NA
+Kobuk Valley NP,2000,NA,NA
+Kobuk Valley NP,2001,NA,NA
+Kobuk Valley NP,2002,NA,NA
+Kobuk Valley NP,2003,NA,NA
+Kobuk Valley NP,2004,NA,NA
+Kobuk Valley NP,2005,NA,NA
+Kobuk Valley NP,2006,NA,NA
+Kobuk Valley NP,2007,0,0
+Kobuk Valley NP,2008,0,0
+Kobuk Valley NP,2009,0,0
+Kobuk Valley NP,2010,0,0
+Kobuk Valley NP,2011,0,0
+Kobuk Valley NP,2012,0,0
+Kobuk Valley NP,2013,0,0
+Kobuk Valley NP,2014,0,0
+Kobuk Valley NP,2015,0,0
+Kobuk Valley NP,2016,0,0
+Kobuk Valley NP,2017,0,0
+Kobuk Valley NP,2018,0,0
+Lake Clark NP & PRES,1980,NA,NA
+Lake Clark NP & PRES,1981,NA,NA
+Lake Clark NP & PRES,1982,NA,NA
+Lake Clark NP & PRES,1983,NA,NA
+Lake Clark NP & PRES,1984,NA,NA
+Lake Clark NP & PRES,1985,NA,NA
+Lake Clark NP & PRES,1986,NA,NA
+Lake Clark NP & PRES,1987,NA,NA
+Lake Clark NP & PRES,1988,NA,NA
+Lake Clark NP & PRES,1989,NA,NA
+Lake Clark NP & PRES,1990,NA,NA
+Lake Clark NP & PRES,1991,NA,NA
+Lake Clark NP & PRES,1992,NA,NA
+Lake Clark NP & PRES,1993,NA,NA
+Lake Clark NP & PRES,1994,NA,NA
+Lake Clark NP & PRES,1995,NA,NA
+Lake Clark NP & PRES,1996,NA,NA
+Lake Clark NP & PRES,1997,NA,NA
+Lake Clark NP & PRES,1998,NA,NA
+Lake Clark NP & PRES,1999,NA,NA
+Lake Clark NP & PRES,2000,NA,NA
+Lake Clark NP & PRES,2001,NA,NA
+Lake Clark NP & PRES,2002,NA,NA
+Lake Clark NP & PRES,2003,NA,NA
+Lake Clark NP & PRES,2004,NA,NA
+Lake Clark NP & PRES,2005,NA,NA
+Lake Clark NP & PRES,2006,NA,NA
+Lake Clark NP & PRES,2007,0,0
+Lake Clark NP & PRES,2008,0,0
+Lake Clark NP & PRES,2009,0,0
+Lake Clark NP & PRES,2010,0,0
+Lake Clark NP & PRES,2011,0,0
+Lake Clark NP & PRES,2012,0,0
+Lake Clark NP & PRES,2013,0,0
+Lake Clark NP & PRES,2014,0,0
+Lake Clark NP & PRES,2015,0,0
+Lake Clark NP & PRES,2016,0,0
+Lake Clark NP & PRES,2017,0,0
+Lake Clark NP & PRES,2018,0,0
+Lassen Volcanic NP,1980,NA,NA
+Lassen Volcanic NP,1981,NA,NA
+Lassen Volcanic NP,1982,NA,NA
+Lassen Volcanic NP,1983,NA,NA
+Lassen Volcanic NP,1984,NA,NA
+Lassen Volcanic NP,1985,NA,NA
+Lassen Volcanic NP,1986,NA,NA
+Lassen Volcanic NP,1987,NA,NA
+Lassen Volcanic NP,1988,NA,NA
+Lassen Volcanic NP,1989,NA,NA
+Lassen Volcanic NP,1990,NA,NA
+Lassen Volcanic NP,1991,NA,NA
+Lassen Volcanic NP,1992,NA,NA
+Lassen Volcanic NP,1993,NA,NA
+Lassen Volcanic NP,1994,NA,NA
+Lassen Volcanic NP,1995,NA,NA
+Lassen Volcanic NP,1996,NA,NA
+Lassen Volcanic NP,1997,3,5
+Lassen Volcanic NP,1998,5,10
+Lassen Volcanic NP,1999,5,10
+Lassen Volcanic NP,2000,5,10
+Lassen Volcanic NP,2001,5,10
+Lassen Volcanic NP,2002,5,10
+Lassen Volcanic NP,2003,5,10
+Lassen Volcanic NP,2004,5,10
+Lassen Volcanic NP,2005,5,10
+Lassen Volcanic NP,2006,5,10
+Lassen Volcanic NP,2007,5,10
+Lassen Volcanic NP,2008,5,10
+Lassen Volcanic NP,2009,5,10
+Lassen Volcanic NP,2010,5,10
+Lassen Volcanic NP,2011,5,10
+Lassen Volcanic NP,2012,5,10
+Lassen Volcanic NP,2013,5,10
+Lassen Volcanic NP,2014,5,10
+Lassen Volcanic NP,2015,10,20
+Lassen Volcanic NP,2016,10,20
+Lassen Volcanic NP,2017,10,20
+Lassen Volcanic NP,2018,12,25
+Mammoth Cave NP,1980,NA,NA
+Mammoth Cave NP,1981,NA,NA
+Mammoth Cave NP,1982,NA,NA
+Mammoth Cave NP,1983,NA,NA
+Mammoth Cave NP,1984,NA,NA
+Mammoth Cave NP,1985,NA,NA
+Mammoth Cave NP,1986,NA,NA
+Mammoth Cave NP,1987,NA,NA
+Mammoth Cave NP,1988,NA,NA
+Mammoth Cave NP,1989,NA,NA
+Mammoth Cave NP,1990,NA,NA
+Mammoth Cave NP,1991,NA,NA
+Mammoth Cave NP,1992,NA,NA
+Mammoth Cave NP,1993,NA,NA
+Mammoth Cave NP,1994,NA,NA
+Mammoth Cave NP,1995,NA,NA
+Mammoth Cave NP,1996,NA,NA
+Mammoth Cave NP,1997,0,0
+Mammoth Cave NP,1998,0,0
+Mammoth Cave NP,1999,0,0
+Mammoth Cave NP,2000,0,0
+Mammoth Cave NP,2001,0,0
+Mammoth Cave NP,2002,0,0
+Mammoth Cave NP,2003,0,0
+Mammoth Cave NP,2004,0,0
+Mammoth Cave NP,2005,0,0
+Mammoth Cave NP,2006,0,0
+Mammoth Cave NP,2007,0,0
+Mammoth Cave NP,2008,0,0
+Mammoth Cave NP,2009,0,0
+Mammoth Cave NP,2010,0,0
+Mammoth Cave NP,2011,0,0
+Mammoth Cave NP,2012,0,0
+Mammoth Cave NP,2013,0,0
+Mammoth Cave NP,2014,0,0
+Mammoth Cave NP,2015,0,0
+Mammoth Cave NP,2016,0,0
+Mammoth Cave NP,2017,0,0
+Mammoth Cave NP,2018,0,0
+Mesa Verde NP,1980,NA,NA
+Mesa Verde NP,1981,NA,NA
+Mesa Verde NP,1982,NA,NA
+Mesa Verde NP,1983,NA,NA
+Mesa Verde NP,1984,NA,NA
+Mesa Verde NP,1985,NA,NA
+Mesa Verde NP,1986,NA,NA
+Mesa Verde NP,1987,NA,NA
+Mesa Verde NP,1988,NA,NA
+Mesa Verde NP,1989,NA,NA
+Mesa Verde NP,1990,NA,NA
+Mesa Verde NP,1991,NA,NA
+Mesa Verde NP,1992,NA,NA
+Mesa Verde NP,1993,NA,NA
+Mesa Verde NP,1994,NA,NA
+Mesa Verde NP,1995,NA,NA
+Mesa Verde NP,1996,NA,NA
+Mesa Verde NP,1997,5,10
+Mesa Verde NP,1998,5,10
+Mesa Verde NP,1999,5,10
+Mesa Verde NP,2000,5,10
+Mesa Verde NP,2001,5,10
+Mesa Verde NP,2002,5,10
+Mesa Verde NP,2003,5,10
+Mesa Verde NP,2004,5,10
+Mesa Verde NP,2005,5,10
+Mesa Verde NP,2006,5,10
+Mesa Verde NP,2007,5,10
+Mesa Verde NP,2008,5,10
+Mesa Verde NP,2009,5,10
+Mesa Verde NP,2010,5,10
+Mesa Verde NP,2011,5,10
+Mesa Verde NP,2012,5,10
+Mesa Verde NP,2013,5,10
+Mesa Verde NP,2014,5,10
+Mesa Verde NP,2015,5,10
+Mesa Verde NP,2016,5,10
+Mesa Verde NP,2017,7,15
+Mesa Verde NP,2018,7,15
+Mount Rainier NP,1980,NA,NA
+Mount Rainier NP,1981,NA,NA
+Mount Rainier NP,1982,NA,NA
+Mount Rainier NP,1983,NA,NA
+Mount Rainier NP,1984,NA,NA
+Mount Rainier NP,1985,NA,NA
+Mount Rainier NP,1986,NA,NA
+Mount Rainier NP,1987,NA,NA
+Mount Rainier NP,1988,NA,NA
+Mount Rainier NP,1989,NA,NA
+Mount Rainier NP,1990,NA,NA
+Mount Rainier NP,1991,NA,NA
+Mount Rainier NP,1992,NA,NA
+Mount Rainier NP,1993,NA,NA
+Mount Rainier NP,1994,NA,NA
+Mount Rainier NP,1995,NA,NA
+Mount Rainier NP,1996,NA,NA
+Mount Rainier NP,1997,5,10
+Mount Rainier NP,1998,5,10
+Mount Rainier NP,1999,5,10
+Mount Rainier NP,2000,5,10
+Mount Rainier NP,2001,5,10
+Mount Rainier NP,2002,5,10
+Mount Rainier NP,2003,5,10
+Mount Rainier NP,2004,5,10
+Mount Rainier NP,2005,5,10
+Mount Rainier NP,2006,5,15
+Mount Rainier NP,2007,5,15
+Mount Rainier NP,2008,5,15
+Mount Rainier NP,2009,5,15
+Mount Rainier NP,2010,5,15
+Mount Rainier NP,2011,5,15
+Mount Rainier NP,2012,5,15
+Mount Rainier NP,2013,5,15
+Mount Rainier NP,2014,5,15
+Mount Rainier NP,2015,5,15
+Mount Rainier NP,2016,10,20
+Mount Rainier NP,2017,10,25
+Mount Rainier NP,2018,15,30
+North Cascades NP,1980,NA,NA
+North Cascades NP,1981,NA,NA
+North Cascades NP,1982,NA,NA
+North Cascades NP,1983,NA,NA
+North Cascades NP,1984,NA,NA
+North Cascades NP,1985,NA,NA
+North Cascades NP,1986,NA,NA
+North Cascades NP,1987,NA,NA
+North Cascades NP,1988,NA,NA
+North Cascades NP,1989,NA,NA
+North Cascades NP,1990,NA,NA
+North Cascades NP,1991,NA,NA
+North Cascades NP,1992,NA,NA
+North Cascades NP,1993,NA,NA
+North Cascades NP,1994,NA,NA
+North Cascades NP,1995,NA,NA
+North Cascades NP,1996,NA,NA
+North Cascades NP,1997,NA,NA
+North Cascades NP,1998,NA,NA
+North Cascades NP,1999,0,0
+North Cascades NP,2000,0,0
+North Cascades NP,2001,0,0
+North Cascades NP,2002,0,0
+North Cascades NP,2003,0,0
+North Cascades NP,2004,0,0
+North Cascades NP,2005,0,0
+North Cascades NP,2006,0,0
+North Cascades NP,2007,0,0
+North Cascades NP,2008,0,0
+North Cascades NP,2009,0,0
+North Cascades NP,2010,0,0
+North Cascades NP,2011,0,0
+North Cascades NP,2012,0,0
+North Cascades NP,2013,0,0
+North Cascades NP,2014,0,0
+North Cascades NP,2015,0,0
+North Cascades NP,2016,0,0
+North Cascades NP,2017,0,0
+North Cascades NP,2018,0,0
+Olympic NP,1980,NA,NA
+Olympic NP,1981,NA,NA
+Olympic NP,1982,NA,NA
+Olympic NP,1983,NA,NA
+Olympic NP,1984,NA,NA
+Olympic NP,1985,NA,NA
+Olympic NP,1986,NA,NA
+Olympic NP,1987,NA,NA
+Olympic NP,1988,NA,NA
+Olympic NP,1989,NA,NA
+Olympic NP,1990,NA,NA
+Olympic NP,1991,NA,NA
+Olympic NP,1992,NA,NA
+Olympic NP,1993,NA,NA
+Olympic NP,1994,NA,NA
+Olympic NP,1995,NA,NA
+Olympic NP,1996,NA,NA
+Olympic NP,1997,5,10
+Olympic NP,1998,5,10
+Olympic NP,1999,5,10
+Olympic NP,2000,5,10
+Olympic NP,2001,5,10
+Olympic NP,2002,5,10
+Olympic NP,2003,5,10
+Olympic NP,2004,5,10
+Olympic NP,2005,5,10
+Olympic NP,2006,5,15
+Olympic NP,2007,5,15
+Olympic NP,2008,5,15
+Olympic NP,2009,5,15
+Olympic NP,2010,5,15
+Olympic NP,2011,5,15
+Olympic NP,2012,5,15
+Olympic NP,2013,5,15
+Olympic NP,2014,5,15
+Olympic NP,2015,5,15
+Olympic NP,2016,7,20
+Olympic NP,2017,10,25
+Olympic NP,2018,15,30
+Petrified Forest NP,1980,NA,NA
+Petrified Forest NP,1981,NA,NA
+Petrified Forest NP,1982,NA,NA
+Petrified Forest NP,1983,NA,NA
+Petrified Forest NP,1984,NA,NA
+Petrified Forest NP,1985,NA,NA
+Petrified Forest NP,1986,NA,NA
+Petrified Forest NP,1987,NA,NA
+Petrified Forest NP,1988,NA,NA
+Petrified Forest NP,1989,NA,NA
+Petrified Forest NP,1990,NA,NA
+Petrified Forest NP,1991,NA,NA
+Petrified Forest NP,1992,NA,NA
+Petrified Forest NP,1993,NA,NA
+Petrified Forest NP,1994,NA,NA
+Petrified Forest NP,1995,NA,NA
+Petrified Forest NP,1996,NA,NA
+Petrified Forest NP,1997,5,10
+Petrified Forest NP,1998,5,10
+Petrified Forest NP,1999,5,10
+Petrified Forest NP,2000,5,10
+Petrified Forest NP,2001,5,10
+Petrified Forest NP,2002,5,10
+Petrified Forest NP,2003,5,10
+Petrified Forest NP,2004,5,10
+Petrified Forest NP,2005,5,10
+Petrified Forest NP,2006,5,10
+Petrified Forest NP,2007,5,10
+Petrified Forest NP,2008,5,10
+Petrified Forest NP,2009,5,10
+Petrified Forest NP,2010,5,10
+Petrified Forest NP,2011,5,10
+Petrified Forest NP,2012,5,10
+Petrified Forest NP,2013,5,10
+Petrified Forest NP,2014,5,10
+Petrified Forest NP,2015,5,10
+Petrified Forest NP,2016,10,20
+Petrified Forest NP,2017,10,20
+Petrified Forest NP,2018,10,20
+Pinnacles NP,1980,NA,NA
+Pinnacles NP,1981,NA,NA
+Pinnacles NP,1982,NA,NA
+Pinnacles NP,1983,NA,NA
+Pinnacles NP,1984,NA,NA
+Pinnacles NP,1985,NA,NA
+Pinnacles NP,1986,NA,NA
+Pinnacles NP,1987,NA,NA
+Pinnacles NP,1988,NA,NA
+Pinnacles NP,1989,NA,NA
+Pinnacles NP,1990,NA,NA
+Pinnacles NP,1991,NA,NA
+Pinnacles NP,1992,NA,NA
+Pinnacles NP,1993,NA,NA
+Pinnacles NP,1994,NA,NA
+Pinnacles NP,1995,NA,NA
+Pinnacles NP,1996,NA,NA
+Pinnacles NP,1997,2,5
+Pinnacles NP,1998,2,5
+Pinnacles NP,1999,2,5
+Pinnacles NP,2000,2,5
+Pinnacles NP,2001,2,5
+Pinnacles NP,2002,2,5
+Pinnacles NP,2003,2,5
+Pinnacles NP,2004,2,5
+Pinnacles NP,2005,3,5
+Pinnacles NP,2006,3,5
+Pinnacles NP,2007,3,5
+Pinnacles NP,2008,3,5
+Pinnacles NP,2009,3,5
+Pinnacles NP,2010,3,5
+Pinnacles NP,2011,3,5
+Pinnacles NP,2012,3,5
+Pinnacles NP,2013,3,5
+Pinnacles NP,2014,5,10
+Pinnacles NP,2015,5,10
+Pinnacles NP,2016,10,15
+Pinnacles NP,2017,10,15
+Pinnacles NP,2018,12,25
+Redwood NP,1980,NA,NA
+Redwood NP,1981,NA,NA
+Redwood NP,1982,NA,NA
+Redwood NP,1983,NA,NA
+Redwood NP,1984,NA,NA
+Redwood NP,1985,NA,NA
+Redwood NP,1986,NA,NA
+Redwood NP,1987,NA,NA
+Redwood NP,1988,NA,NA
+Redwood NP,1989,NA,NA
+Redwood NP,1990,NA,NA
+Redwood NP,1991,NA,NA
+Redwood NP,1992,NA,NA
+Redwood NP,1993,NA,NA
+Redwood NP,1994,NA,NA
+Redwood NP,1995,NA,NA
+Redwood NP,1996,NA,NA
+Redwood NP,1997,0,0
+Redwood NP,1998,0,0
+Redwood NP,1999,0,0
+Redwood NP,2000,0,0
+Redwood NP,2001,0,0
+Redwood NP,2002,0,0
+Redwood NP,2003,0,0
+Redwood NP,2004,0,0
+Redwood NP,2005,0,0
+Redwood NP,2006,0,0
+Redwood NP,2007,0,0
+Redwood NP,2008,0,0
+Redwood NP,2009,0,0
+Redwood NP,2010,0,0
+Redwood NP,2011,0,0
+Redwood NP,2012,0,0
+Redwood NP,2013,0,0
+Redwood NP,2014,0,0
+Redwood NP,2015,0,0
+Redwood NP,2016,0,0
+Redwood NP,2017,0,0
+Redwood NP,2018,0,0
+Rocky Mountain NP,1980,NA,NA
+Rocky Mountain NP,1981,NA,NA
+Rocky Mountain NP,1982,NA,NA
+Rocky Mountain NP,1983,NA,NA
+Rocky Mountain NP,1984,NA,NA
+Rocky Mountain NP,1985,NA,NA
+Rocky Mountain NP,1986,NA,NA
+Rocky Mountain NP,1987,NA,NA
+Rocky Mountain NP,1988,NA,NA
+Rocky Mountain NP,1989,NA,NA
+Rocky Mountain NP,1990,NA,NA
+Rocky Mountain NP,1991,NA,NA
+Rocky Mountain NP,1992,NA,NA
+Rocky Mountain NP,1993,NA,NA
+Rocky Mountain NP,1994,NA,NA
+Rocky Mountain NP,1995,NA,NA
+Rocky Mountain NP,1996,NA,NA
+Rocky Mountain NP,1997,5,10
+Rocky Mountain NP,1998,5,10
+Rocky Mountain NP,1999,5,10
+Rocky Mountain NP,2000,5,10
+Rocky Mountain NP,2001,5,15
+Rocky Mountain NP,2002,5,15
+Rocky Mountain NP,2003,5,15
+Rocky Mountain NP,2004,5,15
+Rocky Mountain NP,2005,10,20
+Rocky Mountain NP,2006,10,20
+Rocky Mountain NP,2007,10,20
+Rocky Mountain NP,2008,10,20
+Rocky Mountain NP,2009,10,20
+Rocky Mountain NP,2010,10,20
+Rocky Mountain NP,2011,10,20
+Rocky Mountain NP,2012,10,20
+Rocky Mountain NP,2013,10,20
+Rocky Mountain NP,2014,10,20
+Rocky Mountain NP,2015,10,20
+Rocky Mountain NP,2016,10,20
+Rocky Mountain NP,2017,10,20
+Rocky Mountain NP,2018,15,25
+Saguaro NP,1980,NA,NA
+Saguaro NP,1981,NA,NA
+Saguaro NP,1982,NA,NA
+Saguaro NP,1983,NA,NA
+Saguaro NP,1984,NA,NA
+Saguaro NP,1985,NA,NA
+Saguaro NP,1986,NA,NA
+Saguaro NP,1987,NA,NA
+Saguaro NP,1988,NA,NA
+Saguaro NP,1989,NA,NA
+Saguaro NP,1990,NA,NA
+Saguaro NP,1991,NA,NA
+Saguaro NP,1992,NA,NA
+Saguaro NP,1993,NA,NA
+Saguaro NP,1994,NA,NA
+Saguaro NP,1995,NA,NA
+Saguaro NP,1996,NA,NA
+Saguaro NP,1997,2,4
+Saguaro NP,1998,2,4
+Saguaro NP,1999,2,4
+Saguaro NP,2000,2,4
+Saguaro NP,2001,3,6
+Saguaro NP,2002,3,6
+Saguaro NP,2003,3,6
+Saguaro NP,2004,3,6
+Saguaro NP,2005,5,10
+Saguaro NP,2006,5,10
+Saguaro NP,2007,5,10
+Saguaro NP,2008,5,10
+Saguaro NP,2009,5,10
+Saguaro NP,2010,5,10
+Saguaro NP,2011,5,10
+Saguaro NP,2012,5,10
+Saguaro NP,2013,5,10
+Saguaro NP,2014,5,10
+Saguaro NP,2015,5,10
+Saguaro NP,2016,5,10
+Saguaro NP,2017,5,15
+Saguaro NP,2018,5,15
+Sequoia NP,1980,NA,NA
+Sequoia NP,1981,NA,NA
+Sequoia NP,1982,NA,NA
+Sequoia NP,1983,NA,NA
+Sequoia NP,1984,NA,NA
+Sequoia NP,1985,NA,NA
+Sequoia NP,1986,NA,NA
+Sequoia NP,1987,NA,NA
+Sequoia NP,1988,NA,NA
+Sequoia NP,1989,NA,NA
+Sequoia NP,1990,NA,NA
+Sequoia NP,1991,NA,NA
+Sequoia NP,1992,NA,NA
+Sequoia NP,1993,NA,NA
+Sequoia NP,1994,NA,NA
+Sequoia NP,1995,NA,NA
+Sequoia NP,1996,NA,NA
+Sequoia NP,1997,5,10
+Sequoia NP,1998,5,10
+Sequoia NP,1999,5,10
+Sequoia NP,2000,5,10
+Sequoia NP,2001,5,10
+Sequoia NP,2002,5,10
+Sequoia NP,2003,5,10
+Sequoia NP,2004,5,10
+Sequoia NP,2005,5,10
+Sequoia NP,2006,10,20
+Sequoia NP,2007,10,20
+Sequoia NP,2008,10,20
+Sequoia NP,2009,10,20
+Sequoia NP,2010,10,20
+Sequoia NP,2011,10,20
+Sequoia NP,2012,10,20
+Sequoia NP,2013,10,20
+Sequoia NP,2014,10,20
+Sequoia NP,2015,10,20
+Sequoia NP,2016,15,30
+Sequoia NP,2017,15,30
+Sequoia NP,2018,20,35
+Shenandoah NP,1980,NA,NA
+Shenandoah NP,1981,NA,NA
+Shenandoah NP,1982,NA,NA
+Shenandoah NP,1983,NA,NA
+Shenandoah NP,1984,NA,NA
+Shenandoah NP,1985,NA,NA
+Shenandoah NP,1986,NA,NA
+Shenandoah NP,1987,NA,NA
+Shenandoah NP,1988,NA,NA
+Shenandoah NP,1989,NA,NA
+Shenandoah NP,1990,NA,NA
+Shenandoah NP,1991,NA,NA
+Shenandoah NP,1992,NA,NA
+Shenandoah NP,1993,NA,NA
+Shenandoah NP,1994,NA,NA
+Shenandoah NP,1995,NA,NA
+Shenandoah NP,1996,NA,NA
+Shenandoah NP,1997,5,10
+Shenandoah NP,1998,5,10
+Shenandoah NP,1999,5,10
+Shenandoah NP,2000,5,10
+Shenandoah NP,2001,5,10
+Shenandoah NP,2002,5,10
+Shenandoah NP,2003,5,10
+Shenandoah NP,2004,5,10
+Shenandoah NP,2005,5,10
+Shenandoah NP,2006,5,10
+Shenandoah NP,2007,5,10
+Shenandoah NP,2008,5,10
+Shenandoah NP,2009,5,10
+Shenandoah NP,2010,5,10
+Shenandoah NP,2011,5,10
+Shenandoah NP,2012,5,10
+Shenandoah NP,2013,8,10
+Shenandoah NP,2014,8,10
+Shenandoah NP,2015,10,20
+Shenandoah NP,2016,10,20
+Shenandoah NP,2017,10,25
+Shenandoah NP,2018,15,30
+Theodore Roosevelt NP,1980,NA,NA
+Theodore Roosevelt NP,1981,NA,NA
+Theodore Roosevelt NP,1982,NA,NA
+Theodore Roosevelt NP,1983,NA,NA
+Theodore Roosevelt NP,1984,NA,NA
+Theodore Roosevelt NP,1985,NA,NA
+Theodore Roosevelt NP,1986,NA,NA
+Theodore Roosevelt NP,1987,NA,NA
+Theodore Roosevelt NP,1988,NA,NA
+Theodore Roosevelt NP,1989,NA,NA
+Theodore Roosevelt NP,1990,NA,NA
+Theodore Roosevelt NP,1991,NA,NA
+Theodore Roosevelt NP,1992,NA,NA
+Theodore Roosevelt NP,1993,NA,NA
+Theodore Roosevelt NP,1994,NA,NA
+Theodore Roosevelt NP,1995,NA,NA
+Theodore Roosevelt NP,1996,NA,NA
+Theodore Roosevelt NP,1997,5,10
+Theodore Roosevelt NP,1998,5,10
+Theodore Roosevelt NP,1999,5,10
+Theodore Roosevelt NP,2000,5,10
+Theodore Roosevelt NP,2001,5,10
+Theodore Roosevelt NP,2002,5,10
+Theodore Roosevelt NP,2003,5,10
+Theodore Roosevelt NP,2004,5,10
+Theodore Roosevelt NP,2005,5,10
+Theodore Roosevelt NP,2006,5,10
+Theodore Roosevelt NP,2007,5,10
+Theodore Roosevelt NP,2008,5,10
+Theodore Roosevelt NP,2009,5,10
+Theodore Roosevelt NP,2010,5,10
+Theodore Roosevelt NP,2011,5,10
+Theodore Roosevelt NP,2012,5,10
+Theodore Roosevelt NP,2013,5,10
+Theodore Roosevelt NP,2014,5,10
+Theodore Roosevelt NP,2015,10,20
+Theodore Roosevelt NP,2016,10,20
+Theodore Roosevelt NP,2017,12,25
+Theodore Roosevelt NP,2018,15,30
+Virgin Islands NP,1980,NA,NA
+Virgin Islands NP,1981,NA,NA
+Virgin Islands NP,1982,NA,NA
+Virgin Islands NP,1983,NA,NA
+Virgin Islands NP,1984,NA,NA
+Virgin Islands NP,1985,NA,NA
+Virgin Islands NP,1986,NA,NA
+Virgin Islands NP,1987,NA,NA
+Virgin Islands NP,1988,NA,NA
+Virgin Islands NP,1989,NA,NA
+Virgin Islands NP,1990,NA,NA
+Virgin Islands NP,1991,NA,NA
+Virgin Islands NP,1992,NA,NA
+Virgin Islands NP,1993,NA,NA
+Virgin Islands NP,1994,NA,NA
+Virgin Islands NP,1995,NA,NA
+Virgin Islands NP,1996,NA,NA
+Virgin Islands NP,1997,0,0
+Virgin Islands NP,1998,0,0
+Virgin Islands NP,1999,0,0
+Virgin Islands NP,2000,0,0
+Virgin Islands NP,2001,0,0
+Virgin Islands NP,2002,0,0
+Virgin Islands NP,2003,0,0
+Virgin Islands NP,2004,0,0
+Virgin Islands NP,2005,0,0
+Virgin Islands NP,2006,0,0
+Virgin Islands NP,2007,0,0
+Virgin Islands NP,2008,0,0
+Virgin Islands NP,2009,0,0
+Virgin Islands NP,2010,0,0
+Virgin Islands NP,2011,0,0
+Virgin Islands NP,2012,0,0
+Virgin Islands NP,2013,0,0
+Virgin Islands NP,2014,0,0
+Virgin Islands NP,2015,0,0
+Virgin Islands NP,2016,0,0
+Virgin Islands NP,2017,0,0
+Virgin Islands NP,2018,0,0
+Voyageurs NP,1980,NA,NA
+Voyageurs NP,1981,NA,NA
+Voyageurs NP,1982,NA,NA
+Voyageurs NP,1983,NA,NA
+Voyageurs NP,1984,NA,NA
+Voyageurs NP,1985,NA,NA
+Voyageurs NP,1986,NA,NA
+Voyageurs NP,1987,NA,NA
+Voyageurs NP,1988,NA,NA
+Voyageurs NP,1989,NA,NA
+Voyageurs NP,1990,NA,NA
+Voyageurs NP,1991,NA,NA
+Voyageurs NP,1992,NA,NA
+Voyageurs NP,1993,NA,NA
+Voyageurs NP,1994,NA,NA
+Voyageurs NP,1995,NA,NA
+Voyageurs NP,1996,NA,NA
+Voyageurs NP,1997,NA,NA
+Voyageurs NP,1998,NA,NA
+Voyageurs NP,1999,NA,NA
+Voyageurs NP,2000,NA,NA
+Voyageurs NP,2001,NA,NA
+Voyageurs NP,2002,NA,NA
+Voyageurs NP,2003,NA,NA
+Voyageurs NP,2004,0,0
+Voyageurs NP,2005,0,0
+Voyageurs NP,2006,0,0
+Voyageurs NP,2007,0,0
+Voyageurs NP,2008,0,0
+Voyageurs NP,2009,0,0
+Voyageurs NP,2010,0,0
+Voyageurs NP,2011,0,0
+Voyageurs NP,2012,0,0
+Voyageurs NP,2013,0,0
+Voyageurs NP,2014,0,0
+Voyageurs NP,2015,0,0
+Voyageurs NP,2016,0,0
+Voyageurs NP,2017,0,0
+Voyageurs NP,2018,0,0
+Wind Cave NP,1980,NA,NA
+Wind Cave NP,1981,NA,NA
+Wind Cave NP,1982,NA,NA
+Wind Cave NP,1983,NA,NA
+Wind Cave NP,1984,NA,NA
+Wind Cave NP,1985,NA,NA
+Wind Cave NP,1986,NA,NA
+Wind Cave NP,1987,NA,NA
+Wind Cave NP,1988,NA,NA
+Wind Cave NP,1989,NA,NA
+Wind Cave NP,1990,NA,NA
+Wind Cave NP,1991,NA,NA
+Wind Cave NP,1992,NA,NA
+Wind Cave NP,1993,NA,NA
+Wind Cave NP,1994,NA,NA
+Wind Cave NP,1995,NA,NA
+Wind Cave NP,1996,NA,NA
+Wind Cave NP,1997,NA,NA
+Wind Cave NP,1998,NA,NA
+Wind Cave NP,1999,0,0
+Wind Cave NP,2000,0,0
+Wind Cave NP,2001,0,0
+Wind Cave NP,2002,0,0
+Wind Cave NP,2003,0,0
+Wind Cave NP,2004,0,0
+Wind Cave NP,2005,0,0
+Wind Cave NP,2006,0,0
+Wind Cave NP,2007,0,0
+Wind Cave NP,2008,0,0
+Wind Cave NP,2009,0,0
+Wind Cave NP,2010,0,0
+Wind Cave NP,2011,0,0
+Wind Cave NP,2012,0,0
+Wind Cave NP,2013,0,0
+Wind Cave NP,2014,0,0
+Wind Cave NP,2015,0,0
+Wind Cave NP,2016,0,0
+Wind Cave NP,2017,0,0
+Wind Cave NP,2018,0,0
+Wrangell-St. Elias NP & PRES,1980,NA,NA
+Wrangell-St. Elias NP & PRES,1981,NA,NA
+Wrangell-St. Elias NP & PRES,1982,NA,NA
+Wrangell-St. Elias NP & PRES,1983,NA,NA
+Wrangell-St. Elias NP & PRES,1984,NA,NA
+Wrangell-St. Elias NP & PRES,1985,NA,NA
+Wrangell-St. Elias NP & PRES,1986,NA,NA
+Wrangell-St. Elias NP & PRES,1987,NA,NA
+Wrangell-St. Elias NP & PRES,1988,NA,NA
+Wrangell-St. Elias NP & PRES,1989,NA,NA
+Wrangell-St. Elias NP & PRES,1990,NA,NA
+Wrangell-St. Elias NP & PRES,1991,NA,NA
+Wrangell-St. Elias NP & PRES,1992,NA,NA
+Wrangell-St. Elias NP & PRES,1993,NA,NA
+Wrangell-St. Elias NP & PRES,1994,NA,NA
+Wrangell-St. Elias NP & PRES,1995,NA,NA
+Wrangell-St. Elias NP & PRES,1996,NA,NA
+Wrangell-St. Elias NP & PRES,1997,0,0
+Wrangell-St. Elias NP & PRES,1998,0,0
+Wrangell-St. Elias NP & PRES,1999,0,0
+Wrangell-St. Elias NP & PRES,2000,0,0
+Wrangell-St. Elias NP & PRES,2001,0,0
+Wrangell-St. Elias NP & PRES,2002,0,0
+Wrangell-St. Elias NP & PRES,2003,0,0
+Wrangell-St. Elias NP & PRES,2004,0,0
+Wrangell-St. Elias NP & PRES,2005,0,0
+Wrangell-St. Elias NP & PRES,2006,0,0
+Wrangell-St. Elias NP & PRES,2007,0,0
+Wrangell-St. Elias NP & PRES,2008,0,0
+Wrangell-St. Elias NP & PRES,2009,0,0
+Wrangell-St. Elias NP & PRES,2010,0,0
+Wrangell-St. Elias NP & PRES,2011,0,0
+Wrangell-St. Elias NP & PRES,2012,0,0
+Wrangell-St. Elias NP & PRES,2013,0,0
+Wrangell-St. Elias NP & PRES,2014,0,0
+Wrangell-St. Elias NP & PRES,2015,0,0
+Wrangell-St. Elias NP & PRES,2016,0,0
+Wrangell-St. Elias NP & PRES,2017,0,0
+Wrangell-St. Elias NP & PRES,2018,0,0
+Yellowstone NP,1980,NA,NA
+Yellowstone NP,1981,NA,NA
+Yellowstone NP,1982,NA,NA
+Yellowstone NP,1983,NA,NA
+Yellowstone NP,1984,NA,NA
+Yellowstone NP,1985,NA,NA
+Yellowstone NP,1986,NA,NA
+Yellowstone NP,1987,NA,NA
+Yellowstone NP,1988,NA,NA
+Yellowstone NP,1989,NA,NA
+Yellowstone NP,1990,NA,NA
+Yellowstone NP,1991,NA,NA
+Yellowstone NP,1992,NA,NA
+Yellowstone NP,1993,NA,NA
+Yellowstone NP,1994,NA,NA
+Yellowstone NP,1995,NA,NA
+Yellowstone NP,1996,NA,NA
+Yellowstone NP,1997,10,20
+Yellowstone NP,1998,10,20
+Yellowstone NP,1999,10,20
+Yellowstone NP,2000,10,20
+Yellowstone NP,2001,10,20
+Yellowstone NP,2002,10,20
+Yellowstone NP,2003,10,20
+Yellowstone NP,2004,10,20
+Yellowstone NP,2005,10,20
+Yellowstone NP,2006,12,25
+Yellowstone NP,2007,12,25
+Yellowstone NP,2008,12,25
+Yellowstone NP,2009,12,25
+Yellowstone NP,2010,12,25
+Yellowstone NP,2011,12,25
+Yellowstone NP,2012,12,25
+Yellowstone NP,2013,12,25
+Yellowstone NP,2014,12,25
+Yellowstone NP,2015,15,30
+Yellowstone NP,2016,15,30
+Yellowstone NP,2017,15,30
+Yellowstone NP,2018,20,35
+Yosemite NP,1980,NA,NA
+Yosemite NP,1981,NA,NA
+Yosemite NP,1982,NA,NA
+Yosemite NP,1983,NA,NA
+Yosemite NP,1984,NA,NA
+Yosemite NP,1985,NA,NA
+Yosemite NP,1986,NA,NA
+Yosemite NP,1987,NA,NA
+Yosemite NP,1988,NA,NA
+Yosemite NP,1989,NA,NA
+Yosemite NP,1990,NA,NA
+Yosemite NP,1991,NA,NA
+Yosemite NP,1992,NA,NA
+Yosemite NP,1993,NA,NA
+Yosemite NP,1994,NA,NA
+Yosemite NP,1995,NA,NA
+Yosemite NP,1996,NA,NA
+Yosemite NP,1997,10,20
+Yosemite NP,1998,10,20
+Yosemite NP,1999,10,20
+Yosemite NP,2000,10,20
+Yosemite NP,2001,10,20
+Yosemite NP,2002,10,20
+Yosemite NP,2003,10,20
+Yosemite NP,2004,10,20
+Yosemite NP,2005,10,20
+Yosemite NP,2006,10,20
+Yosemite NP,2007,10,20
+Yosemite NP,2008,10,20
+Yosemite NP,2009,10,20
+Yosemite NP,2010,10,20
+Yosemite NP,2011,10,20
+Yosemite NP,2012,10,20
+Yosemite NP,2013,10,20
+Yosemite NP,2014,10,20
+Yosemite NP,2015,15,30
+Yosemite NP,2016,15,30
+Yosemite NP,2017,15,30
+Yosemite NP,2018,20,35
+Zion NP,1980,NA,NA
+Zion NP,1981,NA,NA
+Zion NP,1982,NA,NA
+Zion NP,1983,NA,NA
+Zion NP,1984,NA,NA
+Zion NP,1985,NA,NA
+Zion NP,1986,NA,NA
+Zion NP,1987,NA,NA
+Zion NP,1988,NA,NA
+Zion NP,1989,NA,NA
+Zion NP,1990,NA,NA
+Zion NP,1991,NA,NA
+Zion NP,1992,NA,NA
+Zion NP,1993,NA,NA
+Zion NP,1994,NA,NA
+Zion NP,1995,NA,NA
+Zion NP,1996,NA,NA
+Zion NP,1997,5,10
+Zion NP,1998,5,10
+Zion NP,1999,5,10
+Zion NP,2000,10,20
+Zion NP,2001,10,20
+Zion NP,2002,10,20
+Zion NP,2003,10,20
+Zion NP,2004,10,20
+Zion NP,2005,10,20
+Zion NP,2006,10,20
+Zion NP,2007,12,25
+Zion NP,2008,12,25
+Zion NP,2009,12,25
+Zion NP,2010,12,25
+Zion NP,2011,12,25
+Zion NP,2012,12,25
+Zion NP,2013,12,25
+Zion NP,2014,12,25
+Zion NP,2015,12,25
+Zion NP,2016,15,30
+Zion NP,2017,15,30
+Zion NP,2018,20,35
