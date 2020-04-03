@@ -2,16 +2,7 @@ library(tidyverse)
 library(rstan)
 library(shinystan)
 dat<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")
-x<-dat%>%group_by(UnitCode,Season)%>%
-  summarise(mv=mean(RecreationVisits))%>%ungroup()%>%
-  group_by(UnitCode)%>%filter(mv==max(mv))%>%mutate(cc=paste0(UnitCode,Season))
 
-x2<-dat%>%group_by(UnitCode,Season)%>%
-  summarise(mv=mean(RecreationVisits))%>%ungroup()%>%
-  group_by(UnitCode)%>%filter(mv==min(mv))%>%mutate(cc=paste0(UnitCode,Season))
-
-dat$SeasType<-ifelse(dat$CatColS %in% x$cc,
-                     "High",ifelse(dat$CatColS %in% x2$cc,"Low","Shoulder"))
 
 dat<-dat%>%filter(SeasType =="High")
 
@@ -44,8 +35,8 @@ save(l2, file="stdsmokeNbinom.rda")
 
 
 #Plot outputs
-load("stdsmokeparkNbinom.rda")
-load("stdsmokeNbinom.rda")
+load("~/SmokeProject/ModelObjects/stdsmokeparkNbinom.rda")
+load("~/SmokeProject/ModelObjects/stdsmokeNbinom.rda")
 x<-as.data.frame(summary(l))
 zz<-row.names(x[2:61,])
 stan_plot(l,pars = c(zz) ,fill_color = "purple", )
@@ -57,11 +48,14 @@ MeanSlopes<-data.frame(Park=unique(dat$UnitCode),slopeSmokePark=(as.data.frame(s
                        MedSmoke= (summarise(group_by(dat,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke,
                        MedSmokeAll= (summarise(group_by(datAll,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke) 
 
-write.csv(MeanSlopes,file="ParameterOutputs.csv")
+#write.csv(MeanSlopes,file="ParameterOutputs.csv")
+mean(MeanSlopes$slopeSmokeOverall)
+mean(MeanSlopes$slopeSmokePark)
 
 cor(MeanSlopes$MedSmokeAll,MeanSlopes$slopeSmokeOverall)
 ggplot(MeanSlopes,aes(x=MedSmokeAll,y=slopeSmokeOverall))+
   geom_point()+ggtitle("Median Year round smokiness by slope of smoke in high season\nCor = 0.3")
+
 
 cor(MeanSlopes$MedSmoke,MeanSlopes$slopeSmokeOverall)
 ggplot(MeanSlopes,aes(x=MedSmoke,y=slopeSmokeOverall))+
