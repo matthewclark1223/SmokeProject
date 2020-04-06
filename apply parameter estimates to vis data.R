@@ -74,11 +74,12 @@ for(i in 1:nrow(sigdat)){
 }
 plot(predNoSmoke,sigdat$RecreationVisits)
 
-sum(predNoSmoke)
+sigdat$predNoSmoke<-predNoSmoke
+sigdat$date<-zoo::as.yearmon(paste0(sigdat$Month,sigdat$Year),"%m%Y")
 
-
-
-
+ggplot(sigdat,aes(x=date,by=UnitCode))+
+  geom_point(aes(y=RecreationVisits),color="purple",alpha=0.15,size=2)+
+  geom_point(aes(y=predNoSmoke),color="green",alpha=0.15,size=2)+theme_classic()
 
 
 ##not used below
