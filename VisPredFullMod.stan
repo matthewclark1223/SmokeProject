@@ -36,9 +36,9 @@ for(j in 1:Nprk){
 }
 
 generated quantities {
-  int<lower=0> [New_smoke] VisPred;
+  vector[New_smoke] VisPred;
   for(i in 1:New_smoke) {
-    VisPred[i] = neg_binomial_2(exp(intercept+slope1[pcode[i]]*
-    smoke[i]+ran_intercept[pcode[i]]) ,phi);
+    VisPred[i] = neg_binomial_2_rng(exp(intercept+slope1[pcode[i]]*
+    New_smoke[i]+ran_intercept[pcode[i]]) ,phi);
   }
 }
