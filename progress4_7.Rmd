@@ -1,0 +1,233 @@
+---
+title: "4/7 progress update"
+author: "Matt Clark"
+date: "4/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(rstan)
+load("~/SmokeProject/ModelObjects/stdsmokeNbinom.rda")
+load("~/SmokeProject/ModelObjects/stdsmokeparkNbinom.rda")
+
+```
+
+## Current progress
+
+So to get rid of the noise that was introduced by the low visitation and low smoke months, we subset by each park's high season.  
+
+```{r}
+dat<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")
+
+
+dat<-dat%>%filter(SeasType =="High")
+```
+
+Then I ran the following stan model on both the smoke values standardized overall and the smoke values standardized by park. 
+
+
+```{stan output.var='mod', eval = FALSE, tidy = FALSE}
+data {
+  int N;
+  real smoke[N];
+  int count[N];
+  int Nprk;
+  int pcode[N];
+}
+parameters {
+  real intercept;
+  real slope1[Nprk]; //the regression parameters
+ 
+  real<lower=0> phi; //the overdispersion parameters
+  real<lower=0> sigma_pr;
+  real ran_intercept[Nprk];
+
+  
+}
+model {  
+  intercept ~ normal(0,1); //prior for the intercept following Gelman 2008
+  slope1 ~ cauchy(0,2.5); //prior for the slopes following Gelman 2008
+  
+  phi ~ cauchy(0, 3);
+  sigma_pr ~normal(0,1);
+
+  
+for(i in 1:N){
+
+  count[i] ~ neg_binomial_2(exp(intercept+slope1[pcode[i]]*smoke[i]+ran_intercept[pcode[i]]) ,phi);
+
+
+}
+for(j in 1:Nprk){
+  ran_intercept[j]~normal(0,sigma_pr);
+}
+}
+
+
+```
+
+This model converged for both the smoke variable standardized overall and standardized by park. 
+Here are the parameter estimates standardized overall
+
+```{r include=FALSE}
+x<-as.data.frame(summary(l))
+zz<-row.names(x[2:61,])
+```
+
+Standardized overall (mean = -0.55)
+```{r echo=FALSE}
+stan_plot(l2,pars = c(zz) ,fill_color = "purple", )
+```
+
+Standardized by park (mean = -0.107)
+```{r echo=FALSE}
+stan_plot(l,pars = c(zz) ,fill_color = "purple", )
+```
+
+
+These seem to indicate that we have a stronger effect of smoke overall, rather than a relative effect by park. To double check this, we can look to see if the parameter estimates by park vary in a systematic way with the amount of smoke a park gets. 
+
+```{r include=FALSE}
+datAll<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")
+MeanSlopes<-data.frame(Park=unique(dat$UnitCode),slopeSmokePark=(as.data.frame(summary(l))[2:61,1]),
+                       slopeSmokeOverall=(as.data.frame(summary(l2))[2:61,1]),
+                       MedSmoke= (summarise(group_by(dat,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke,
+                       MedSmokeAll= (summarise(group_by(datAll,UnitCode),MedSmoke=median(stdsmoke)))$MedSmoke) 
+```
+
+
+```{r echo = FALSE}
+ggplot(MeanSlopes,aes(x=MedSmoke,y=slopeSmokeOverall))+
+  geom_point()+ggtitle("Median high season smokiness by slope of smoke in high season\nCor = 0.37")
+```
+
+This indicates to me that we do not see any effect of shifting baselines. Instead, we see that overall smokiness is an important predictor of visitation, regardless of the average smokiness of the place.
+
+## Next Steps
+
+Now that we have this functioning model and a preliminary result (No evidence of spatial shifting baselines for smoke tolerance), I want to 'backcast' previous visitation to each park given a minimum level of smoke
+
+I decided to do this in R because stan was giving me a ton of trouble. I think this is correct, but it could definitely use a double check.
+
+First I extracted the posteriors from the model:
+```{r}
+ext_fit<-rstan::extract(l2)
+
+intercept_post<-ext_fit$intercept
+slope1_post<-ext_fit$slope1
+phi_post<-ext_fit$phi
+sigma_pr_post<-ext_fit$sigma_pr
+ran_intercept_post<-ext_fit$ran_intercept
+lp__post<-ext_fit$lp__
+
+sp<-as.data.frame(slope1_post)
+ri<-as.data.frame(ran_intercept_post)
+
+```
+
+Then I wrote a sampeling statement
+
+```{r}
+gen_quant_r <- function(x,y) { #x here is the input smoke values #y is park
+  lin_comb <- mean(intercept_post) + #mean intercept posterior
+    x*mean(sp[,paste0("V",y)])+ #smoke value times the posterior slope for smoke for that park
+    mean(ri[,paste0("V",y)]) #random intercept for the given park
+  mu <- exp(lin_comb)  
+  phi<-mean(phi_post) #mean value of the overdispersion parameter
+  dist <- rnbinom(n=length(intercept_post),size= phi, mu=mu) #sample from a negative binomial
+  out<-mean(dist) #mean of sample
+  return(out)
+}
+```
+
+```{r include = FALSE}
+params<-read_csv("~/SmokeProject/Data/ParameterOutputs.csv")[,-c(1,3,5,6)]
+fulldat<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")[,-1]
+fulldat<-fulldat%>%select(UnitCode,Year,Month,ParkName,Smoke,stdsmoke,RecreationVisits,SeasType)%>%
+  filter(SeasType =="High")%>%select(UnitCode,Year,Month,ParkName,Smoke,RecreationVisits,stdsmoke)
+names(params)[1]<-"UnitCode"
+
+fulldat<-left_join(fulldat,params,by="UnitCode")
+x<-as.data.frame(summary(l2))
+x$parameter<-row.names(x)
+#get just means for parks who's par estimates don't overlap zero
+x<-x[c(2:61),c(1,4,8,32)]%>%filter((summary.2.5. >0 & summary.97.5.>0) |
+                    (summary.2.5. <0 & summary.97.5.<0) )
+
+
+Parks <- as.numeric(str_remove(substr(x$parameter,8,9),"]"))
+
+fulldat$PF<-as.numeric(as.factor(fulldat$UnitCode))
+sigdat<-fulldat%>% filter(PF %in% Parks)
+```
+
+Now we can test this on the actual data and see if we're close at all.
+
+Note here that the 'sigdat' dataset that we're using is only the parks that had 95% CIs that did not overlap zero 
+```{r}
+empty_vec <- c()
+for(i in 1:nrow(sigdat)){
+sigdat2<-sigdat[i,]%>%dplyr::mutate(x=gen_quant_r(stdsmoke,PF))
+empty_vec <- c(empty_vec,sigdat2$x)
+  }
+
+plot(empty_vec,sigdat$RecreationVisits)
+cor(empty_vec,sigdat$RecreationVisits)
+```
+
+So that looks ..okay. What if we test it on the minimimum smoke value for each park?
+
+```{r}
+sigdat<-sigdat%>%group_by(UnitCode)%>%
+  mutate(minsmoke=min(stdsmoke))
+
+predNoSmoke <- c()
+for(i in 1:nrow(sigdat)){
+  sigdat2<-sigdat[i,]%>%dplyr::mutate(x=gen_quant_r(minsmoke,PF))
+  predNoSmoke <- c(predNoSmoke,sigdat2$x)
+}
+```
+
+```{r include = F}
+sigdat$predNoSmoke<-predNoSmoke
+sigdat$date<-zoo::as.yearmon(paste0(sigdat$Month,sigdat$Year),"%m%Y")
+```
+
+Let's plot the minimimum smoke visitation estimate for each park (green) by the actual visitation (purple) and plot the smoke value on there too (black).
+
+These look really sloppy but I think they get the job done for now. 
+
+
+```{r echo = FALSE}
+sigdat%>%filter(UnitCode %in% c("ACAD","BADL","CRLA","CUVA", "GLAC","GLBA","HAVO","KEFJ","MACA","OLYM","ROMO","SHEN","THRO","MORA","KICA"))%>%
+ggplot(.,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="purple",size=1,alpha=0.99)+
+  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.5)+
+  geom_line(aes(y=Smoke*1e14))+
+  facet_wrap(~UnitCode,scales = "free")+
+  theme_classic()
+
+sigdat%>%filter(!UnitCode %in% c("ACAD","BADL","CRLA","CUVA", "GLAC","GLBA","HAVO","KEFJ","MACA","OLYM","ROMO","SHEN","THRO","MORA","KICA"))%>%
+ggplot(.,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="purple",size=1,alpha=0.99)+
+  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.5)+
+  geom_line(aes(y=Smoke*1e13))+
+  facet_wrap(~UnitCode,scales = "free")+
+  theme_classic()
+
+```
+
+I'm not totally sure where to go from here. These estimates don't look great, probably because visitation is obviously much more complicated than just how smokey it is. Maybe we should add an autoregressive term for each park?
+
+Or maybe we're going too far and the spatial shifting baselines stuff is enough for a paper?
+
+Anyway, I'm curious to hear your thoughts overall and especially on the posterior predictive stuff.
+
+Thanks!!
+
+
+
+
+
