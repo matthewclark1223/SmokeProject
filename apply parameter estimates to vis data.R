@@ -24,12 +24,6 @@ Parks <- as.numeric(str_remove(substr(x$parameter,8,9),"]"))
 fulldat$PF<-as.numeric(as.factor(fulldat$UnitCode))
 sigdat<-fulldat%>% filter(PF %in% Parks)
 
-data_list_pred <- list(
-  N = nrow(sigdat),
-  Nprk = length(unique(sigdat$UnitCode)),
-  count = sigdat$RecreationVisits,
-  smoke = sigdat$stdsmoke,
-  pcode = as.numeric(as.factor(sigdat$UnitCode )))
 
 ext_fit<-rstan::extract(l2)
 
@@ -43,16 +37,22 @@ lp__post<-ext_fit$lp__
 sp<-as.data.frame(slope1_post)
 ri<-as.data.frame(ran_intercept_post)
 
+
+
+##just one estimate
 gen_quant_r <- function(x,y) { #x here is the input smoke values #y is park
-  lin_comb <- sample(intercept_post, size = length(intercept_post)) + 
-    x*sample(sp[,paste0("V",y)], size = length(x))+
-    sample(ri[,paste0("V",y)], size = length(x))
+  lin_comb <- mean(intercept_post) + 
+    x*mean(sp[,paste0("V",y)])+
+    mean(ri[,paste0("V",y)])
   mu <- exp(lin_comb)
-  phi<-phi_post
+  #phi<-sample(phi_post,size=length(x))
+  phi<-mean(phi_post)
   dist <- rnbinom(n=length(intercept_post),size= phi, mu=mu)
   out<-mean(dist)
   return(out)
 }
+###
+
 
 empty_vec <- c()
 for(i in 1:nrow(sigdat)){
@@ -65,7 +65,8 @@ cor(empty_vec,sigdat$RecreationVisits)
 sum(empty_vec)
 
 #Now try with lower smoke data
-sigdat$minsmoke<-rep(min(sigdat$stdsmoke),nrow(sigdat))
+sigdat<-sigdat%>%group_by(UnitCode)%>%
+  mutate(minsmoke=min(stdsmoke))
 
 predNoSmoke <- c()
 for(i in 1:nrow(sigdat)){
@@ -80,6 +81,25 @@ sigdat$date<-zoo::as.yearmon(paste0(sigdat$Month,sigdat$Year),"%m%Y")
 ggplot(sigdat,aes(x=date,by=UnitCode))+
   geom_point(aes(y=RecreationVisits),color="purple",alpha=0.15,size=2)+
   geom_point(aes(y=predNoSmoke),color="green",alpha=0.15,size=2)+theme_classic()
+
+ggplot(sigdat,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="purple",size=2,alpha=0.99)+
+  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.25)+
+  theme_classic()
+
+sigdat%>%filter(UnitCode=="ACAD")%>%
+ggplot(.,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="purple",size=2,alpha=0.99)+
+  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.25)+
+  theme_classic()+ggtitle("ACAD")
+
+ggplot(sigdat,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="purple",size=2,alpha=0.99)+
+  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.5)+
+  geom_line(aes(y=Smoke*1e13))+
+  facet_wrap(~UnitCode,scales = "free")+
+  theme_classic()
+
 
 
 ##not used below
