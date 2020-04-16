@@ -46,7 +46,7 @@ Parks <- as.numeric(str_remove(substr(x$parameter,8,9),"]"))
 
 
 dat$PF<-as.numeric(as.factor(dat$UnitCode))
-sigdat<-dat%>% filter(PF %in% Parks)
+
 
 
 ext_fit<-rstan::extract(A2)
@@ -72,69 +72,66 @@ gen_quant_r <- function(x,y,z) { #x here is the input smoke values #y is park z 
     z*mean(sp2[,paste0("V",y)])+
     mean(ri[,paste0("V",y)])
   mu <- exp(lin_comb)
-  #phi<-sample(phi_post,size=length(x))
   phi<-mean(phi_post)
   dist <- rnbinom(n=length(intercept_post),size= phi, mu=mu)
-  out<-mean(dist)
-  return(out)
+  mean_est<-mean(dist)
+  lower_80_est<-quantile(dist, .10)
+  upper_80_est<-quantile(dist, .90)
+  df<-data.frame(mean_est,lower_80_est,upper_80_est)
+  rownames(df)<-c()
+  return(df)
 }
 ###
 
 
-empty_vec <- c()
+empty_df <- data.frame()
 for(i in 1:nrow(dat)){
-  sigdat2<-sigdat[i,]%>%dplyr::mutate(x=gen_quant_r(stdsmoke,PF,stdARV))
-  empty_vec <- c(empty_vec,sigdat2$x)
+  data<-dat[i,]
+  dat2<-gen_quant_r(data$stdsmoke,data$PF,data$stdARV)
+  empty_df <- rbind(empty_df,dat2)
 }
 
-plot(empty_vec,sigdat$RecreationVisits)
-cor(empty_vec,sigdat$RecreationVisits)
+plot(empty_df$mean_est,dat$RecreationVisits)
+cor(empty_df$mean_est,dat$RecreationVisits)
 
 
-#Now try with lower smoke data
-sigdat<-sigdat%>%group_by(UnitCode)%>%
+#Now try with lower smoke data 
+dat<-dat%>%group_by(UnitCode)%>%
   mutate(minsmoke=min(stdsmoke))
 
 predNoSmoke <- c()
-for(i in 1:nrow(sigdat)){
-  sigdat2<-sigdat[i,]%>%dplyr::mutate(x=gen_quant_r(minsmoke,PF,stdARV))
-  predNoSmoke <- c(predNoSmoke,sigdat2$x)
+for(i in 1:nrow(dat)){
+  data<-dat[i,]
+  dat2<-gen_quant_r(data$minsmoke,data$PF,data$stdARV)
+  predNoSmoke <- rbind(predNoSmoke,dat2)
 }
-plot(predNoSmoke,sigdat$RecreationVisits)
+plot(predNoSmoke$mean_est,dat$RecreationVisits)
 
-sigdat$predNoSmoke<-predNoSmoke
-sum(sigdat$predNoSmoke-sigdat$RecreationVisits)
-sigdat$date<-zoo::as.yearmon(paste0(sigdat$Month,sigdat$Year),"%m%Y")
+dat$No_Smoke_Mean_est<-predNoSmoke$mean_est
+dat$No_Smoke_lower_80_est<-predNoSmoke$lower_80_est
+dat$No_Smoke_upper_80_est<-predNoSmoke$upper_80_est
+dat$date<-zoo::as.yearmon(paste0(dat$Month,dat$Year),"%m%Y")
 
 
-ggplot(sigdat,aes(x=date))+
-  geom_line(aes(y=RecreationVisits),color="purple",size=2,alpha=0.99)+
-  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.25)+
+ggplot(dat,aes(x=date))+
+  geom_ribbon(aes(ymin=No_Smoke_lower_80_est, ymax=No_Smoke_upper_80_est),fill="#a6cee3",alpha=0.99)+
+  geom_line(aes(y=No_Smoke_Mean_est),color="#1f78b4",size=1,linetype="dotted",alpha=0.99)+
+  geom_line(aes(y=RecreationVisits),color="black",size=1,alpha=0.99)+
   theme_classic()
 
-sigdat%>%filter(UnitCode=="GLAC")%>%
+dat%>%filter(UnitCode=="KOVA")%>%
   ggplot(.,aes(x=date))+
-  geom_line(aes(y=RecreationVisits),color="purple",size=2,alpha=0.99)+
-  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.25)+
-  theme_classic()+ggtitle("GLAC")
-
-sigdat%>%filter(UnitCode %in% c( "GLAC","HAVO"))%>%
-  ggplot(.,aes(x=date))+
-  geom_line(aes(y=RecreationVisits),color="purple",size=1,alpha=0.99)+
-  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.5)+
-  geom_line(aes(y=Smoke*1e14))+
-  facet_wrap(~UnitCode,scales = "free")+
-  theme_classic()
-
-sigdat%>%filter(!UnitCode %in% c("GLAC","HAVO"))%>%
-  ggplot(.,aes(x=date))+
-  geom_line(aes(y=RecreationVisits),color="purple",size=1,alpha=0.99)+
-  geom_line(aes(y=predNoSmoke),color="green",size=2,alpha=0.5)+
-  geom_line(aes(y=Smoke*1e13))+
-  facet_wrap(~UnitCode,scales = "free")+
-  theme_classic()
+  geom_ribbon(aes(ymin=No_Smoke_lower_80_est, ymax=No_Smoke_upper_80_est),fill="#a6cee3",alpha=0.99)+
+  geom_line(aes(y=No_Smoke_Mean_est),color="#1f78b4",size=1,alpha=0.99)+
+  geom_line(aes(y=RecreationVisits),color="black",size=1,alpha=0.99)+
+  theme_classic()+ggtitle("KOVA")
 
 
+sigdat<-dat%>% filter(PF %in% Parks)
+
+LD<-sigdat%>%select(UnitCode,Year,Month,RecreationVisits,No_Smoke_Mean_est)
+
+write.csv(LD,file="VisitationEstimatesMinSmokeSignificantParks.csv")
 
 
 
