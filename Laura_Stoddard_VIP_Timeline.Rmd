@@ -9,7 +9,7 @@ output: html_document
 library(tidyverse)
 library(rstanarm)
 
-load("feefit.rda")
+load("~/SmokeProject/ModelObjects/feefit.rda")
 SMdat<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")
 FEdat<-read_csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
 ```
@@ -59,10 +59,10 @@ head(d) #check it out
 
 Now we're going to make a model based on these data. Think of this as y=mx+b that you learned in algebra. Y is the predicted fee, x is the year, m is the slope, and b is an intercept. In this case we also have a x2 and m2 which are a 1 or 0 for each park and a slope (m2) for each park. 
 
-This is what's called an generalized linear model. The "poisson" part just tells the computer that we are modeling values that are discrete counts (1,4,7,etc.)
+This is what's called an generalized linear model. The "Poisson" part just tells the computer that we are modeling values that are discrete counts (1,4,7,etc.)
 
 ```{r, eval=FALSE}
-feefit<-stan_glm(SingleVisitorEntryFee~Year+Park,family="poisson",data=d,iter=6000)
+feefit<-stan_glm(SingleVisitorEntryFee~Year+Park,family="Poisson",data=d,iter=6000)
 ```
 
 Now we can use this model to predict the fees for the parks we don't know.
@@ -103,6 +103,47 @@ merge(FEdata,NAdata, by=1:2)
 ```
 
 
+4/6/2020 Plotting 1
+------
+
+We will use the package ggplot2 to plot the data that you have collected/extrapolated. 
+
+If you remember from before, the ggplot() function follows the [grammar of graphics](https://towardsdatascience.com/a-comprehensive-guide-to-the-grammar-of-graphics-for-effective-visualization-of-multi-dimensional-1f92b4ed4149), a theory for how to visualize data that relies on stacking layers on top of each other.
+
+When you create ggplot() code, the top most code will be the first layer created. For our purposed, we will always want this to be the axes of the figure. We will do this by specifying the data and the x and y axes. Remember that the x and y axes need to be wrapped in an aestetic function aes(). This just tells ggplot to look for these things in the dataset that we specified. 
+
+```{r}
+library(ggplot2) #load the package
+
+ggplot(data= d, aes(x=Year,y=SingleVisitorEntryFee))
+
+
+```
+
+
+You'll see that this just "sets the stage" for the rest of the plot. We haven't told it what kind of plot we want yet. 
+
+Next, we will layer the data on top of this background.
+
+```{r}
+ggplot(data= d, aes(x=as.character(Year),y=SingleVisitorEntryFee))+
+  geom_boxplot()
+```
+
+Is this the best way to visualize this simple dataset? probably not. Can you think of  better way?
+
+There is a ton of flexibility in ggplot2. See if you can make this plot better.
+
+
+Once you do that, see if you can plot your data that you created by extrapolating from the fee data we had. 
+
+I like to hand draw my plots first so I know what I'm aiming for.
+
+If you want help and inspiration check out the [Cookbook for ggplot](http://www.cookbook-r.com/Graphs/) and the [ggplot gallery](https://www.r-graph-gallery.com/).
 
 
 
+
+
+4/13/2020 Plotting 2
+------
