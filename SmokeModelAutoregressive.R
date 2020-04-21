@@ -129,7 +129,7 @@ dat%>%filter(UnitCode=="KOVA")%>%
 
 sigdat<-dat%>% filter(PF %in% Parks)
 
-LD<-sigdat%>%select(UnitCode,Year,Month,RecreationVisits,No_Smoke_Mean_est)
+LD<-sigdat%>%select(UnitCode,Year,Month,date,RecreationVisits,No_Smoke_Mean_est)
 
 write.csv(LD,file="VisitationEstimatesMinSmokeSignificantParks.csv")
 

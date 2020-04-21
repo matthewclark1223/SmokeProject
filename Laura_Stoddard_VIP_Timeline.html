@@ -467,7 +467,7 @@ head(d) #check it out</code></pre>
 
 apply(posterior_predict(feefit,preddata),2,mean)     #predict our fees for thse parks for those years based on our model. </code></pre>
 <pre><code>##        1        2 
-## 6.887167 7.500333</code></pre>
+## 6.873583 7.513833</code></pre>
 <p>Notice that this gives predictions for those two parks for those years.</p>
 <p>We want predictions for every row that we are missing. We definitely don’t want to type this in by hand.</p>
 <p>On your own, subset the original datframe by just the rows which have NA in the fee column. Use this new dataframe in the place of preddat in the example.</p>
