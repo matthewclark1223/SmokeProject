@@ -40,6 +40,16 @@ names(NamesData)[2]<-"Park" #match the column names so we can merge
 NamesData<-data.frame(UnitCode=unique(NamesData$UnitCode),Park=unique(NamesData$Park))#get just each park once
 FEdat<-merge(FEdat, NamesData, by = "Park") #merge
 
+
+#plotting examples
+FEdat%>%
+  ggplot(., aes(x=Year,y=SingleVisitorFee,by=UnitCode))+  #note that when importing data from a pipe %>% into ggplot
+  geom_smooth(aes(color=Source),method="lm",se=F)         # you need a . as a data place holder
+
+FEdat%>%filter(Park=="Zion NP")%>%
+  ggplot(., aes(x=Year,y=SingleVisitorFee))+
+  geom_line(aes(color=Source))
+
 #now add the predicted visitation data
 VEstDat<-read.csv("~/SmokeProject/Data/VisitationEstimatesMinSmokeSignificantParks.csv")[,-1]
 
@@ -62,12 +72,7 @@ summaryFinancialLoss<-dat %>% group_by(UnitCode)%>%summarise(totrec=sum(incomeOb
   mutate(IncomeDif=totrec-totpred,IncomePrecDiff=round((totrec/totpred)*100,digits=2))
 
 
-#some example plots
-library(ggplot2) 
-FEdat%>%filter(Park=="Zion NP")%>%
-  ggplot(., aes(x=Year,y=SingleVisitorFee))+
-  geom_line(aes(color=Source))
  
-FEdat%>%filter(Source=="Observed")%>%
-  ggplot(., aes(x=Year,y=SingleVisitorFee,by=Park))+
-  geom_smooth(method="lm",se=F)
+
+ 
+
