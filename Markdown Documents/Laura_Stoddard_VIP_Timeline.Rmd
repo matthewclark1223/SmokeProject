@@ -2,7 +2,9 @@
 title: "Laura Stoddard VIP Timeline"
 author: "Matt Clark"
 date: "3/30/2020"
-output: html_document
+output:
+  word_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -110,7 +112,7 @@ We will use the package ggplot2 to plot the data that you have collected/extrapo
 
 If you remember from before, the ggplot() function follows the [grammar of graphics](https://towardsdatascience.com/a-comprehensive-guide-to-the-grammar-of-graphics-for-effective-visualization-of-multi-dimensional-1f92b4ed4149), a theory for how to visualize data that relies on stacking layers on top of each other.
 
-When you create ggplot() code, the top most code will be the first layer created. For our purposed, we will always want this to be the axes of the figure. We will do this by specifying the data and the x and y axes. Remember that the x and y axes need to be wrapped in an aestetic function aes(). This just tells ggplot to look for these things in the dataset that we specified. 
+When you create ggplot() code, the top most code will be the first layer created. For our purposed, we will always want this to be the axes of the figure. We will do this by specifying the data and the x and y axes. Remember that the x and y axes need to be wrapped in an aesthetic function aes(). This just tells ggplot to look for these things in the dataset that we specified. 
 
 ```{r}
 library(ggplot2) #load the package
@@ -147,3 +149,77 @@ If you want help and inspiration check out the [Cookbook for ggplot](http://www.
 
 4/13/2020 Plotting 2
 ------
+
+Now that you have some experience with the basics of plotting, let's work on cleaning up our figures so they look good and could go into a publication.
+
+When we're dealing with grouped data like this park data, we often want to facet the data so it's in small multiples, or repeated figures showing the same data for different groups.
+
+Let's first subset the parks data so that there's only 6 parks.
+
+
+```{r}
+d<-d%>%filter(Park %in% c("Acadia NP", "Yosemite NP", "Glacier NP","Zion NP", "Arches NP","Joshua Tree NP"))
+```
+
+Now we might want to look at the entry fees for each of these parks in their own figure. It would be a pain to code those figures for each park. Luckily we can use faceting.
+
+```{r}
+ggplot(d,aes(x=as.character(Year),y=SingleVisitorEntryFee))+
+  geom_point()+
+  facet_wrap(~Park) #this is the part that does the faceting
+```
+
+An easy thing we can do to make our plots look better is just to apply the build in ggplot themes to them. Here's some examples 
+
+```{r}
+ggplot(d,aes(x=as.character(Year),y=SingleVisitorEntryFee))+
+  geom_point()+
+  facet_wrap(~Park)+theme_classic()
+```
+
+```{r}
+ggplot(d,aes(x=as.character(Year),y=SingleVisitorEntryFee))+
+  geom_point()+
+  facet_wrap(~Park)+theme_dark()
+```
+
+```{r}
+ggplot(d,aes(x=as.character(Year),y=SingleVisitorEntryFee))+
+  geom_point()+
+  facet_wrap(~Park)+theme_bw()
+```
+
+
+These themes are great, but usually, we want to customize them a bit more. 
+
+We can do that by creating our own themes and stacking them on top. 
+
+There's a TON of flexibility here. No one has all these options memorized. A good rule is that if you have an idea of what you want to do in ggplot it's almost definitely possible and someone has probably thought of it before you. Googling things is usually a good place to start.
+
+
+```{r}
+mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                  plot.title = element_text( size=18, color="black",face="bold"),
+                  axis.title.x = element_text( size=18),
+                  axis.title.y = element_text( size=18),
+                  axis.text=(element_text(color="black", size=8)),
+                axis.text.x = element_text(angle = 90, hjust = 1),
+                  legend.title = element_text(colour="black", size=18),
+                  legend.text = element_text( size = 14))
+
+
+```
+
+
+
+Now that I have that saved, I can just add it to the end of my plot to make the changes I want
+
+```{r}
+ggplot(d,aes(x=as.character(Year),y=SingleVisitorEntryFee))+
+  geom_point()+
+  facet_wrap(~Park)+theme_classic()+
+  mytheme
+```
+
+
+We've really just scratched the surface here, but hopefully this is enough to get you started. Don't hesitate to reach out when you have questions!

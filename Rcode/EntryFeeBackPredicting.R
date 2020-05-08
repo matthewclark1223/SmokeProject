@@ -18,11 +18,23 @@ head(d) #check it out
 fillData<-FEdat[,1:2]
 
 
-FEdat$PredictedFee<-apply(posterior_predict(feefit,fillData),2,mean) #assuming this is for a new column
+FEdat$PredictedFee<-round(apply(posterior_predict(feefit,fillData),2,mean),digits = 0) #assuming this is for a new column
 
 xx<-na.omit(FEdat) #remove na's to compare accuracy of predictions and observed data
 cor(xx$PredictedFee,xx$SingleVisitorEntryFee) #correlation of predicted to observed
 plot(xx$PredictedFee,xx$SingleVisitorEntryFee) #plot it
+
+xx%>%
+  ggplot(.,aes(x=SingleVisitorEntryFee,y=round(PredictedFee),digits=0))+
+  geom_point()+
+  geom_smooth(method="lm", se=FALSE, colour="red")+
+  geom_text(aes(x=5,y=15),size=10,label=paste("cor =",round(cor(round(xx$PredictedFee,digits=0),xx$SingleVisitorEntryFee),digits=2)))+
+  ggtitle("Predicted vs Observed Single Visitor Entry Fee")+theme_classic()+mytheme+
+  theme(plot.title = element_text(hjust = 0.5))+
+  scale_y_continuous(name="Predicted Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))+
+  scale_x_continuous(name="Observed Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))
+
+
 
 #fill the na's leave it if it's not an na
 FEdat$SingleVisitorFee<-ifelse(is.na(FEdat$SingleVisitorEntryFee),FEdat$PredictedFee,FEdat$SingleVisitorEntryFee)
@@ -35,7 +47,7 @@ FEdat<-FEdat[,-c(3,4)]
 
 
 #the FEdat data doesn't have a unit code column. Let's add that
-NamesData<-read_csv("Data/MergedDataComplete.csv")[,-c(1,3,4,6:13)]
+NamesData<-read_csv("Data/MergedDataComplete.csv")[,-c(1,3,4,6:15)]
 names(NamesData)[2]<-"Park" #match the column names so we can merge
 NamesData<-data.frame(UnitCode=unique(NamesData$UnitCode),Park=unique(NamesData$Park))#get just each park once
 FEdat<-merge(FEdat, NamesData, by = "Park") #merge

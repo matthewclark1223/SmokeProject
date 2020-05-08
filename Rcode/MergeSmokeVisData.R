@@ -35,8 +35,10 @@ mdat<-mdat[,-c(4,7)]
 
 ##standardization function doing some weird rounding thing
 ## Doing it in 2 steps doesn't yeild the same problem
-zz<-mdat$Smoke-mean(mdat$Smoke)
-mdat$stdsmoke<-zz/(2*sd(mdat$Smoke))
+#zz<-mdat$Smoke-mean(mdat$Smoke)
+#mdat$stdsmoke<-zz/(2*sd(mdat$Smoke))
+mdat$stdsmoke<-as.vector(scale(mdat$Smoke))
+
 
 #make month categorical
 mdat$Month<-as.character(mdat$Month)
@@ -51,15 +53,15 @@ mdat$CatColS<-paste0(mdat$UnitCode,mdat$Season)
 mdat$CatColM<-paste0(mdat$UnitCode,mdat$Month)
 
 #create a variable for stdized smoke by park
-sdd1<-function(x) {return(x-mean(x))}
-sdd2<-function(x) {return(x/(2*sd(x)))}
+#sdd1<-function(x) {return(x-mean(x))}
+#sdd2<-function(x) {return(x/(2*sd(x)))}
 
-mdat<-mdat%>%group_by(UnitCode)%>%
-  mutate(deletelater=sdd1(Smoke))%>%
-  mutate(stdsmokepark=sdd2(deletelater))
+#mdat<-mdat%>%group_by(UnitCode)%>%
+  #mutate(deletelater=sdd1(Smoke))%>%
+  #mutate(stdsmokepark=sdd2(deletelater))
 
 #delete int vector
-mdat<-mdat[,-11]
+#mdat<-mdat[,-11]
 
 #add vis season
 x<-mdat%>%group_by(UnitCode,Season)%>%
@@ -72,5 +74,11 @@ x2<-mdat%>%group_by(UnitCode,Season)%>%
 
 mdat$SeasType<-ifelse(mdat$CatColS %in% x$cc,
                      "High",ifelse(mdat$CatColS %in% x2$cc,"Low","Shoulder"))
+
+#regions_states
+rd<-read.csv("~/SmokeProject/Data/States_Regions.csv")[-c(44,57),-1]
+
+mdat<-merge(mdat,rd,by="UnitCode")
+
 #create the csv
 write.csv(mdat, file="MergedDataComplete.csv")
