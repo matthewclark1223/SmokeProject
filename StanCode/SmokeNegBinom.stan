@@ -25,7 +25,7 @@ model {
   
 for(i in 1:N){
 
-  count[i] ~ neg_binomial_2(exp(intercept+slope1[pcode[i]]*smoke[i]+ran_intercept[pcode[i]]) ,phi);
+  count[i] ~ neg_binomial_2(exp(intercept+slope1[pcode[i]] * smoke[i]+ran_intercept[pcode[i]]) ,phi);
 
 
 }
