@@ -1,0 +1,242 @@
+---
+title: Estimating the Financial Impact of Wildfire Smoke on US National parks
+author:
+- affiliation: Boise State University - Human Environment Systems
+  name: Matt Clark
+- affiliation: University of Michigan
+  name: Alexander Killion
+- affiliation: Boise State University
+  name: Matthew A. Williamson
+- affiliation: Boise State University
+  name: Vicken?
+- affiliation: Boise State University
+  name: Laura? (undergrad who will continue working over summer)
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  word_document: default
+  pdf_document:
+    citation_package: natbib
+    fig_caption: yes
+    keep_tex: yes
+    latex_engine: pdflatex
+    template: /Users/Matthewclark989/Documents/LatexPractice/templatedocs/svm_ms_template.tex
+  html_document:
+    df_print: paged
+fontfamily: mathpazo
+fontsize: 11pt
+geometry: margin=1in
+keywords: pandoc, r markdown, knitr
+bibliography: /Users/Matthewclark989/Documents/SmokeProject/References.bib
+thanks: If we want to thank anyone? Maybe Moji?.
+abstract: National Parks are important. National Parks are low on funding which affects their ability to do their job. A key way they get this funding is through visitation. Wildfire smoke affects visitation greatly and is out of ther control. Wildfires are expected to increase in the Pacific West and Intermountain regions. Over the last 38 years, we estimate that wildfire smoke has led to a visitation decrease of XX visitors in these regions. This visitation dampening has cost the National Park Service $XX based on our estimates. Wildfires and the smoke it produces is supposed to increase over the next 50 years. Assuming a linear trend in smoke, visitation overall, and park fees, we might see a financial loss to the park service of $XX. Our recomendation is that....NPS work with the forest service to prevent fires in areas close to parks?? Do they already do that??    
+---
+# Introduction 
+Public lands are a cornerstone of American culture and identity. The crown jewls of the American public lands system are the National Parks. National Parks have recently drawn public attention for having a lack of funding which negatively affects their ability to protect America's most cherished natural resources and provide visitors with desired recreational experiences. While the National Park Service makes countless decisions regarding where to allocate resources and how to best invest its limited funding, other monetary sources and sinks are out of the control of the National Park Service.
+This is how you add a reference (e.g., [@fisichelli_protected_2015; @fann_ch_2016])
+  
+
+# Methods
+```{r include=FALSE}
+library(tidyverse)
+library(lme4)
+library(rstanarm)
+library(rstan)
+load("~/SmokeProject/ModelObjects/feefit.rda")
+load("~/SmokeProject/ModelObjects/residuals.rda")
+```
+## Data Collection
+
+### Visitor Data
+
+### Visitation Fees
+
+We started with an incomplete dataset. Laura will write this part with information on collecting this data.
+```{r include=FALSE}
+FEdat<-read.csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
+FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
+```
+
+```{r echo=FALSE}
+head(FEdat[c(1009,256,10,800,655),])
+```
+
+We removed the NA's from this dataset built a linear model which estimates the fees based on the date. 
+```{r, echo=F}
+d<-na.omit(FEdat) #get rid of rows with any NA
+```
+
+$$
+\begin{aligned}
+y_{tp} &\sim \begin{cases}\operatorname{Pois}(\mu,\lambda)\\ \mu = B_{0}+ B_{1}*X_{1} +B_{2}*X_{2}
+\end{cases}
+\end{aligned}
+$$
+
+We operationalized this model in rstanarm
+```{r eval=FALSE}
+feefit<-stan_glm(SingleVisitorEntryFee~Year+Park,family="poisson",data=d,chains=3,iter=6000)
+```
+
+We then used this to predict what the fees ould have been for every year we didn't have
+```{r}
+fillData<-FEdat[,1:2]
+
+
+FEdat$PredictedFee<-round(apply(posterior_predict(feefit,fillData),2,mean),digits = 0) #assuming this is for a new column
+
+```
+
+Our predicted fees correlate well with our observed fees that we have
+```{r echo = FALSE}
+xx<-na.omit(FEdat)
+ mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                  plot.title = element_text( size=18, color="black",face="bold"),
+                  axis.title.x = element_text( size=18),
+                  axis.title.y = element_text( size=18),
+                  axis.text=(element_text(color="black", size=14)),
+                  legend.title = element_text(colour="black", size=18),
+                  legend.text = element_text( size = 14))
+xx%>%
+  ggplot(.,aes(x=SingleVisitorEntryFee,y=round(PredictedFee),digits=0))+
+  geom_jitter(size=2, alpha=0.3)+
+  geom_smooth(method="lm", se=FALSE, colour="red")+
+  geom_text(aes(x=5,y=15),size=10,label=paste("cor =",round(cor(round(xx$PredictedFee,digits=0),xx$SingleVisitorEntryFee),digits=2)))+
+  ggtitle("Predicted vs Observed Single Visitor Entry Fee")+theme_classic()+mytheme+
+  theme(plot.title = element_text(hjust = 0.5))+
+  scale_y_continuous(name="Predicted Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))+
+  scale_x_continuous(name="Observed Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))
+```
+### Smoke Data
+
+Alex to complete this section
+
+## Analysis
+
+### Smoke Effects Past
+We subset the data to only include high season visitation for parks in the Intermountain and Pacific West regions. The regions projected to be most havily affected by climate change. 
+
+```{r include=FALSE}
+library(tidyverse)
+library(lme4)
+library(rstan)
+Data<-read_csv("Data/MergedDataComplete.csv")[,-1]
+Data$date<-zoo::as.yearmon(paste0(Data$Month,Data$Year),"%m%Y")
+Data<-Data%>%group_by(UnitCode,Month)%>%mutate(ARVis = lag(RecreationVisits) )
+Data$VisChange<-(Data$RecreationVisits-Data$ARVis)/Data$ARVis
+Data<-na.omit(Data)
+
+#filter by high season
+Data<-Data%>%filter( SeasType =="High")
+
+#filter by smoke affected regions
+Data<-Data%>%
+  filter(Region %in% c("Intermountain","Pacific West"))
+
+```
+
+
+
+To account for the linear trends of visitation, we first calculated the trends, then found the residuals of each datapoint from the trendline.
+$$
+\begin{aligned}
+Resid_{y} &= \begin{cases}y_{obs}-y_{trend}\\ y_{trend} \sim \operatorname{Norm}(\mu_{park},\sigma)\\ \mu_{park} = B_{0}+ B_{1}*X_{1}
+\end{cases}
+\end{aligned}
+$$
+
+
+
+```{r warning=FALSE}
+fits <- lmList(RecreationVisits ~ date | UnitCode, data=Data) 
+Data$trendvis<-predict(fits,date=Data$date)
+Data$VisDiff<-Data$RecreationVisits-Data$trendvis
+dat<-Data
+```
+
+
+We then used a hierarchical modeling structure to understand these residuals as a result of the max observed smoke values in each park in each month.
+$$
+\begin{aligned}
+Resid_{y} &\sim \begin{cases}\operatorname{Norm}(\mu,\sigma)\\ \mu = B_{0Park}+ B_{1Park}*X_{1Park} \\ \sigma\sim Norm(0,1) 
+\end{cases}
+\end{aligned}
+$$
+
+This was also operationalized in `rstanarm`
+```{r,eval=FALSE}
+fit<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=dat,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+
+```
+
+### Smoke, Fee, & Visitation Projections
+
+
+# Results
+
+For all significant effects (90% C.I. doesn't overlap 0), we see a negative effect of smoke on the residual visitation to National Parks.
+
+```{r,echo=FALSE}
+ plot(fit, regex_pars = "stdsmoke UnitCode",
+            prob = 0.5, prob_outer = 0.9)
+```
+
+
+We can then go back and apply these estimates effects to the observed visitation given a minimum level of smoke observed for each park to estimate what the vititation may have been given optimal air quality. 
+
+Here's an example from a few parks
+
+
+```{r include=FALSE}
+
+dat<-dat%>%group_by(UnitCode)%>%mutate(MinSmoke=min(stdsmoke))
+```
+
+```{r include=FALSE}
+minsmokedata<-data.frame(UnitCode=dat$UnitCode,stdsmoke=dat$MinSmoke)
+```
+
+```{r include=FALSE}
+dat$PredNoSmoke<-apply(posterior_predict(fit,minsmokedata),2,mean)
+```
+
+```{r include=FALSE}
+dat$PredNoSmoke<-dat$trendvis+dat$PredNoSmoke
+```
+
+```{r echo=FALSE, warning=FALSE}
+dat%>%filter(UnitCode == "ROMO")%>%
+ggplot(.,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="green")+
+  geom_line(aes(y=PredNoSmoke),color="blue")+geom_smooth(aes(y=RecreationVisits),se=F,method="lm",color="red")
+
+dat%>%filter(UnitCode == "YOSE")%>%
+ggplot(.,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="green")+
+  geom_line(aes(y=PredNoSmoke),color="blue")+geom_smooth(aes(y=RecreationVisits),se=F,method="lm",color="red")
+
+dat%>%filter(UnitCode == "ZION")%>%
+ggplot(.,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="green")+
+  geom_line(aes(y=PredNoSmoke),color="blue")+geom_smooth(aes(y=RecreationVisits),se=F,method="lm",color="red")
+
+```
+
+
+
+
+
+# Discussion
+
+Discussion here
+
+
+
+
+
+
+
+
+
+
+
+
