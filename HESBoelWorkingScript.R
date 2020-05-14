@@ -43,3 +43,31 @@ save(fit,file="residuals.rda")
 
 bayesplot::color_scheme_set("viridisC")
 (trace <- plot(fit, "trace", pars = c("b[stdsmoke UnitCode:ZION]","b[stdsmoke UnitCode:YELL]","b[stdsmoke UnitCode:SEQU]","(Intercept)")))
+
+
+#look at the predictions
+
+dat<-dat%>%group_by(UnitCode)%>%mutate(MinSmoke=min(stdsmoke))
+
+minsmokedata<-data.frame(UnitCode=dat$UnitCode,stdsmoke=dat$MinSmoke)
+
+
+dat$PredNoSmoke<-apply(posterior_predict(fit,minsmokedata),2,mean)
+
+dat$PredNoSmoke<-dat$trendvis+dat$PredNoSmoke
+
+dat%>%filter(UnitCode =="YOSE")%>%
+ggplot(.,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="green")+
+  geom_line(aes(y=PredNoSmoke),color="blue")+geom_smooth(aes(y=RecreationVisits),se=F,method="lm",color="red")
+
+
+
+  ggplot(dat,aes(x=date))+
+  geom_line(aes(y=RecreationVisits),color="green")+
+  geom_line(aes(y=PredNoSmoke),color="blue")+geom_smooth(aes(y=RecreationVisits),se=F,method="lm",color="red")+facet_wrap(~UnitCode,scales="free")
+
+  p <- plot(fit, regex_pars = "stdsmoke UnitCode",
+            prob = 0.5, prob_outer = 0.9)
+
+
