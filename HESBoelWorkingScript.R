@@ -24,22 +24,18 @@ Data<-Data%>%
   filter(Region %in% c("Intermountain","Pacific West"))
 
 
-#get vis and smoke trends
-fits <- lmList(Smoke ~ date | UnitCode, data=Data) 
-Data$trendsmoke<-predict(fits,date=allData$date)
+#get vis trends
 
 fits <- lmList(RecreationVisits ~ date | UnitCode, data=Data) 
 Data$trendvis<-predict(fits,date=Data$date)
-
-Data$SmokeDiff<-scale(Data$Smoke-Data$trendsmoke)
 Data$VisDiff<-Data$RecreationVisits-Data$trendvis
 dat<-Data
 
 library(rstanarm)
 options(mc.cores=parallel::detectCores())
-fit<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=dat,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
-save(fit,file="residuals.rda")
-
+#fit<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=dat,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+#save(fit,file="residuals.rda")
+load("~/SmokeProject/ModelObjects/residuals.rda")
 
 bayesplot::color_scheme_set("viridisC")
 (trace <- plot(fit, "trace", pars = c("b[stdsmoke UnitCode:ZION]","b[stdsmoke UnitCode:YELL]","b[stdsmoke UnitCode:SEQU]","(Intercept)")))
