@@ -7,6 +7,7 @@ FEdat<-read.csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
 head(FEdat)
 
 FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
+head(FEdat[c(1009,256,10,800,655),])
 d<-na.omit(FEdat) #get rid of rows with any NA
 head(d) #check it out
 
@@ -26,7 +27,7 @@ plot(xx$PredictedFee,xx$SingleVisitorEntryFee) #plot it
 
 xx%>%
   ggplot(.,aes(x=SingleVisitorEntryFee,y=round(PredictedFee),digits=0))+
-  geom_point()+
+  geom_jitter(size=2, alpha=0.3)+
   geom_smooth(method="lm", se=FALSE, colour="red")+
   geom_text(aes(x=5,y=15),size=10,label=paste("cor =",round(cor(round(xx$PredictedFee,digits=0),xx$SingleVisitorEntryFee),digits=2)))+
   ggtitle("Predicted vs Observed Single Visitor Entry Fee")+theme_classic()+mytheme+
