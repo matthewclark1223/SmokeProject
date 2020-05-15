@@ -3,9 +3,9 @@ library(lme4)
 library(rstan)
 Data<-read_csv("Data/MergedDataComplete.csv")[,-1]
 Data$date<-zoo::as.yearmon(paste0(Data$Month,Data$Year),"%m%Y")
-Data<-Data%>%group_by(UnitCode,Month)%>%mutate(ARVis = lag(RecreationVisits) )
-Data$VisChange<-(Data$RecreationVisits-Data$ARVis)/Data$ARVis
-Data<-na.omit(Data)
+#Data<-Data%>%group_by(UnitCode,Month)%>%mutate(ARVis = lag(RecreationVisits) )
+#Data$VisChange<-(Data$RecreationVisits-Data$ARVis)/Data$ARVis
+#Data<-na.omit(Data)
 
 #filter by high season
 Data<-Data%>%filter( SeasType =="High")
