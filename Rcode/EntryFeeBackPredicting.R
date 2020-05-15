@@ -7,7 +7,7 @@ FEdat<-read.csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
 head(FEdat)
 
 FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
-head(FEdat[c(1009,256,10,800,655),])
+#head(FEdat[c(1009,256,10,800,655),])
 d<-na.omit(FEdat) #get rid of rows with any NA
 head(d) #check it out
 
@@ -18,8 +18,8 @@ head(d) #check it out
 
 fillData<-FEdat[,1:2]
 
-
-FEdat$PredictedFee<-round(apply(posterior_predict(feefit,fillData),2,mean),digits = 0) #assuming this is for a new column
+load("~/SmokeProject/ModelObjects/feefit.rda")
+FEdat$PredictedFee<-apply(posterior_predict(feefit,fillData),2,median) #assuming this is for a new column
 
 xx<-na.omit(FEdat) #remove na's to compare accuracy of predictions and observed data
 cor(xx$PredictedFee,xx$SingleVisitorEntryFee) #correlation of predicted to observed
@@ -48,12 +48,12 @@ FEdat<-FEdat[,-c(3,4)]
 
 
 #the FEdat data doesn't have a unit code column. Let's add that
-NamesData<-read_csv("Data/MergedDataComplete.csv")[,-c(1,3,4,6:15)]
-names(NamesData)[2]<-"Park" #match the column names so we can merge
+NamesData<-read_csv("Data/MergedDataComplete.csv")
+names(NamesData)[5]<-"Park" #match the column names so we can merge
 NamesData<-data.frame(UnitCode=unique(NamesData$UnitCode),Park=unique(NamesData$Park))#get just each park once
 FEdat<-merge(FEdat, NamesData, by = "Park") #merge
 
-
+write.csv(FEdat,file = "ParkFees.csv")
 #plotting examples
 FEdat%>%
   ggplot(., aes(x=Year,y=SingleVisitorFee,by=UnitCode))+  #note that when importing data from a pipe %>% into ggplot
