@@ -38,9 +38,9 @@ reals1<-test1$VisDiff
 
 train2<-dat%>%filter(!Year %in% c("2013","2012","2011","2010","2009"))
 test2<-dat%>%filter(Year %in% c("2013","2012","2011","2010","2009"))
-fitTrain2<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train2,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
-save(fitTrain2,file="CVResidualMod2.rds")
-#load("~/SmokeProject/ModelObjects/CVResidualMod2.rds")
+#fitTrain2<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train2,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+#save(fitTrain2,file="CVResidualMod2.rds")
+load("~/SmokeProject/ModelObjects/CVResidualMod2.rds")
 
 preds2<-apply(posterior_predict(fitTrain2,test2),2,median)
 reals2<-test2$VisDiff
@@ -48,9 +48,9 @@ reals2<-test2$VisDiff
 # 2008:2004
 train3<-dat%>%filter(!Year %in% c("2008","2007","2006","2005","2004"))
 test3<-dat%>%filter(Year %in% c("2008","2007","2006","2005","2004"))
-fitTrain3<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train3,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
-save(fitTrain3,file="CVResidualMod3.rds")
-#load("~/SmokeProject/ModelObjects/CVResidualMod3.rds")
+#fitTrain3<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train3,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+#save(fitTrain3,file="CVResidualMod3.rds")
+load("~/SmokeProject/ModelObjects/CVResidualMod3.rds")
 
 preds3<-apply(posterior_predict(fitTrain3,test3),2,median)
 reals3<-test3$VisDiff
@@ -96,8 +96,8 @@ preds7<-apply(posterior_predict(fitTrain7,test7),2,median)
 reals7<-test7$VisDiff
 
 #combine them all
-preds<-c(preds1,preds2,preds3,preds4,preds5)
-reals<-c(reals1,reals2,reals3,reals4,reals5)
+preds<-c(preds1,preds2,preds3,preds4,preds5,preds6,preds7)
+reals<-c(reals1,reals2,reals3,reals4,reals5,reals6,reals7)
 
 
 
