@@ -31,8 +31,24 @@ thanks: If we want to thank anyone? Maybe Moji?.
 abstract: National Parks are important. National Parks are low on funding which affects their ability to do their job. A key way they get this funding is through visitation. Wildfire smoke affects visitation greatly and is out of ther control. Wildfires are expected to increase in the Pacific West and Intermountain regions. Over the last 38 years, we estimate that wildfire smoke has led to a 12% overall visitation decrease to National Parks in these regions. When accounting for visitation fees, this loss may have cost the National Park Service as much as $580 million in total. Wildfires and the smoke it produces is supposed to increase over the next 50 years. Assuming a linear trend in smoke, visitation overall, and park fees, we might see a financial loss to the park service of $XX. Our recomendation is that....NPS work with the forest service to prevent fires in areas close to parks?? Do they already do that??    
 ---
 # 1. Introduction 
-Public lands are a cornerstone of American culture and identity. The crown jewels of the American public lands system are the National Parks. National Parks have recently drawn public attention for having a lack of funding which negatively affects their ability to protect America's most cherished natural resources and provide visitors with desired recreational experiences. While the National Park Service makes countless decisions regarding where to allocate resources and how to best invest its limited funding, other monetary sources and sinks are out of the control of the National Park Service.
+
 This is how you add a reference (e.g., [@fisichelli_protected_2015; @fann_ch_2016])
+
+Paragraphs:
+1. Public lands are important
+2. NPs are specifically high value
+3. NPs are under funded. This underfunding prevents them from doing those important jobs
+4. NPs get a lot of their funding from visitation. Vis is influenced by a lot of things. One of these things that's particurlarly out of their control is smoke from adjacent forested areas.
+5. Smoke is bad for recreation and should decrease vis.
+6. Smoke events have been increasing over the last 50 years. Particularly, these increases have been in the west.
+7. These smoke events are expected to worsen via climate change over the next 50 years.
+8. Logically, smoke should influence visitation to parks. This decrease should affect income. We seek to assess this effect in a systematic way and backcast what the monetary effects might have been.
+9. Given the trends we observe, we project out into the future what the effects might be over the next 50 years. 
+
+
+
+
+
   
 
 # 2. Methods
