@@ -53,7 +53,7 @@ load("~/SmokeProject/ModelObjects/CVResidualMod.rds")
 
 ### 2.1.2. Visitation Fees
 
-We started with an incomplete dataset. Laura will write this part with information on collecting this data.
+We started with an incomplete dataset. Laura will write this part with information on collecting this data. 
 ```{r include=FALSE, cache=TRUE}
 FEdat<-read.csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
 FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
@@ -118,7 +118,7 @@ We subset the data to only include high season visitation for parks in the Inter
 library(tidyverse)
 library(lme4)
 library(rstan)
-Data<-read_csv("Data/MergedDataComplete.csv")[,-1]
+Data<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")[,-1]
 Data$date<-zoo::as.yearmon(paste0(Data$Month,Data$Year),"%m%Y")
 Data<-Data%>%group_by(UnitCode,Month)%>%mutate(ARVis = lag(RecreationVisits) )
 Data$VisChange<-(Data$RecreationVisits-Data$ARVis)/Data$ARVis
