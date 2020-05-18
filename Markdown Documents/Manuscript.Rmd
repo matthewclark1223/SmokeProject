@@ -58,9 +58,6 @@ FEdat<-read.csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
 FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
 ```
 
-```{r echo=FALSE, cache=TRUE}
-head(FEdat[c(1009,256,10,800,655),])
-```
 
 We removed the NA's from this dataset built a linear model which estimates the fees based on the date and the park. 
 ```{r, echo=FALSE, cache=TRUE}
@@ -75,16 +72,14 @@ y_{tp} &\sim \begin{cases}\operatorname{Pois}(\mu,\lambda)\\ \mu = B_{0}+ B_{1}*
 $$
 
 We operationalized this model in rstanarm
-```{r eval=FALSE}
-feefit<-stan_glm(SingleVisitorEntryFee~Year+Park,family="Poisson",data=d,chains=3,iter=6000)
-```
+
 
 We then used this to predict what the fees would have been for every year we didn't have
-```{r cache=TRUE}
+```{r cache=TRUE, include=FALSE}
 fillData<-FEdat[,1:2]
 
 
-FEdat$PredictedFee<-round(apply(posterior_predict(feefit,fillData),2,mean),digits = 0) #assuming this is for a new column
+FEdat$PredictedFee<-apply(posterior_predict(feefit,fillData),2,mean) #assuming this is for a new column
 
 ```
 
@@ -99,10 +94,10 @@ xx<-na.omit(FEdat)
                   legend.title = element_text(colour="black", size=18),
                   legend.text = element_text( size = 14))
 xx%>%
-  ggplot(.,aes(x=SingleVisitorEntryFee,y=round(PredictedFee),digits=0))+
+  ggplot(.,aes(x=SingleVisitorEntryFee,y=PredictedFee))+
   geom_jitter(size=2, alpha=0.3)+
   geom_smooth(method="lm", se=FALSE, colour="red")+
-  geom_text(aes(x=5,y=15),size=10,label=paste("cor =",round(cor(round(xx$PredictedFee,digits=0),xx$SingleVisitorEntryFee),digits=2)))+
+  geom_text(aes(x=5,y=15),size=10,label=paste("cor =",round(cor(xx$PredictedFee,xx$SingleVisitorEntryFee),digits=2)))+
   ggtitle("Predicted vs Observed Single Visitor Entry Fee")+theme_classic()+mytheme+
   theme(plot.title = element_text(hjust = 0.5))+
   scale_y_continuous(name="Predicted Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))+
@@ -149,7 +144,7 @@ $$
 
 
 
-```{r warning=FALSE, cache=TRUE}
+```{r warning=FALSE, include=FALSE, cache=TRUE}
 fits <- lmList(RecreationVisits ~ date | UnitCode, data=Data) 
 Data$trendvis<-predict(fits,date=Data$date)
 Data$VisDiff<-Data$RecreationVisits-Data$trendvis
@@ -166,16 +161,19 @@ Resid_{y} &\sim \begin{cases}\operatorname{Norm}(\mu,\sigma)\\ \mu = B_{0Park}+ 
 $$
 
 This was also operationalized in `rstanarm`
-```{r eval=FALSE, cache=TRUE}
+```{r eval=FALSE, cache=TRUE,include=FALSE}
 fit<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=dat,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 
 ```
 
-### 2.2.2. Smoke, Fee, & Visitation Projections
+### 2.2.2. Model Validation
+
+### 2.2.3. Smoke, Fee, & Visitation Projections
 
 
 # 3. Results
 
+## 3.1. Parameter Estimates
 For all significant effects (90% C.I. doesn't overlap 0), we see a negative effect of smoke on the residual visitation to National Parks.
 
 ```{r echo=FALSE, cache=TRUE}
@@ -183,7 +181,7 @@ For all significant effects (90% C.I. doesn't overlap 0), we see a negative effe
             prob = 0.5, prob_outer = 0.9)
 ```
 
-
+## 3.2. Backcasting
 We can then go back and apply these estimates effects to the observed visitation given a minimum level of smoke observed for each park to estimate what the visitation may have been given optimal air quality. 
 
 Here's an example from a few parks
@@ -252,7 +250,7 @@ FEdat<-read.csv("~/SmokeProject/Data/ParkFees.csv")
 
 #get the visitation observed and predicted yearly totals (same scale as fee data)
 VEstDat<-dat%>%group_by(UnitCode,Year)%>%
-  summarise(RecVisits=sum(RecreationVisits),PredVisits = sum(PredNoSmoke))%>%
+  summarise(RecVisits=sum(RecreationVisits),PredVisits = sum(PredNoSmoke50CI))%>%
   filter(UnitCode %in% fitsig$Par)
 
 #only include significant parks and years we predicted for
@@ -277,7 +275,9 @@ names(summaryFinancialLoss)<-(c("National Park","Income Loss Estimate (1980-2018
 summaryFinancialLoss$`Percent Income Loss (1980-2018)`<-paste0(summaryFinancialLoss$`Percent Income Loss (1980-2018)`,'%')
 formattable::formattable(summaryFinancialLoss)
 ```
+## 3.3. Model Validation
 
+## 3.4. Future Projections
 
 # 4. Discussion
 
