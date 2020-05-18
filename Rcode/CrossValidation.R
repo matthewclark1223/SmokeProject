@@ -20,18 +20,86 @@ Data$VisDiff<-Data$RecreationVisits-Data$trendvis
 dat<-Data
 
 #pull out last 5 years
-train<-dat%>%filter(!Year %in% c("2018","2017","2016","2015","2014"))
-test<-dat%>%filter(Year %in% c("2018","2017","2016","2015","2014"))
+train1<-dat%>%filter(!Year %in% c("2018","2017","2016","2015","2014"))
+test1<-dat%>%filter(Year %in% c("2018","2017","2016","2015","2014"))
 
 library(rstanarm)
 options(mc.cores=parallel::detectCores())
 
-#fitTrain<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+#fitTrain<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train1,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 #save(fitTrain,file="CVResidualMod.rds")
 load("~/SmokeProject/ModelObjects/CVResidualMod.rds")
 
-preds<-apply(posterior_predict(fitTrain,test),2,median)
-reals<-test$VisDiff
+preds1<-apply(posterior_predict(fitTrain,test1),2,median)
+reals1<-test1$VisDiff
+
+
+## 2013:2009
+
+train2<-dat%>%filter(!Year %in% c("2013","2012","2011","2010","2009"))
+test2<-dat%>%filter(Year %in% c("2013","2012","2011","2010","2009"))
+fitTrain2<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train2,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+save(fitTrain2,file="CVResidualMod2.rds")
+#load("~/SmokeProject/ModelObjects/CVResidualMod2.rds")
+
+preds2<-apply(posterior_predict(fitTrain2,test2),2,median)
+reals2<-test2$VisDiff
+
+# 2008:2004
+train3<-dat%>%filter(!Year %in% c("2008","2007","2006","2005","2004"))
+test3<-dat%>%filter(Year %in% c("2008","2007","2006","2005","2004"))
+fitTrain3<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train3,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+save(fitTrain3,file="CVResidualMod3.rds")
+#load("~/SmokeProject/ModelObjects/CVResidualMod3.rds")
+
+preds3<-apply(posterior_predict(fitTrain3,test3),2,median)
+reals3<-test3$VisDiff
+
+# 2003:1999
+train4<-dat%>%filter(!Year %in% c("2003","2002","2001","2000","1999"))
+test4<-dat%>%filter(Year %in% c("2003","2002","2001","2000","1999"))
+fitTrain4<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train4,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+save(fitTrain4,file="CVResidualMod4.rds")
+#load("~/SmokeProject/ModelObjects/CVResidualMod4.rds")
+
+preds4<-apply(posterior_predict(fitTrain4,test4),2,median)
+reals4<-test4$VisDiff
+
+# 1998:1994
+train5<-dat%>%filter(!Year %in% c("1998","1997","1996","1995","1994"))
+test5<-dat%>%filter(Year %in% c("1998","1997","1996","1995","1994"))
+fitTrain5<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train5,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+save(fitTrain5,file="CVResidualMod5.rds")
+#load("~/SmokeProject/ModelObjects/CVResidualMod5.rds")
+
+preds5<-apply(posterior_predict(fitTrain5,test5),2,median)
+reals5<-test5$VisDiff
+
+# 1993:1989
+train6<-dat%>%filter(!Year %in% c("1993","1992","1991","1990","1989"))
+test6<-dat%>%filter(Year %in% c("1993","1992","1991","1990","1989"))
+fitTrain6<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train6,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+save(fitTrain6,file="CVResidualMod6.rds")
+#load("~/SmokeProject/ModelObjects/CVResidualMod6.rds")
+
+preds6<-apply(posterior_predict(fitTrain6,test6),2,median)
+reals6<-test6$VisDiff
+
+# 1988:1980
+train7<-dat%>%filter(!Year %in% c("1988","1987","1986","1985","1984","1983","1982","1981","1980"))
+test7<-dat%>%filter(Year %in% c("1988","1987","1986","1985","1984","1983","1982","1981","1980"))
+fitTrain7<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train7,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
+save(fitTrain7,file="CVResidualMod7.rds")
+#load("~/SmokeProject/ModelObjects/CVResidualMod7.rds")
+
+preds7<-apply(posterior_predict(fitTrain7,test7),2,median)
+reals7<-test7$VisDiff
+
+#combine them all
+preds<-c(preds1,preds2,preds3,preds4,preds5)
+reals<-c(reals1,reals2,reals3,reals4,reals5)
+
+
 
 d<-as.data.frame(cbind(as.vector(preds),reals))
 names(d)<-c("preds","reals")
