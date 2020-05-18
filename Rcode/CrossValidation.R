@@ -27,7 +27,9 @@ library(rstanarm)
 options(mc.cores=parallel::detectCores())
 
 #fitTrain<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
-save(fitTrain,file="CVResidualMod.rds")
+#save(fitTrain,file="CVResidualMod.rds")
+load("~/SmokeProject/ModelObjects/CVResidualMod.rds")
+
 preds<-apply(posterior_predict(fitTrain,test),2,median)
 reals<-test$VisDiff
 

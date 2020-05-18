@@ -45,6 +45,7 @@ library(zoo)
 library(formattable)
 load("~/SmokeProject/ModelObjects/feefit.rda")
 load("~/SmokeProject/ModelObjects/residuals.rda")
+load("~/SmokeProject/ModelObjects/CVResidualMod.rds")
 ```
 ## 2.1. Data Collection
 
@@ -276,6 +277,8 @@ summaryFinancialLoss$`Percent Income Loss (1980-2018)`<-paste0(summaryFinancialL
 formattable::formattable(summaryFinancialLoss)
 ```
 ## 3.3. Model Validation
+To assess the validity of our model, we used a k-fold cross validation technique.   
+
 
 ## 3.4. Future Projections
 
