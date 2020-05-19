@@ -28,7 +28,7 @@ geometry: margin=1in
 keywords: pandoc, r markdown, knitr
 bibliography: /Users/Matthewclark989/Documents/SmokeProject/References.bib
 thanks: If we want to thank anyone? Maybe Moji?.
-abstract: National Parks are important. National Parks are low on funding which affects their ability to do their job. A key way they get this funding is through visitation. Wildfire smoke affects visitation greatly and is out of ther control. Wildfires are expected to increase in the Pacific West and Intermountain regions. Over the last 38 years, we estimate that wildfire smoke has led to a 12% overall visitation decrease to National Parks in these regions. When accounting for visitation fees, this loss may have cost the National Park Service as much as $580 million in total. Wildfires and the smoke it produces is supposed to increase over the next 50 years. Assuming a linear trend in smoke, visitation overall, and park fees, we might see a financial loss to the park service of $XX. Our recomendation is that....NPS work with the forest service to prevent fires in areas close to parks?? Do they already do that??    
+abstract: National Parks are important. National Parks are low on funding which affects their ability to do their job. A key way they get this funding is through visitation. Wildfire smoke affects visitation greatly and is out of ther control. Wildfires are expected to increase in the Pacific West and Intermountain regions. Over the last 38 years, we estimate that wildfire smoke has led to a 12% overall visitation decrease to National Parks in these regions. When accounting for visitation fees, this loss may have cost the National Park Service as much as $580 million in total. Wildfires and the smoke it produces is supposed to increase over the next 50 years. Assuming a linear trend in smoke, visitation overall, and park fees, we expect to see significant financial losses to the National Park Service. Our recomendation is that....NPS work with the forest service to prevent fires in areas close to parks?? Do they already do that??    
 ---
 # 1. Introduction 
 
@@ -197,7 +197,7 @@ knitr::include_graphics(path.expand("~/SmokeProject/Train_Test.png"))
 
 
 
-### 2.2.3. Smoke, Fee, & Visitation Projections
+
 
 
 # 3. Results
@@ -449,7 +449,7 @@ x$Correlation<-round(x$Correlation,digits=2)
 names(x)<-c("Model","Time Period", "Correlation", "R^2")
 formattable::formattable(x)
 ```
-## 3.4. Future Projections
+
 
 # 4. Discussion
 
