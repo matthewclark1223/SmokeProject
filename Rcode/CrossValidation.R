@@ -108,6 +108,28 @@ cor(as.vector(preds5),reals5)
 cor(as.vector(preds6),reals6)
 cor(as.vector(preds7),reals7)
 
+x<-data.frame(Model=c(1:7), 
+              "TimePeriod"=c("1980 - 1988",
+                                         "1989 - 1993",
+                                         "1994 - 1998",
+                                         "1999 - 2003",
+                           "2004 - 2008",
+                           "2009 - 2013",
+                           "2014 - 2018"), 
+              Correlation=c(cor(as.vector(preds1),reals1),
+                                                   cor(as.vector(preds2),reals2),
+                                                   cor(as.vector(preds3),reals3),
+                                                   cor(as.vector(preds4),reals4),
+                                                   cor(as.vector(preds5),reals5),
+                                                   cor(as.vector(preds6),reals6),
+                                                   cor(as.vector(preds7),reals7)))
+
+x$r2<-round(x$Correlation^2,digits=2)
+x$Correlation<-round(x$Correlation,digits=2)
+names(x)<-c("Model","Time Period", "Correlation", "R^2")
+formattable::formattable(x)
+
+
 
 d<-as.data.frame(cbind(as.vector(preds),reals))
 names(d)<-c("preds","reals")
