@@ -39,6 +39,7 @@ ri<-as.data.frame(ran_intercept_post)
 
 
 
+
 ##just one estimate
 gen_quant_r <- function(x,y) { #x here is the input smoke values #y is park
   lin_comb <- mean(intercept_post) + 
