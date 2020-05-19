@@ -185,6 +185,18 @@ fit<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=dat,adapt_delta = 0.99,chains=8,wa
 
 ### 2.2.2. Model Validation
 
+
+```{r echo=FALSE, message=FALSE}
+knitr::include_graphics(path.expand("~/SmokeProject/Train_Test.png"))
+```
+
+
+
+
+
+
+
+
 ### 2.2.3. Smoke, Fee, & Visitation Projections
 
 
