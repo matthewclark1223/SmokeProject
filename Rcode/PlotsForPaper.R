@@ -1,6 +1,6 @@
 library(tidyverse)
 allData<-read_csv("Data/MergedDataComplete.csv")[,-1]
-predDat<-read_csv("~/SmokeProject/Data/FullDataWithMinSmokePredictions.csv")[,-1]
+predDat<-read_csv("Data/FullDataWithMinSmokePredictions.csv")[,-1]
 predDat$date<-zoo::as.yearmon(predDat$date)
 allData$date<-zoo::as.yearmon(paste0(allData$Month,allData$Year),"%m%Y")
 allData<-allData%>% filter(SeasType =="High")
@@ -206,25 +206,30 @@ allData<-allData%>%filter(UnitCode %in% unique(predDat$UnitCode))
   
   ## 
   
-  p1<-predDat%>%filter(UnitCode == "ROMO")%>%
+  p1<-predDat%>%filter(UnitCode == "OLYM")%>%
     ggplot(.,aes(x=date))+
     geom_ribbon(aes(ymin=PredNoSmoke5CI, ymax=PredNoSmoke95CI),fill="#1f78b4",alpha=0.2)+
     geom_ribbon(aes(ymin=PredNoSmoke25CI, ymax=PredNoSmoke75CI),fill="#1f78b4",alpha=0.5)+
-    geom_line(aes(y=RecreationVisits,color="black"),size=1.25)+
+    geom_line(aes(y=RecreationVisits,color="grey"),size=1.25)+
+    geom_point(aes(y=RecreationVisits,color="black"),size=2)+
     geom_line(aes(y=PredNoSmoke50CI,color="#1f78b4"),linetype="longdash",size=1.25)+theme_classic()+
-    mytheme + scale_y_continuous(name="Recreational Visits", labels = scales::comma)+xlab("Date")+
+    mytheme + scale_y_continuous(name="Recreational Visits", labels = scales::comma)+
+    scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
     scale_color_identity(name = "",
                          breaks = c("black", "#1f78b4"),
-                         labels = c("Observed", "Median Estimate"),
-                         guide = "legend")+ggtitle("Rocky Mountain National Park")+theme(legend.position="top")
+                         labels = c("Observed", "Median Estimate Minimum Smoke"),
+                         guide = "legend")+ggtitle("Rocky Mountain National Park")+theme(legend.position="top")+
+    theme(axis.title.x=element_blank(),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.line.x = element_blank())
 
 
   
   
-p2<-allData%>%filter(UnitCode == "ROMO")%>%group_by(Year)%>%
+p2<-predDat%>%filter(UnitCode == "OLYM")%>%group_by(Year)%>%
     summarise(meansmoke=mean(Smoke))%>%
     ggplot(.,aes(x=Year,y=meansmoke))+
-  geom_smooth(se=F,method="lm",color="lightgrey",alpha=0.5,size=2)+
     geom_segment(aes(xend = Year, yend = 0,color =(meansmoke)),size=1.5) +
     geom_point(aes(color =(meansmoke)),size=5)+
     scale_color_gradient2(low ="#2b83ba" , mid = "#ffffbf", high = "#d7191c",name= "Difference from trend",breaks=c(0.050,-0.035),
@@ -232,9 +237,11 @@ p2<-allData%>%filter(UnitCode == "ROMO")%>%group_by(Year)%>%
     ) + 
     #guides(color = FALSE) +
     guides(alpha = FALSE) + 
-    theme_classic()+xlab("Date")+
-   scale_y_continuous(name="Smoke (PM 2.5)")+mytheme
+    theme_classic()+  scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
+   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(0, 9e-10))+mytheme
   
-gridExtra::grid.arrange(p1,p2,nrow=2)
-  
-  
+
+gA <- ggplotGrob(p1)
+gB <- ggplotGrob(p2)
+grid::grid.newpage()
+grid::grid.draw(rbind(gA, gB))
