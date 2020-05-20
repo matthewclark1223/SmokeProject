@@ -206,7 +206,7 @@ allData<-allData%>%filter(UnitCode %in% unique(predDat$UnitCode))
   
   ## 
   
-  p1<-predDat%>%filter(UnitCode == "OLYM")%>%
+  p1<-predDat%>%filter(UnitCode == "GLAC")%>%
     ggplot(.,aes(x=date))+
     geom_ribbon(aes(ymin=PredNoSmoke5CI, ymax=PredNoSmoke95CI),fill="#1f78b4",alpha=0.2)+
     geom_ribbon(aes(ymin=PredNoSmoke25CI, ymax=PredNoSmoke75CI),fill="#1f78b4",alpha=0.5)+
@@ -218,7 +218,7 @@ allData<-allData%>%filter(UnitCode %in% unique(predDat$UnitCode))
     scale_color_identity(name = "",
                          breaks = c("black", "#1f78b4"),
                          labels = c("Observed", "Median Estimate Minimum Smoke"),
-                         guide = "legend")+ggtitle("Rocky Mountain National Park")+theme(legend.position="top")+
+                         guide = "legend")+ggtitle("Yellowstone National Park")+theme(legend.position="top")+
     theme(axis.title.x=element_blank(),
           axis.text.x=element_blank(),
           axis.ticks.x=element_blank(),
@@ -227,7 +227,7 @@ allData<-allData%>%filter(UnitCode %in% unique(predDat$UnitCode))
 
   
   
-p2<-predDat%>%filter(UnitCode == "OLYM")%>%group_by(Year)%>%
+p2<-predDat%>%filter(UnitCode == "GLAC")%>%group_by(Year)%>%
     summarise(meansmoke=mean(Smoke))%>%
     ggplot(.,aes(x=Year,y=meansmoke))+
     geom_segment(aes(xend = Year, yend = 0,color =(meansmoke)),size=1.5) +
@@ -238,7 +238,7 @@ p2<-predDat%>%filter(UnitCode == "OLYM")%>%group_by(Year)%>%
     #guides(color = FALSE) +
     guides(alpha = FALSE) + 
     theme_classic()+  scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
-   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(0, 9e-10))+mytheme
+   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0))+mytheme
   
 
 gA <- ggplotGrob(p1)

@@ -206,10 +206,13 @@ knitr::include_graphics(path.expand("~/SmokeProject/Train_Test.png"))
 For all significant effects (90% C.I. doesn't overlap 0), we see a negative effect of smoke on the residual visitation to National Parks.
 
 ```{r echo=FALSE, cache=TRUE, message=FALSE,warning=FALSE}
-PNames<-rev(unique(dat$ParkName))
+PNames<-unique(dat$ParkName)
+
+pp<-as.data.frame(posterior_interval(fit))
+limits<-row.names(pp[grep("stdsmoke UnitCode",row.names(pp)),])
 
 pars<-plot(fit, regex_pars = "stdsmoke UnitCode",
-     prob = 0.5, prob_outer = 0.9)
+           prob = 0.5, prob_outer = 0.9)
 
 mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                 plot.title = element_text( size=18, color="black",face="bold"),
@@ -218,11 +221,13 @@ mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_b
                 axis.text=(element_text(color="black", size=14)),
                 legend.title = element_text(colour="black", size=18),
                 legend.text = element_text( size = 14))
+
+
 ```
 
 ```{r echo=FALSE, cache=TRUE, message=FALSE,warning=FALSE, fig.height = 9, fig.width = 12}
 pars+ggplot2::ggtitle("Posterior medians with 50% and 90% intervals")+
-  ggplot2::scale_y_discrete(name ="Park",labels=PNames)+
+  ggplot2::scale_y_discrete(name ="Park",labels=rev(PNames),limits=rev(limits))+
   mytheme+scale_x_continuous(name="Parameter Value", labels = scales::comma)
 ```
 
@@ -241,7 +246,7 @@ dat$date<-zoo::as.yearmon(dat$date)
 
 ```{r echo=FALSE, warning=FALSE, cache=TRUE,message=FALSE, fig.height = 6, fig.width = 12}
 library(scales)
-p1<-predDat%>%filter(UnitCode == "GLAC")%>%
+p1<-dat%>%filter(UnitCode == "GLAC")%>%
     ggplot(.,aes(x=date))+
     geom_ribbon(aes(ymin=PredNoSmoke5CI, ymax=PredNoSmoke95CI),fill="#1f78b4",alpha=0.2)+
     geom_ribbon(aes(ymin=PredNoSmoke25CI, ymax=PredNoSmoke75CI),fill="#1f78b4",alpha=0.5)+
@@ -259,7 +264,7 @@ p1<-predDat%>%filter(UnitCode == "GLAC")%>%
           axis.ticks.x=element_blank(),
           axis.line.x = element_blank())
   
-p2<-predDat%>%filter(UnitCode == "GLAC")%>%group_by(Year)%>%
+p2<-dat%>%filter(UnitCode == "GLAC")%>%group_by(Year)%>%
     summarise(meansmoke=mean(Smoke))%>%
     ggplot(.,aes(x=Year,y=meansmoke))+
     geom_segment(aes(xend = Year, yend = 0,color =(meansmoke)),size=1.5) +
@@ -270,7 +275,7 @@ p2<-predDat%>%filter(UnitCode == "GLAC")%>%group_by(Year)%>%
     #guides(color = FALSE) +
     guides(alpha = FALSE) + 
     theme_classic()+  scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
-   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(0, 9e-10))+mytheme
+   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(0, 1.25e-9))+mytheme
   
 
 gA <- ggplotGrob(p1)
@@ -281,7 +286,7 @@ grid::grid.draw(rbind(gA, gB))
 
 ```{r echo=FALSE, warning=FALSE, cache=TRUE,message=FALSE, fig.height = 6, fig.width = 12}
 library(scales)
-p1<-predDat%>%filter(UnitCode == "YELL")%>%
+p1<-dat%>%filter(UnitCode == "OLYM")%>%
     ggplot(.,aes(x=date))+
     geom_ribbon(aes(ymin=PredNoSmoke5CI, ymax=PredNoSmoke95CI),fill="#1f78b4",alpha=0.2)+
     geom_ribbon(aes(ymin=PredNoSmoke25CI, ymax=PredNoSmoke75CI),fill="#1f78b4",alpha=0.5)+
@@ -293,13 +298,13 @@ p1<-predDat%>%filter(UnitCode == "YELL")%>%
     scale_color_identity(name = "",
                          breaks = c("black", "#1f78b4"),
                          labels = c("Observed", "Median Estimate Minimum Smoke"),
-                         guide = "legend")+ggtitle("Yellowstone National Park")+theme(legend.position="top")+
+                         guide = "legend")+ggtitle("Olympic National Park")+theme(legend.position="top")+
     theme(axis.title.x=element_blank(),
           axis.text.x=element_blank(),
           axis.ticks.x=element_blank(),
           axis.line.x = element_blank())
   
-p2<-predDat%>%filter(UnitCode == "YELL")%>%group_by(Year)%>%
+p2<-dat%>%filter(UnitCode == "OLYM")%>%group_by(Year)%>%
     summarise(meansmoke=mean(Smoke))%>%
     ggplot(.,aes(x=Year,y=meansmoke))+
     geom_segment(aes(xend = Year, yend = 0,color =(meansmoke)),size=1.5) +
@@ -310,7 +315,7 @@ p2<-predDat%>%filter(UnitCode == "YELL")%>%group_by(Year)%>%
     #guides(color = FALSE) +
     guides(alpha = FALSE) + 
     theme_classic()+  scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
-   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(0, 9e-10))+mytheme
+   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(0, 1.0e-9))+mytheme
   
 
 gA <- ggplotGrob(p1)
