@@ -34,7 +34,7 @@ abstract: National Parks are important. National Parks are low on funding which 
 
 This is how you add a reference (e.g., [@fisichelli_protected_2015; @fann_ch_2016])
 
-Paragraphs:
+Points:
 1. Public lands are important
 2. NPs are specifically high value
 3. NPs are under funded. This under funding prevents them from doing those important jobs
@@ -46,8 +46,10 @@ Paragraphs:
 9. Given the trends we observe, we project out into the future what the effects might be over the next 50 years. 
 
 
+Twenty eight percent of the land area of the United States is designated as public land [@vincent_federal_2020]. These public lands are the critical backdrop for the majority wildlife conservation and outdoor recreation in the country [@romagosa_inside_2015; @leemans_millennium_2003; @dudley_national_2011]. In a 2016 study, 93% of respondents indicated that they believe public open spaces and recreational areas should be protected, regardless of whether or not they visited them personally [@haefele_total_2016]. The crown jewel of the United States Public lands system is the National Park Service. The national park system alone received approximately 318 million recreational visitors and generated over $40 billion in economic output to local economies in 2018 [@thomas_2018_2018].  
 
 
+National parks undeniably represent a critical infrastructure for supporting ecological integrity and outdoor recreation in the United States, but have recently drawn public attention for considerable underfunding [@simmonds_crisis_2018;@duncan_opinion_2016]. Most noteably for the $12 billion repair backlog for basic maintence and resource protection [@nps_nps_2018]. In additiion to necessary repairs, the National Park Service reports a 14% reduction in staff funding over the last 5 years [@doi_fiscal_2019]. While the majority of National Park Service funding comes from congressional appropriations, recent bugetary restrictions have put pressure on parks to gather an increasing amount of their budget from recreational visitor fees such as admissions and camping.  The income from these fees has been steadily increasing over the last 10 years as parks have seen visitation increases while simultanously increasing visitor fees [@gao_national_2016].  
 
   
 
@@ -267,7 +269,7 @@ p1<-dat%>%filter(UnitCode == "GLAC")%>%
 p2<-dat%>%filter(UnitCode == "GLAC")%>%group_by(Year)%>%
     summarise(meansmoke=mean(Smoke))%>%
     ggplot(.,aes(x=Year,y=meansmoke))+
-    geom_segment(aes(xend = Year, yend = 0,color =(meansmoke)),size=1.5) +
+    geom_segment(aes(xend = Year, yend = 2.5e-10,color =(meansmoke)),size=1.5) +
     geom_point(aes(color =(meansmoke)),size=5)+
     scale_color_gradient2(low ="#2b83ba" , mid = "#ffffbf", high = "#d7191c",name= "Difference from trend",breaks=c(0.050,-0.035),
                           labels=c("Above","Below")
@@ -275,7 +277,7 @@ p2<-dat%>%filter(UnitCode == "GLAC")%>%group_by(Year)%>%
     #guides(color = FALSE) +
     guides(alpha = FALSE) + 
     theme_classic()+  scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
-   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(0, 1.25e-9))+mytheme
+   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(2.5e-10, 1.25e-9))+mytheme
   
 
 gA <- ggplotGrob(p1)
@@ -307,7 +309,7 @@ p1<-dat%>%filter(UnitCode == "OLYM")%>%
 p2<-dat%>%filter(UnitCode == "OLYM")%>%group_by(Year)%>%
     summarise(meansmoke=mean(Smoke))%>%
     ggplot(.,aes(x=Year,y=meansmoke))+
-    geom_segment(aes(xend = Year, yend = 0,color =(meansmoke)),size=1.5) +
+    geom_segment(aes(xend = Year, yend = 1e-10,color =(meansmoke)),size=1.5) +
     geom_point(aes(color =(meansmoke)),size=5)+
     scale_color_gradient2(low ="#2b83ba" , mid = "#ffffbf", high = "#d7191c",name= "Difference from trend",breaks=c(0.050,-0.035),
                           labels=c("Above","Below")
@@ -315,7 +317,7 @@ p2<-dat%>%filter(UnitCode == "OLYM")%>%group_by(Year)%>%
     #guides(color = FALSE) +
     guides(alpha = FALSE) + 
     theme_classic()+  scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
-   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(0, 1.0e-9))+mytheme
+   scale_y_continuous(name="Smoke (PM 2.5)",expand = c(0, 0), limits = c(1e-10, 9e-10))+mytheme
   
 
 gA <- ggplotGrob(p1)
