@@ -224,7 +224,8 @@ mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_b
 ```{r echo=FALSE, cache=TRUE, message=FALSE,warning=FALSE, fig.height = 9, fig.width = 12}
 pars+ggplot2::ggtitle("Posterior medians with 50% and 90% intervals")+
   ggplot2::scale_y_discrete(name ="Park",labels=rev(PNames),limits=rev(limits))+
-  mytheme+scale_x_continuous(name="Parameter Value", labels = scales::comma)
+  mytheme+scale_x_continuous(name="Parameter Value", labels = scales::comma)+
+  theme(panel.grid.major.y = element_line(color = "lightgrey", linetype="dotted")) 
 ```
 
 ## 3.2. Backcasting
@@ -246,7 +247,7 @@ p1<-dat%>%filter(UnitCode == "GLAC")%>%
     ggplot(.,aes(x=date))+
     geom_ribbon(aes(ymin=PredNoSmoke5CI, ymax=PredNoSmoke95CI),fill="#1f78b4",alpha=0.2)+
     geom_ribbon(aes(ymin=PredNoSmoke25CI, ymax=PredNoSmoke75CI),fill="#1f78b4",alpha=0.5)+
-    geom_line(aes(y=RecreationVisits,color="grey"),size=1.25)+
+    geom_line(aes(y=RecreationVisits,color="darkgrey"),size=1.25)+
     geom_point(aes(y=RecreationVisits,color="black"),size=2)+
     geom_line(aes(y=PredNoSmoke50CI,color="#1f78b4"),linetype="longdash",size=1.25)+theme_classic()+
     mytheme + scale_y_continuous(name="Recreational Visits", labels = scales::comma)+
@@ -286,13 +287,13 @@ p1<-dat%>%filter(UnitCode == "OLYM")%>%
     ggplot(.,aes(x=date))+
     geom_ribbon(aes(ymin=PredNoSmoke5CI, ymax=PredNoSmoke95CI),fill="#1f78b4",alpha=0.2)+
     geom_ribbon(aes(ymin=PredNoSmoke25CI, ymax=PredNoSmoke75CI),fill="#1f78b4",alpha=0.5)+
-    geom_line(aes(y=RecreationVisits,color="grey"),size=1.25)+
+    geom_line(aes(y=RecreationVisits,color="darkgrey"),size=1.25)+
     geom_point(aes(y=RecreationVisits,color="black"),size=2)+
     geom_line(aes(y=PredNoSmoke50CI,color="#1f78b4"),linetype="longdash",size=1.25)+theme_classic()+
     mytheme + scale_y_continuous(name="Recreational Visits", labels = scales::comma)+
     scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
     scale_color_identity(name = "",
-                         breaks = c("black", "#1f78b4"),
+                         breaks = c("darkgrey", "#1f78b4"),
                          labels = c("Observed", "Median Estimate Minimum Smoke"),
                          guide = "legend")+ggtitle("Olympic National Park")+theme(legend.position="top")+
     theme(axis.title.x=element_blank(),
