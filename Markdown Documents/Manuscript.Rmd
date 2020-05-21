@@ -374,8 +374,8 @@ ggplot(.,
                        colour = "darkgrey", 
                        colour_x = "black", 
                        colour_xend = "#1f78b4",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey") +
-   annotate("text", x = 60000000, y = "Glacier NP", label = "Observed Visitation",vjust=-1,hjust=1)+
-  annotate("text", x = 80000000, y = "Glacier NP", label = "Predicted Visitation No Smoke",vjust=-1)+
+   annotate("text", x = 60000000, y = "Yosemite NP", label = "Observed visitation",vjust=-1,hjust=1)+
+  annotate("text", x = 73000000, y = "Yosemite NP", label = "Predicted visitation no smoke",vjust=-1)+
   scale_x_continuous( breaks=seq(10000000,90000000,20000000),labels = scales::comma) + 
   labs(title = "Total Lost Visitation",
        subtitle = "1980 to 2018",
