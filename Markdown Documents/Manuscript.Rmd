@@ -320,8 +320,6 @@ grid::grid.newpage()
 grid::grid.draw(rbind(gA, gB))
 ```
 
-
-We can apply these visitation estimates to the fee data/predictions also. This gives us the following table.
 ```{r echo=FALSE, cache=TRUE}
 fitint<-as.data.frame(posterior_interval(fit))
 names(fitint)<-c("CI5","CI95")
@@ -359,8 +357,39 @@ summaryFinancialLoss<-summaryFinancialLoss[,c(6,4,5)]
 summaryFinancialLoss$IncomeDif<-currency(summaryFinancialLoss$IncomeDif)
 names(summaryFinancialLoss)<-(c("National Park","Income Loss Estimate (1980-2018)", "Percent Income Loss (1980-2018)"))
 summaryFinancialLoss$`Percent Income Loss (1980-2018)`<-paste0(summaryFinancialLoss$`Percent Income Loss (1980-2018)`,'%')
+```
+
+
+```{r echo=FALSE, cache=TRUE, warning=FALSE, message=FALSE, fig.height = 6, fig.width = 12}
+dat%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
+  summarise(totrec=sum(RecreationVisits),totpred=sum(PredNoSmoke50CI))%>%ungroup()%>%
+  mutate(diff=totpred-totrec)%>%
+ggplot(., 
+       aes(y = reorder(ParkName,diff),
+           x = totrec,
+           xend = totpred)) +  
+  ggalt::geom_dumbbell(size = 1.2,
+                       size_x = 5, 
+                       size_xend = 5,
+                       colour = "darkgrey", 
+                       colour_x = "black", 
+                       colour_xend = "#1f78b4",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey") +
+  scale_x_continuous( breaks=seq(10000000,90000000,20000000),labels = scales::comma) + 
+  labs(title = "Total Lost Visitation",
+       subtitle = "1980 to 2018",
+       x = "Total Visits",
+       y = "")+theme_classic()+mytheme
+
+```
+
+We can apply these visitation estimates to the fee data/predictions also. This gives us the following table.
+```{r echo=FALSE, cache=TRUE}
+
 formattable::formattable(summaryFinancialLoss)
 ```
+
+
+
 ## 3.3. Model Validation
 To assess the validity of our model, we used a k-fold cross validation technique.   
 
