@@ -186,7 +186,7 @@ allData<-allData%>%filter(UnitCode %in% unique(predDat$UnitCode))
   
   ##Lolipops  ...
   predDat%>%group_by(UnitCode)%>%
-    summarise(totrec=sum(RecreationVisits),totpred=sum(No_Smoke_Mean_est))%>%
+    summarise(totrec=sum(RecreationVisits),totpred=sum(PredNoSmoke50CI))%>%
   ggplot(.) +
     geom_segment( aes(x=UnitCode, xend=UnitCode, y=totrec, yend=totpred), color="grey") +
     geom_point( aes(x=UnitCode, y=totrec), color=rgb(0.2,0.7,0.1,0.5), size=3 ) +

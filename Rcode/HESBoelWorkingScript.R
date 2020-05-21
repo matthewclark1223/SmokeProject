@@ -130,3 +130,32 @@ formattable::formattable(summaryFinancialLoss)
 sum(dat$RecreationVisits)/sum(dat$PredNoSmoke50CI)
 sum(summaryFinancialLoss$IncomeDif)  
   
+
+
+# create dumbbell plot
+
+dat%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
+  summarise(totrec=sum(RecreationVisits),totpred=sum(PredNoSmoke50CI))%>%ungroup()%>%
+  mutate(diff=totpred-totrec)%>%
+ggplot(., 
+       aes(y = reorder(ParkName,diff),
+           x = totrec,
+           xend = totpred)) +  
+  ggalt::geom_dumbbell(size = 1.2,
+                       size_x = 5, 
+                       size_xend = 5,
+                       colour = "darkgrey", 
+                       colour_x = "black", 
+                       colour_xend = "#1f78b4",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey") +
+   annotate("text", x = 60000000, y = "Glacier NP", label = "Observed Visitation",vjust=-2,hjust=1)+
+  annotate("text", x = 80000000, y = "Glacier NP", label = "Predicted Visitation No Smoke",vjust=-2)+
+  scale_x_continuous( breaks=seq(10000000,90000000,20000000),labels = scales::comma) + 
+  labs(title = "Total Lost Visitation",
+       subtitle = "1980 to 2018",
+       x = "Total Visits",
+       y = "")+theme_classic()+mytheme+theme(plot.subtitle = element_text(face = "bold"))
+
+
+
+
+
