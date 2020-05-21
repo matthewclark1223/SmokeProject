@@ -320,6 +320,7 @@ grid::grid.newpage()
 grid::grid.draw(rbind(gA, gB))
 ```
 
+
 ```{r echo=FALSE, cache=TRUE}
 fitint<-as.data.frame(posterior_interval(fit))
 names(fitint)<-c("CI5","CI95")
@@ -374,8 +375,8 @@ ggplot(.,
                        colour = "darkgrey", 
                        colour_x = "black", 
                        colour_xend = "#1f78b4",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey") +
-   annotate("text", x = 60000000, y = "Yosemite NP", label = "Observed visitation",vjust=-1,hjust=1)+
-  annotate("text", x = 73000000, y = "Yosemite NP", label = "Predicted visitation no smoke",vjust=-1)+
+   annotate("text", x = 60000000, y = "Yosemite NP", label = "Observed visitation",vjust=-1,hjust=1,fontface=2)+
+  annotate("text", x = 75000000, y = "Yosemite NP", label = "Predicted visitation no smoke",vjust=-1,color="#1f78b4",fontface=2)+
   scale_x_continuous( breaks=seq(10000000,90000000,20000000),labels = scales::comma) + 
   labs(title = "Total Lost Visitation",
        subtitle = "1980 to 2018",
