@@ -21,7 +21,7 @@ output:
     fig_caption: yes
     keep_tex: yes
     latex_engine: pdflatex
-    template: /Users/Matthewclark989/Documents/LatexPractice/templatedocs/svm_ms_template.tex
+    template: /Users/Matthewclark989/Documents/SmokeProject/svm_ms_template.tex
 fontfamily: mathpazo
 fontsize: 11pt
 geometry: margin=1in
