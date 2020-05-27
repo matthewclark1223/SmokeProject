@@ -21,18 +21,20 @@ output:
     fig_caption: yes
     keep_tex: yes
     latex_engine: pdflatex
-    template: /Users/Matthewclark989/Documents/SmokeProject/svm_ms_template.tex
+    template: ../svm_ms_template.tex
 fontfamily: mathpazo
 fontsize: 11pt
 geometry: margin=1in
 keywords: pandoc, r markdown, knitr
-bibliography: /Users/Matthewclark989/Documents/SmokeProject/References.bib
+bibliography: ../References.bib
 thanks: If we want to thank anyone? Maybe Moji?.
 abstract: The United States national park system serves as a global model for how natural resource protection can provide numerous social and ecological services while generating economic returns on investment. In recent years parks have increasingly relied on visitation fees to fund consevation projects as well as basic infrastructure. In contrast with congressional funding, visitation is subject to fluctuation given climatic and environmental variability. While many environmental variables are relatively predictable and stable over time, wildfire smoke events have increased drmatically via climate change, particurlarly in the American West. In this project, we assess how recreational visitation to national parks has systematically varied with wildfire smoke. Over the last 38 years, we estimate that wildfire smoke has led to a 12% overall visitation decrease to National Parks in the Pacific West and Inter-Mountain Regions. When accounting for visitation fees, this loss may have cost the National Park Service as much as $580 million in total. Wildfire frequency and severity are expected to increase considerably in these regions over the next 50 years. Assuming current trends in smoke, park visitation, and park fees continue, we expect to see significant financial losses to the National Park Service via wildfire smoke in the coming years.     
 ---
 # 1. Introduction 
 
 Twenty eight percent of the land area of the United States is designated as public land [@vincent_federal_2020]. These public lands are the critical backdrop for the majority wildlife conservation and outdoor recreation in the country [@romagosa_inside_2015; @leemans_millennium_2003; @dudley_national_2011]. In a 2016 study, 93% of respondents indicated that they believe public open spaces and recreational areas should be protected, regardless of whether or not they visited them personally [@haefele_total_2016]. The crown jewel of the United States public lands system is the National Park Service. The national park system alone received approximately 318 million recreational visitors and generated over $40 billion in economic output to local economies in 2018 [@thomas_2018_2018].  
+
+<!-- regular html comment --> 
 
 National parks undeniably represent a critical infrastructure for supporting ecological integrity and outdoor recreation in the United States, but have recently drawn public attention for considerable under funding [@simmonds_crisis_2018;@duncan_opinion_2016]. Most notably for the $12 billion repair backlog for basic maintenance and resource protection [@nps_nps_2018]. In addition to necessary repairs, the National Park Service reports a 14% reduction in staff funding over the last 5 years [@doi_fiscal_2019]. While the majority of National Park Service funding comes from congressional appropriations, recent budgetary restrictions have put pressure on parks to gather an increasing amount of their budget from recreational visitor fees such as admissions and camping. The income from these fees has steadily increased over the last 10 years as park visitation and visitor fees have both surged [@gao_national_2016].  
 
@@ -150,7 +152,6 @@ Data<-Data%>%
 
 ```
 
-<!-- This is how you comment -->
 
 To account for the linear trends of visitation, we first calculated the trends, then found the residuals of each datapoint from the trend line.
 $$
