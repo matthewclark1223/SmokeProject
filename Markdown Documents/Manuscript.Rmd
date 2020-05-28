@@ -92,35 +92,6 @@ $$
 We operationalized this model in rstanarm
 
 
-We then used this to predict what the fees would have been for every year we didn't have
-```{r cache=TRUE, include=FALSE}
-fillData<-FEdat[,1:2]
-
-
-FEdat$PredictedFee<-apply(posterior_predict(feefit,fillData),2,mean) #assuming this is for a new column
-
-```
-
-Our predicted fees correlate well with our observed fees that we have
-```{r echo = FALSE, cache=TRUE,message=FALSE,warning=FALSE}
-xx<-na.omit(FEdat)
- mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                  plot.title = element_text( size=18, color="black",face="bold"),
-                  axis.title.x = element_text( size=18),
-                  axis.title.y = element_text( size=18),
-                  axis.text=(element_text(color="black", size=14)),
-                  legend.title = element_text(colour="black", size=18),
-                  legend.text = element_text( size = 14))
-xx%>%
-  ggplot(.,aes(x=SingleVisitorEntryFee,y=PredictedFee))+
-  geom_jitter(size=2, alpha=0.3)+
-  geom_smooth(method="lm", se=FALSE, colour="black",size=2,linetype="longdash")+
-  geom_text(aes(x=5,y=15),size=10,label=paste("cor =",round(cor(xx$PredictedFee,xx$SingleVisitorEntryFee),digits=2)))+
-  ggtitle("Predicted vs Observed Single Visitor Entry Fee")+theme_classic()+mytheme+
-  theme(plot.title = element_text(hjust = 0.5))+
-  scale_y_continuous(name="Predicted Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))+
-  scale_x_continuous(name="Observed Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))
-```
 
 ### 2.1.3. Smoke Data
 
@@ -185,10 +156,6 @@ fit<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=dat,adapt_delta = 0.99,chains=8,wa
 
 ### 2.2.2. Model Validation
 
-
-```{r echo=FALSE, message=FALSE,cache=TRUE}
-knitr::include_graphics(path.expand("~/SmokeProject/Train_Test.png"))
-```
 
 
 
@@ -425,7 +392,63 @@ financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
 
 
 
-## 3.3. Model Validation
+
+
+
+# 4. Discussion
+
+Discussion here
+
+
+
+# S. Supplemental
+
+## S.1. Visitation Fee Back Predicting Accuracy
+We then used this to predict what the fees would have been for every year we didn't have
+```{r cache=TRUE, include=FALSE}
+
+FEdat<-read.csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
+FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
+
+d<-na.omit(FEdat) #get rid of rows with any NA
+
+
+fillData<-FEdat[,1:2]
+
+
+FEdat$PredictedFee<-apply(posterior_predict(feefit,fillData),2,mean) #assuming this is for a new column
+
+```
+
+Our predicted fees correlate well with our observed fees that we have
+```{r echo = FALSE, cache=TRUE,message=FALSE,warning=FALSE}
+xx<-na.omit(FEdat)
+ mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                  plot.title = element_text( size=18, color="black",face="bold"),
+                  axis.title.x = element_text( size=18),
+                  axis.title.y = element_text( size=18),
+                  axis.text=(element_text(color="black", size=14)),
+                  legend.title = element_text(colour="black", size=18),
+                  legend.text = element_text( size = 14))
+xx%>%
+  ggplot(.,aes(x=SingleVisitorEntryFee,y=PredictedFee))+
+  geom_jitter(size=2, alpha=0.3)+
+  geom_smooth(method="lm", se=FALSE, colour="black",size=2,linetype="longdash")+
+  geom_text(aes(x=5,y=15),size=10,label=paste("cor =",round(cor(xx$PredictedFee,xx$SingleVisitorEntryFee),digits=2)))+
+  ggtitle("Predicted vs Observed Single Visitor Entry Fee")+theme_classic()+mytheme+
+  theme(plot.title = element_text(hjust = 0.5))+
+  scale_y_continuous(name="Predicted Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))+
+  scale_x_continuous(name="Observed Single Visitor Entry Fee",labels = scales::dollar_format(prefix = "$"))
+```
+
+
+## S.2. Model Validation Process
+
+```{r echo=FALSE, message=FALSE,cache=TRUE}
+knitr::include_graphics(path.expand("~/SmokeProject/Train_Test.png"))
+```
+
+## S.3. Model Validation Results
 To assess the validity of our model, we used a k-fold cross validation technique.   
 
 
@@ -554,17 +577,6 @@ x$Correlation<-round(x$Correlation,digits=2)
 names(x)<-c("Model","Time Period", "Correlation", "R^2")
 formattable::formattable(x)
 ```
-
-
-# 4. Discussion
-
-Discussion here
-
-
-
-# 5. Supplemental
-
-
 
 
 
