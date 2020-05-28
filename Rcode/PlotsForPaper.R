@@ -245,3 +245,37 @@ gA <- ggplotGrob(p1)
 gB <- ggplotGrob(p2)
 grid::grid.newpage()
 grid::grid.draw(rbind(gA, gB))
+
+
+predDat%>%filter(UnitCode == "GLAC")%>%
+  ggplot(.,aes(x=date))+
+  geom_ribbon(aes(ymin=PredNoSmoke5CI, ymax=PredNoSmoke95CI),fill="#1f78b4",alpha=0.2)+
+  geom_ribbon(aes(ymin=PredNoSmoke25CI, ymax=PredNoSmoke75CI),fill="#1f78b4",alpha=0.5)+
+  geom_line(aes(y=RecreationVisits,color="darkgrey"),size=1.25)+
+  geom_point(aes(y=RecreationVisits,color="black"),size=2)+
+  geom_line(aes(y=PredNoSmoke50CI,color="#1f78b4"),linetype="longdash",size=1.25)+theme_classic()+
+  mytheme + scale_y_continuous(name="Recreational Visits", labels = scales::comma)+
+  scale_x_continuous(name="Date",breaks=c(1980,1990,2000,2010,2018))+
+  scale_color_identity(name = "",
+                       breaks = c("black", "#1f78b4"),
+                       labels = c("Observed", "Median Estimate Minimum Smoke"),
+                       guide = "legend")+ggtitle("Glacier National Park")+theme(legend.position="top")+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.line.x = element_blank())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

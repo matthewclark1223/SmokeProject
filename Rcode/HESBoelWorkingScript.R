@@ -53,8 +53,8 @@ dat$PredNoSmoke75CI<-dat$trendvis+dat$PredNoSmoke75CI
 dat$PredNoSmoke25CI<-dat$trendvis+dat$PredNoSmoke25CI
 
 
-write.csv(dat,file="Data/FullDataWithMinSmokePredictions.csv")
-
+#write.csv(dat,file="Data/FullDataWithMinSmokePredictions.csv")
+dat<-read.csv("Data/FullDataWithMinSmokePredictions.csv")
 mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                 plot.title = element_text( size=18, color="black",face="bold"),
                 axis.title.x = element_text( size=18),
@@ -100,7 +100,7 @@ FEdat<-read.csv("~/SmokeProject/Data/ParkFees.csv")
 
 #get the visitation observed and predicted yearly totals (same scale as fee data)
 VEstDat<-dat%>%group_by(UnitCode,Year)%>%
-  summarise(RecVisits=sum(RecreationVisits),PredVisits = sum(PredNoSmoke))%>%
+  summarise(RecVisits=sum(RecreationVisits),PredVisits = sum(PredNoSmoke50CI))%>%
   filter(UnitCode %in% fitsig$Par)
 
 #only include significant parks and years we predicted for
@@ -120,7 +120,7 @@ summaryFinancialLoss<-financialData %>% group_by(UnitCode)%>%summarise(totrec=su
 summaryFinancialLoss$ParkName<-unique(dat[dat$UnitCode %in% summaryFinancialLoss$UnitCode,]$ParkName)
 
 summaryFinancialLoss<-summaryFinancialLoss[,c(6,4,5)]
-summaryFinancialLoss$IncomeDif<-currency(summaryFinancialLoss$IncomeDif)
+summaryFinancialLoss$IncomeDif<-formattable::currency(summaryFinancialLoss$IncomeDif)
 names(summaryFinancialLoss)<-(c("National Park","Income Loss Estimate (1980-2018)", "Percent Income Loss (1980-2018)"))
 summaryFinancialLoss$`Percent Income Loss (1980-2018)`<-paste0(summaryFinancialLoss$`Percent Income Loss (1980-2018)`,'%')
 formattable::formattable(summaryFinancialLoss)
@@ -132,23 +132,26 @@ sum(summaryFinancialLoss$IncomeDif)
   
 
 
-# create dumbbell plot
-
+# create dumbbell plots
+#Visitation
 dat%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
   summarise(totrec=sum(RecreationVisits),totpred=sum(PredNoSmoke50CI))%>%ungroup()%>%
   mutate(diff=totpred-totrec)%>%
-ggplot(., 
-       aes(y = reorder(ParkName,diff),
-           x = totrec,
-           xend = totpred)) +  
+  ggplot(., 
+         aes(y = reorder(ParkName,diff),
+             x = totrec,
+             xend = totpred)) +  
   ggalt::geom_dumbbell(size = 1.2,
                        size_x = 5, 
                        size_xend = 5,
                        colour = "darkgrey", 
                        colour_x = "black", 
                        colour_xend = "#1f78b4",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey") +
-   annotate("text", x = 60000000, y = "Glacier NP", label = "Observed Visitation",vjust=-2,hjust=1)+
-  annotate("text", x = 80000000, y = "Glacier NP", label = "Predicted Visitation No Smoke",vjust=-2)+
+  geom_rect( aes(xmin=92000000, xmax=98000000, ymin=-Inf, ymax=Inf), fill="grey") +
+  geom_text( aes(label=paste0("-",round((diff/totrec)*100,digits=1), "%"), y=ParkName, x=95000000), fontface=2, size=4)+
+  annotate("text", x = 95000000, y = "Glacier NP", label = "Difference",vjust=-1.5,fontface=2)+
+  annotate("text", x = 60000000, y = "Yosemite NP", label = "Observed visitation",vjust=-1,hjust=1,fontface=2)+
+  annotate("text", x = 73000000, y = "Yosemite NP", label = "Predicted visitation no smoke",vjust=-1,color="#1f78b4",fontface=2)+
   scale_x_continuous( breaks=seq(10000000,90000000,20000000),labels = scales::comma) + 
   labs(title = "Total Lost Visitation",
        subtitle = "1980 to 2018",
@@ -156,6 +159,58 @@ ggplot(.,
        y = "")+theme_classic()+mytheme+theme(plot.subtitle = element_text(face = "bold"))
 
 
+#Money
+financialData<-merge(dat[,c(2,5)],financialData,by="UnitCode")
+financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
+  summarise(sumincome=sum(incomeObserved),sumincomePred=sum(incomePred))%>%ungroup()%>%
+  mutate(diff=sumincomePred-sumincome)%>%
+  ggplot(., 
+         aes(y = reorder(ParkName,diff),
+             x = sumincome,
+             xend = sumincomePred)) +  
+  ggalt::geom_dumbbell(size = 1.2,
+                       size_x = 5, 
+                       size_xend = 5,
+                       colour = "darkgrey", 
+                       colour_x = "black", 
+                       colour_xend = "#b2df8a",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey")+
+  geom_rect( aes(xmin=102000000000, xmax=108000000000, ymin=-Inf, ymax=Inf), fill="grey") +
+  geom_text( aes(label=paste0("-",round((diff/sumincome)*100,digits=1), "%"), y=ParkName, x=105000000000), fontface=2, size=4)+
+  annotate("text", x = 105000000000, y = "Glacier NP", label = "Difference",vjust=-1.5,fontface=2)+
+  scale_x_continuous( labels = scales::dollar_format(prefix = "$")) +
+  annotate("text", x = 62000000000, y = "Yosemite NP", label = "Observed fee revenue",vjust=-1,hjust=1,fontface=2)+
+  annotate("text", x = 75000000000, y = "Yosemite NP", label = "Predicted fee revenue no smoke",vjust=-1,color="#b2df8a",fontface=2)+
+  labs(title = "Total Lost Revenue",
+       subtitle = "1980 to 2018",
+       x = "Total Visitor Revenue 1980 to 2018",
+       y = "")+theme_classic()+mytheme+theme(plot.subtitle = element_text(face = "bold"))
 
 
+
+
+
+PNames<-unique(dat$ParkName)
+
+pp<-as.data.frame(posterior_interval(fit))
+limits<-row.names(pp[grep("stdsmoke UnitCode",row.names(pp)),])
+
+pars<-plot(fit, regex_pars = "stdsmoke UnitCode",
+           prob = 0.5, prob_outer = 0.9)
+
+mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                plot.title = element_text( size=18, color="black",face="bold"),
+                axis.title.x = element_text( size=18),
+                axis.title.y = element_text( size=18),
+                axis.text=(element_text(color="black", size=14)),
+                legend.title = element_text(colour="black", size=18),
+                legend.text = element_text( size = 14))
+
+
+
+pars+ggplot2::ggtitle("Posterior medians with 50% and 90% intervals")+
+  ggplot2::scale_y_discrete(name ="Park",labels=rev(PNames),limits=rev(limits))+
+  mytheme+scale_x_continuous(name="Parameter Value", labels = scales::comma)+
+  theme(panel.grid.major.y = element_line(color = "lightgrey", linetype="dotted")) 
+
+                                                                                      
 
