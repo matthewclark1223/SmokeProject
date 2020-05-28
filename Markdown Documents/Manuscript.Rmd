@@ -15,17 +15,16 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
     df_print: paged
-  word_document: default
   pdf_document:
     citation_package: natbib
     fig_caption: yes
     keep_tex: yes
     latex_engine: pdflatex
-    template: ../svm_ms_template.tex
+  word_document: default
 fontfamily: mathpazo
 fontsize: 11pt
 geometry: margin=1in
-keywords: pandoc, r markdown, knitr
+keywords: Wildfire, Smoke, Recreation, Park Science
 bibliography: ../References.bib
 thanks: If we want to thank anyone? Maybe Moji?.
 abstract: The United States national park system serves as a global model for how natural resource protection can provide numerous social and ecological services while generating economic returns on investment. In recent years parks have increasingly relied on visitation fees to fund consevation projects as well as basic infrastructure. In contrast with congressional funding, visitation is subject to fluctuation given climatic and environmental variability. While many environmental variables are relatively predictable and stable over time, wildfire smoke events have increased drmatically via climate change, particurlarly in the American West. In this project, we assess how recreational visitation to national parks has systematically varied with wildfire smoke. Over the last 38 years, we estimate that wildfire smoke has led to a 12% overall visitation decrease to National Parks in the Pacific West and Inter-Mountain Regions. When accounting for visitation fees, this loss may have cost the National Park Service as much as $580 million in total. Wildfire frequency and severity are expected to increase considerably in these regions over the next 50 years. Assuming current trends in smoke, park visitation, and park fees continue, we expect to see significant financial losses to the National Park Service via wildfire smoke in the coming years.     
@@ -34,7 +33,6 @@ abstract: The United States national park system serves as a global model for ho
 
 Twenty eight percent of the land area of the United States is designated as public land [@vincent_federal_2020]. These public lands are the critical backdrop for the majority wildlife conservation and outdoor recreation in the country [@romagosa_inside_2015; @leemans_millennium_2003; @dudley_national_2011]. In a 2016 study, 93% of respondents indicated that they believe public open spaces and recreational areas should be protected, regardless of whether or not they visited them personally [@haefele_total_2016]. The crown jewel of the United States public lands system is the National Park Service. The national park system alone received approximately 318 million recreational visitors and generated over $40 billion in economic output to local economies in 2018 [@thomas_2018_2018].  
 
-<!-- regular html comment --> 
 
 National parks undeniably represent a critical infrastructure for supporting ecological integrity and outdoor recreation in the United States, but have recently drawn public attention for considerable under funding [@simmonds_crisis_2018;@duncan_opinion_2016]. Most notably for the $12 billion repair backlog for basic maintenance and resource protection [@nps_nps_2018]. In addition to necessary repairs, the National Park Service reports a 14% reduction in staff funding over the last 5 years [@doi_fiscal_2019]. While the majority of National Park Service funding comes from congressional appropriations, recent budgetary restrictions have put pressure on parks to gather an increasing amount of their budget from recreational visitor fees such as admissions and camping. The income from these fees has steadily increased over the last 10 years as park visitation and visitor fees have both surged [@gao_national_2016].  
 
@@ -104,7 +102,7 @@ FEdat$PredictedFee<-apply(posterior_predict(feefit,fillData),2,mean) #assuming t
 ```
 
 Our predicted fees correlate well with our observed fees that we have
-```{r echo = FALSE, cache=TRUE}
+```{r echo = FALSE, cache=TRUE,message=FALSE,warning=FALSE}
 xx<-na.omit(FEdat)
  mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                   plot.title = element_text( size=18, color="black",face="bold"),
@@ -411,13 +409,13 @@ financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
                        size_xend = 5,
                        colour = "darkgrey", 
                        colour_x = "black", 
-                       colour_xend = "#b2df8a",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey")+
+                       colour_xend = "#41ab5d",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey")+
   geom_rect( aes(xmin=100500000000, xmax=109500000000, ymin=-Inf, ymax=Inf), fill="grey") +
   geom_text( aes(label=paste0("-",round((diff/sumincome)*100,digits=1), "%"), y=ParkName, x=105000000000), fontface=2, size=4)+
   annotate("text", x = 105000000000, y = "Glacier NP", label = "Difference",vjust=-1.5,fontface=2)+
   scale_x_continuous( labels = scales::dollar_format(prefix = "$")) +
   annotate("text", x = 62000000000, y = "Yosemite NP", label = "Observed fee revenue",vjust=-1,hjust=1,fontface=2)+
-  annotate("text", x = 80000000000, y = "Yosemite NP", label = "Predicted fee revenue no smoke",vjust=-1,color="#b2df8a",fontface=2)+
+  annotate("text", x = 80000000000, y = "Yosemite NP", label = "Predicted fee revenue no smoke",vjust=-1,color="#41ab5d",fontface=2)+
   labs(title = "Total Lost Revenue",
        subtitle = "1980 to 2018",
        x = "Total Visitor Revenue 1980 to 2018",
@@ -564,7 +562,7 @@ Discussion here
 
 
 
-
+# 5. Supplemental
 
 
 
