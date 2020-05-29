@@ -95,7 +95,7 @@ We operationalized this model in rstanarm
 
 ### 2.1.3. Smoke Data
 
-Alex to complete this section
+Will start this weekend. 
 
 ## 2.2. Analysis
 
