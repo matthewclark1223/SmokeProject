@@ -363,12 +363,11 @@ dat%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
 
 We can apply these visitation estimates to the fee data/predictions also.
 ```{r echo=FALSE, cache=TRUE, warning=FALSE, message=FALSE, fig.height = 8, fig.width = 13}
-financialData<-merge(dat[,c(2,5)],financialData,by="UnitCode")
-financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
+financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(Park)%>%
   summarise(sumincome=sum(incomeObserved),sumincomePred=sum(incomePred))%>%ungroup()%>%
   mutate(diff=sumincomePred-sumincome)%>%
   ggplot(., 
-         aes(y = reorder(ParkName,diff),
+         aes(y = reorder(Park,diff),
              x = sumincome,
              xend = sumincomePred)) +  
   ggalt::geom_dumbbell(size = 1.2,
@@ -377,17 +376,16 @@ financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
                        colour = "darkgrey", 
                        colour_x = "black", 
                        colour_xend = "#41ab5d",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey")+
-  geom_rect( aes(xmin=100500000000, xmax=109500000000, ymin=-Inf, ymax=Inf), fill="grey") +
-  geom_text( aes(label=paste0("-",round((diff/sumincome)*100,digits=1), "%"), y=ParkName, x=105000000000), fontface=2, size=4)+
-  annotate("text", x = 105000000000, y = "Glacier NP", label = "Difference",vjust=-1.5,fontface=2)+
+  geom_rect( aes(xmin=860000000, xmax=940000000, ymin=-Inf, ymax=Inf), fill="grey") +
+  geom_text( aes(label=paste0("-",round((diff/sumincome)*100,digits=1), "%"), y=Park, x=900000000), fontface=2, size=4)+
+  annotate("text", x = 900000000, y = "Glacier NP", label = "Difference",vjust=-1.5,fontface=2)+
   scale_x_continuous( labels = scales::dollar_format(prefix = "$")) +
-  annotate("text", x = 62000000000, y = "Yosemite NP", label = "Observed fee revenue",vjust=-1,hjust=1,fontface=2)+
-  annotate("text", x = 80000000000, y = "Yosemite NP", label = "Predicted fee revenue no smoke",vjust=-1,color="#41ab5d",fontface=2)+
+  annotate("text", x = 453357090, y = "Yosemite NP", label = "Observed fee revenue",vjust=-1,fontface=2)+
+  annotate("text", x = 682294835, y = "Yosemite NP", label = "Predicted fee revenue no smoke",vjust=-1,color="#41ab5d",fontface=2)+
   labs(title = "Total Lost Revenue",
        subtitle = "1980 to 2018",
        x = "Total Visitor Revenue 1980 to 2018",
        y = "")+theme_classic()+mytheme+theme(plot.subtitle = element_text(face = "bold"))
-
 ```
 
 
