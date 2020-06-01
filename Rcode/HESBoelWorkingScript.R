@@ -55,6 +55,7 @@ dat$PredNoSmoke25CI<-dat$trendvis+dat$PredNoSmoke25CI
 
 #write.csv(dat,file="Data/FullDataWithMinSmokePredictions.csv")
 dat<-read.csv("Data/FullDataWithMinSmokePredictions.csv")
+dat$date<-zoo::as.yearmon(dat$date)
 mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                 plot.title = element_text( size=18, color="black",face="bold"),
                 axis.title.x = element_text( size=18),
@@ -76,10 +77,9 @@ ggplot(.,aes(x=date))+
                        guide = "legend")+ggtitle("Rocky Mountain National Park")
 
 
-
   ggplot(dat,aes(x=date))+
   geom_line(aes(y=RecreationVisits),color="green")+
-  geom_line(aes(y=PredNoSmoke),color="blue")+geom_smooth(aes(y=RecreationVisits),se=F,method="lm",color="red")+facet_wrap(~UnitCode,scales="free")
+  geom_line(aes(y=PredNoSmoke50CI),color="blue")+geom_smooth(aes(y=RecreationVisits),se=F,method="lm",color="red")+facet_wrap(~UnitCode,scales="free")
 
   p <- plot(fit, regex_pars = "stdsmoke UnitCode",
             prob = 0.5, prob_outer = 0.9)
@@ -120,6 +120,12 @@ summaryFinancialLoss<-financialData %>% group_by(UnitCode)%>%summarise(totrec=su
 summaryFinancialLoss$ParkName<-unique(dat[dat$UnitCode %in% summaryFinancialLoss$UnitCode,]$ParkName)
 
 summaryFinancialLoss<-summaryFinancialLoss[,c(6,4,5)]
+
+#summary stats
+sum(dat$RecreationVisits)/sum(dat$PredNoSmoke50CI)
+sum(summaryFinancialLoss$IncomeDif)
+##
+
 summaryFinancialLoss$IncomeDif<-formattable::currency(summaryFinancialLoss$IncomeDif)
 names(summaryFinancialLoss)<-(c("National Park","Income Loss Estimate (1980-2018)", "Percent Income Loss (1980-2018)"))
 summaryFinancialLoss$`Percent Income Loss (1980-2018)`<-paste0(summaryFinancialLoss$`Percent Income Loss (1980-2018)`,'%')
@@ -127,8 +133,7 @@ formattable::formattable(summaryFinancialLoss)
 
 
 
-sum(dat$RecreationVisits)/sum(dat$PredNoSmoke50CI)
-sum(summaryFinancialLoss$IncomeDif)  
+  
   
 
 
@@ -160,12 +165,12 @@ dat%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
 
 
 #Money
-financialData<-merge(dat[,c(2,5)],financialData,by="UnitCode")
-financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
+
+financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(Park)%>%
   summarise(sumincome=sum(incomeObserved),sumincomePred=sum(incomePred))%>%ungroup()%>%
   mutate(diff=sumincomePred-sumincome)%>%
   ggplot(., 
-         aes(y = reorder(ParkName,diff),
+         aes(y = reorder(Park,diff),
              x = sumincome,
              xend = sumincomePred)) +  
   ggalt::geom_dumbbell(size = 1.2,
@@ -174,12 +179,12 @@ financialData%>%filter(UnitCode %in% fitsig$Par)%>%group_by(ParkName)%>%
                        colour = "darkgrey", 
                        colour_x = "black", 
                        colour_xend = "#b2df8a",dot_guide = T,dot_guide_size = NULL,dot_guide_colour = "lightgrey")+
-  geom_rect( aes(xmin=102000000000, xmax=108000000000, ymin=-Inf, ymax=Inf), fill="grey") +
-  geom_text( aes(label=paste0("-",round((diff/sumincome)*100,digits=1), "%"), y=ParkName, x=105000000000), fontface=2, size=4)+
-  annotate("text", x = 105000000000, y = "Glacier NP", label = "Difference",vjust=-1.5,fontface=2)+
+  geom_rect( aes(xmin=1020000000, xmax=1080000000, ymin=-Inf, ymax=Inf), fill="grey") +
+  geom_text( aes(label=paste0("-",round((diff/sumincome)*100,digits=1), "%"), y=Park, x=1050000000), fontface=2, size=4)+
+  annotate("text", x = 1050000000, y = "Glacier NP", label = "Difference",vjust=-1.5,fontface=2)+
   scale_x_continuous( labels = scales::dollar_format(prefix = "$")) +
-  annotate("text", x = 62000000000, y = "Yosemite NP", label = "Observed fee revenue",vjust=-1,hjust=1,fontface=2)+
-  annotate("text", x = 75000000000, y = "Yosemite NP", label = "Predicted fee revenue no smoke",vjust=-1,color="#b2df8a",fontface=2)+
+  annotate("text", x = 620000000, y = "Yosemite NP", label = "Observed fee revenue",vjust=-1,hjust=1,fontface=2)+
+  annotate("text", x = 750000000, y = "Yosemite NP", label = "Predicted fee revenue no smoke",vjust=-1,color="#b2df8a",fontface=2)+
   labs(title = "Total Lost Revenue",
        subtitle = "1980 to 2018",
        x = "Total Visitor Revenue 1980 to 2018",
