@@ -1,0 +1,72 @@
+---
+title: "Workflow Guidelines"
+author: "Matt Clark"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+## General workflow
+
+1. Pull from Github. The Master should be linked to your R studio project so that you can Pull by hitting the blue arrow.
+
+2. Make edits and add content committing frequently! Commits should be accompanied by detailed commit messages. 
+
+
+3. If working on a coding problem or specific figure, this should be done *outside* of the manuscript document. Once the figure/code chunk is complete, the code can be added to the manuscript document. This limits the probability of breaking the manuscript document for others while troubleshooting. 
+
+4. Knit to html and check that changes have rendered correctly. 
+
+5. Push commits. This can be done less frequently than specific commits. *NOTE*: Push only the manuscript.rmd document. Do not push the html document or the cache files.
+
+
+## Specifics
+
+### References
+References are stored and pulled from the 'References.bib' file which is called in the 'Manuscript.rmd' document. Reference format is BibTeX. Citations can be accessed in this format from any citation manager (e.g. Zotero) or directly from Google Scholar. When new citations are added, they should be appended (copy and paste) to the bottom of the 'References.bib' file. 
+
+Here's an example:
+
+"@article{richardson2012hidden,
+  title={The hidden cost of wildfires: Economic valuation of health effects of wildfire smoke exposure in Southern California},
+  author={Richardson, Leslie A and Champ, Patricia A and Loomis, John B},
+  journal={Journal of Forest Economics},
+  volume={18},
+  number={1},
+  pages={14--35},
+  year={2012},
+  publisher={Elsevier}
+}"
+
+To call this citation in the text of the document, paste the @article section surrounded by brackets e.g. [@richardson2012hidden]. To can multiple references, add them all into the brackets broken up by semicolons e.g. [@richardson2012hidden;@exampleRef2020]. *NOTE*: References will not appear in the literature cited section unless they are called in the in-text citations. 
+
+### Cache
+We are caching all of the markdown code chunks to speed up html rendering (so it doesn't rerun the R code every time). This is good locally, but we don't want this stuff on the github. When creating an R code chunk, include the argument `cache = TRUE`. Do not commit or Push the cached files produced. 
+
+### Text comments
+We want to be able to flag text and make comments about it. To do this, we will use double asterisk notation and bold our comments. Here's an example:
+
+The United States national park system serves as a global model for how natural resource protection can provide numerous social and ecological services while generating economic returns on investment. In recent years parks have increasingly relied on visitation fees to fund conservation projects as well as basic infrastructure. In contrast with congressional funding, visitation is subject to fluctuation given climatic and environmental variability. While many environmental variables are relatively predictable and stable over time, wildfire smoke events have increased dramatically via climate change, particularly in the American West. In this project, we assess how recreational visitation to national parks has systematically varied with wildfire smoke. ** Over the last 38 years, we estimate that wildfire smoke has led to a 12% overall visitation decrease to National Parks in the Pacific West and Inter-Mountain Regions ** **Comment text**. When accounting for visitation fees, this loss may have cost the National Park Service as much as $580 million in total. Wildfire frequency and severity are expected to increase considerably in these regions over the next 50 years. Assuming current trends in smoke, park visitation, and park fees continue, we expect to see significant financial losses to the National Park Service via wildfire smoke in the coming years.     
+
+### Small text edits
+When collaborators find small text errors (e.g. typos), they should make corrections without commenting. The commit message will serve as a comment about what changes were made in this scenario. 
+
+### File paths
+When uploading data or model objects, relative file paths will be used so that all co-authors can pull/push the document without breaking it for themselves or others. 
+
+example: `load("../ModelObjects/feefit.rda")`
+
+### R code
+We do not want any R code or the accompanying messages/warnings to appear in the manuscript. R chunks should therefore include the following arguments:
+`{r warning=FALSE, include=FALSE, cache=TRUE, message=FALSE}`
+
+Time/memory intensive analyses should be included in the markdown document for reproducibility purposes, but should be evaluated *outside* of the Manuscript document and loaded in in a subsequent code chunk. For example:
+
+`{r eval=FALSE, include=FALSE, cache=TRUE, message=FALSE}
+fit<-stan_lmer(VisDiff~stdsmoke|UnitCode,iter=8000)
+save(fit, file="residuals.rda")`
+
+
+`{r  include=FALSE, cache=TRUE, message=FALSE}
+load("../ModelObjects/residuals.rda")`
+
+
