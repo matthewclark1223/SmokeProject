@@ -47,6 +47,8 @@ Wildfires and the smoke they produce have been increasing in the United States o
 The primary goal of this project is to assess how visitation to national parks in the Inter-Mountain and Pacific West regions has systematically varied with surface level concentrations of PM2.5 resulting from wildfire smoke from 1980 - 2018. Given the variability in recreational fees between parks and over time, the secondary goal of this project is to produce order of magnitude estimates of the financial losses that wildfire smoke has caused park units during the same period. The intention of this research is not to perform an in-depth economic analysis of smoke effects on each park specifically, but rather to provide an approximation of how wildfire smoke affects population level recreational decision making and what the downstream economic impacts have been historically and what the implications are for the future. Overall, this research aims to better equip protected area managers with the information necessary to best manage recreational resources in the face of increasing wildfire events and climatic variability generally.     
 
   
+  
+  
 
 # 2. Methods
 ```{r include=FALSE, cache=TRUE}
