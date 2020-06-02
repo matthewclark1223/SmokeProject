@@ -142,6 +142,7 @@ dat<-Data
 ```
 
 
+
 We then used a hierarchical modeling structure to understand these residuals as a result of the max observed smoke values in each park in each month.
 $$
 \begin{aligned}
