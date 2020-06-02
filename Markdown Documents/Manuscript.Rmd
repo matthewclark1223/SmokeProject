@@ -27,7 +27,7 @@ geometry: margin=1in
 keywords: Wildfire, Smoke, Recreation, Park Science
 bibliography: ../References.bib
 thanks: If we want to thank anyone? Maybe Moji?.
-abstract: The United States national park system serves as a global model for how natural resource protection can provide numerous social and ecological services while generating economic returns on investment. In recent years parks have increasingly relied on visitation fees to fund consevation projects as well as basic infrastructure. In contrast with congressional funding, visitation is subject to fluctuation given climatic and environmental variability. While many environmental variables are relatively predictable and stable over time, wildfire smoke events have increased drmatically via climate change, particurlarly in the American West. In this project, we assess how recreational visitation to national parks has systematically varied with wildfire smoke. Over the last 38 years, we estimate that wildfire smoke has led to a 12% overall visitation decrease to National Parks in the Pacific West and Inter-Mountain Regions. When accounting for visitation fees, this loss may have cost the National Park Service as much as $580 million in total. Wildfire frequency and severity are expected to increase considerably in these regions over the next 50 years. Assuming current trends in smoke, park visitation, and park fees continue, we expect to see significant financial losses to the National Park Service via wildfire smoke in the coming years.     
+abstract: The United States national park system serves as a global model for how natural resource protection can provide numerous social and ecological services while generating economic returns on investment. In recent years parks have increasingly relied on visitation fees to fund conservation projects as well as basic infrastructure. In contrast with congressional funding, visitation is subject to fluctuation given climatic and environmental variability. While many environmental variables are relatively predictable and stable over time, wildfire smoke events have increased dramatically via climate change, particularly in the American West. In this project, we assess how recreational visitation to national parks has systematically varied with wildfire smoke. Over the last 38 years, we estimate that wildfire smoke has led to a 12% overall visitation decrease to National Parks in the Pacific West and Inter-Mountain Regions. When accounting for visitation fees, this loss may have cost the National Park Service as much as $580 million in total. Wildfire frequency and severity are expected to increase considerably in these regions over the next 50 years. Assuming current trends in smoke, park visitation, and park fees continue, we expect to see significant financial losses to the National Park Service via wildfire smoke in the coming years.     
 ---
 # 1. Introduction 
 
@@ -56,9 +56,9 @@ library(rstanarm)
 library(rstan)
 library(zoo)
 library(formattable)
-load("~/SmokeProject/ModelObjects/feefit.rda")
-load("~/SmokeProject/ModelObjects/residuals.rda")
-load("~/SmokeProject/ModelObjects/CVResidualMod.rds")
+load("../ModelObjects/feefit.rda")
+load("../ModelObjects/residuals.rda")
+load("../ModelObjects/CVResidualMod.rds")
 ```
 
 ```{r, include=FALSE}
@@ -70,9 +70,11 @@ options(tinytex.verbose = TRUE)
 
 ### 2.1.2. Visitation Fees
 
+used the way back machine
+
 We started with an incomplete dataset. Laura will write this part with information on collecting this data. 
 ```{r include=FALSE, cache=TRUE}
-FEdat<-read.csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
+FEdat<-read.csv("../Data/LauraStoddardEntryFeeCsv.csv")
 FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
 ```
 
@@ -106,7 +108,7 @@ We subset the data to only include high season visitation for parks in the Inter
 library(tidyverse)
 library(lme4)
 library(rstan)
-Data<-read_csv("~/SmokeProject/Data/MergedDataComplete.csv")[,-1]
+Data<-read_csv("../Data/MergedDataComplete.csv")[,-1]
 Data$date<-zoo::as.yearmon(paste0(Data$Month,Data$Year),"%m%Y")
 Data<-Data%>%group_by(UnitCode,Month)%>%mutate(ARVis = lag(RecreationVisits) )
 Data$VisChange<-(Data$RecreationVisits-Data$ARVis)/Data$ARVis
@@ -208,7 +210,7 @@ Here's an example from a few parks
 ```{r include=FALSE, cache=TRUE}
 
 
-dat<-read.csv("~/SmokeProject/Data/FullDataWithMinSmokePredictions.csv")
+dat<-read.csv("../Data/FullDataWithMinSmokePredictions.csv")
 dat$date<-zoo::as.yearmon(dat$date)
 ```
 
@@ -303,7 +305,7 @@ fitsig<-fitint[grep("stdsmoke UnitCode",row.names(fitint)),]%>%
 fitsig$Par<-substr(fitsig$Par,21,24)
 
 #predicted vis fees 
-FEdat<-read.csv("~/SmokeProject/Data/ParkFees.csv")
+FEdat<-read.csv("../Data/ParkFees.csv")
 
 #get the visitation observed and predicted yearly totals (same scale as fee data)
 VEstDat<-dat%>%group_by(UnitCode,Year)%>%
@@ -405,7 +407,7 @@ Discussion here
 We then used this to predict what the fees would have been for every year we didn't have
 ```{r cache=TRUE, include=FALSE}
 
-FEdat<-read.csv("~/SmokeProject/Data/LauraStoddardEntryFeeCsv.csv")
+FEdat<-read.csv("../Data/LauraStoddardEntryFeeCsv.csv")
 FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
 
 d<-na.omit(FEdat) #get rid of rows with any NA
@@ -443,7 +445,7 @@ xx%>%
 ## S.2. Model Validation Process
 
 ```{r echo=FALSE, message=FALSE,cache=TRUE}
-knitr::include_graphics(path.expand("~/SmokeProject/Train_Test.png"))
+knitr::include_graphics(path.expand("../Train_Test.png"))
 ```
 
 ## S.3. Model Validation Results
@@ -462,7 +464,7 @@ test1<-dat%>%filter(Year %in% c("2018","2017","2016","2015","2014"))
 
 #fitTrain<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train1,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 #save(fitTrain,file="CVResidualMod.rds")
-load("~/SmokeProject/ModelObjects/CVResidualMod.rds")
+load("../ModelObjects/CVResidualMod.rds")
 
 preds1<-apply(posterior_predict(fitTrain,test1),2,median)
 reals1<-test1$VisDiff
@@ -474,7 +476,7 @@ train2<-dat%>%filter(!Year %in% c("2013","2012","2011","2010","2009"))
 test2<-dat%>%filter(Year %in% c("2013","2012","2011","2010","2009"))
 #fitTrain2<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train2,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 #save(fitTrain2,file="CVResidualMod2.rds")
-load("~/SmokeProject/ModelObjects/CVResidualMod2.rds")
+load("../ModelObjects/CVResidualMod2.rds")
 
 preds2<-apply(posterior_predict(fitTrain2,test2),2,median)
 reals2<-test2$VisDiff
@@ -484,7 +486,7 @@ train3<-dat%>%filter(!Year %in% c("2008","2007","2006","2005","2004"))
 test3<-dat%>%filter(Year %in% c("2008","2007","2006","2005","2004"))
 #fitTrain3<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train3,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 #save(fitTrain3,file="CVResidualMod3.rds")
-load("~/SmokeProject/ModelObjects/CVResidualMod3.rds")
+load("../ModelObjects/CVResidualMod3.rds")
 
 preds3<-apply(posterior_predict(fitTrain3,test3),2,median)
 reals3<-test3$VisDiff
@@ -494,7 +496,7 @@ train4<-dat%>%filter(!Year %in% c("2003","2002","2001","2000","1999"))
 test4<-dat%>%filter(Year %in% c("2003","2002","2001","2000","1999"))
 #fitTrain4<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train4,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 #save(fitTrain4,file="CVResidualMod4.rds")
-load("~/SmokeProject/ModelObjects/CVResidualMod4.rds")
+load("../ModelObjects/CVResidualMod4.rds")
 
 preds4<-apply(posterior_predict(fitTrain4,test4),2,median)
 reals4<-test4$VisDiff
@@ -504,7 +506,7 @@ train5<-dat%>%filter(!Year %in% c("1998","1997","1996","1995","1994"))
 test5<-dat%>%filter(Year %in% c("1998","1997","1996","1995","1994"))
 #fitTrain5<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train5,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 #save(fitTrain5,file="CVResidualMod5.rds")
-load("~/SmokeProject/ModelObjects/CVResidualMod5.rds")
+load("../ModelObjects/CVResidualMod5.rds")
 
 preds5<-apply(posterior_predict(fitTrain5,test5),2,median)
 reals5<-test5$VisDiff
@@ -514,7 +516,7 @@ train6<-dat%>%filter(!Year %in% c("1993","1992","1991","1990","1989"))
 test6<-dat%>%filter(Year %in% c("1993","1992","1991","1990","1989"))
 #fitTrain6<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train6,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 #save(fitTrain6,file="CVResidualMod6.rds")
-load("~/SmokeProject/ModelObjects/CVResidualMod6.rds")
+load("../ModelObjects/CVResidualMod6.rds")
 
 preds6<-apply(posterior_predict(fitTrain6,test6),2,median)
 reals6<-test6$VisDiff
@@ -524,7 +526,7 @@ train7<-dat%>%filter(!Year %in% c("1988","1987","1986","1985","1984","1983","198
 test7<-dat%>%filter(Year %in% c("1988","1987","1986","1985","1984","1983","1982","1981","1980"))
 #fitTrain7<-stan_lmer(VisDiff~stdsmoke|UnitCode,data=train7,adapt_delta = 0.99,chains=8,warmup=2000,iter=8000)
 #save(fitTrain7,file="CVResidualMod7.rds")
-load("~/SmokeProject/ModelObjects/CVResidualMod7.rds")
+load("../ModelObjects/CVResidualMod7.rds")
 
 preds7<-apply(posterior_predict(fitTrain7,test7),2,median)
 reals7<-test7$VisDiff
