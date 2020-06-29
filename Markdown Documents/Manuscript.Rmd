@@ -72,30 +72,28 @@ options(tinytex.verbose = TRUE)
 
 ### 2.1.2. Visitation Fees
 
-used the way back machine
+Historic visitation fee data is not readily available from the National Park Service. The recreational visitor fees however, have been listed on the individual park websites historically. We accessed these historic webpages and aggregated the single visitor entry fee data using the [Internet Archive](https://archive.org/web/). We were able to access historic webpages for the years 1997-2018. Archived web pages were unavailable for years prior to 1997. For years 1980-1996, we performed trendline extension via linear regression to estimate the recreational visitor fee for each park, each year per the following:  
 
-We started with an incomplete dataset. Laura will write this part with information on collecting this data. 
+ 
 ```{r include=FALSE, cache=TRUE}
 FEdat<-read.csv("../Data/LauraStoddardEntryFeeCsv.csv")
 FEdat<-FEdat %>% dplyr::select(Park,Year,SingleVisitorEntryFee) #keep only these columns
 ```
 
-
-We removed the NA's from this dataset built a linear model which estimates the fees based on the date and the park. 
 ```{r, echo=FALSE, cache=TRUE}
 d<-na.omit(FEdat) #get rid of rows with any NA
 ```
 
 $$
 \begin{aligned}
-y_{tp} &\sim \begin{cases}\operatorname{Pois}(\mu,\lambda)\\ \mu = B_{0}+ B_{1}*X_{1} +B_{2}*X_{2}
+y_{tp} &\sim \begin{cases}\operatorname{Pois}(\mu,\lambda)\\ \mu = B_{0}+ B_{t}*X_{t} +B_{p}*X_{p}
 \end{cases}
 \end{aligned}
 $$
 
-We operationalized this model in rstanarm
+which yields the visitation estimate \(y\) for a given park \(_{p}\) in a given year \(_{t}\). Model details and validation can be found in Supplemental (S1).
 
-
+To estimate the visitor revenue for each park, each year, we multiplied the observed or estimated park fee by the number of visitors recorded for each park. This is an oversimplification of the visitation fee system and likely overestimates the fees paid by recreational visitors as it does not account for multiple visitors who may share one vehicle. As a result of this discrepancy, we caution that backcasted income losses should be taken at an order of magnitude level only, not as specific dollar estimates
 
 ### 2.1.3. Smoke Data
 
