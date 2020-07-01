@@ -1,0 +1,2 @@
+HTTP.COOKIEFILE=.cookies
+HTTP.NETRC=.netrc
