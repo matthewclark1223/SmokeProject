@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r}
-https://goldsmr5.gesdisc.eosdis.nasa.gov/opendap/MERRA2/M2I3NVAER.5.12.4/1980/01/contents.html
+https://www.r-bloggers.com/a-netcdf-4-in-r-cheatsheet/
 
 url = "https://goldsmr5.gesdisc.eosdis.nasa.gov/opendap/MERRA2/M2I3NVAER.5.12.4/1980/01/MERRA2_100.inst3_3d_aer_Nv.19800101.nc4"
 data = nc_open(url)
@@ -14,6 +14,18 @@ data = nc_open(url)
 #have to delete duplicate ".nc4" in url
 url2 = "https://goldsmr5.gesdisc.eosdis.nasa.gov/opendap/MERRA2/M2I3NVAER.5.12.4/2018/07/MERRA2_400.inst3_3d_aer_Nv.20180708.nc4?BCPHILIC[0:7][0:71][225:277][75:177],OCPHILIC[0:7][0:71][225:277][75:177],BCPHOBIC[0:7][0:71][225:277][75:177],OCPHOBIC[0:7][0:71][225:277][75:177],lat[225:277],time[0:7],lon[75:177],lev"
 data2 = nc_open(url2)
+
+#time, level, lat, long
+get<-ncvar_get(data2, varid = c("BCPHOBIC","OCPHILIC","BCPHILIC","OCPHOBIC"))
+
+#extract all 4 variables
+
+#average by month
+
+#make spatial
+
+#clip with parks
+
 
 
 ```
