@@ -103,8 +103,10 @@ nps<-readOGR("/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/NP
 #select only polygons designated as National Parks
 nps<-nps[nps@data$UNIT_TYPE=="National Park",]
 
-#remove National Park of American Samoa
-nps<-nps[nps@data$UNIT_CODE!="NPSA",]
+#remove National Parks outside our Regions
+nps<-nps[nps@data$REGION=="PW"|nps@data$REGION=="IM",]
+nps<-nps[nps@data$UNIT_CODE!="NPSA",] #Samoa
+nps<-nps[nps@data$STATE!="HI",]
 
 #reformat to use park codes later
 nps_df<-as.data.frame(nps)
