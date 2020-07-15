@@ -28,11 +28,28 @@ MER<-c(MER200,MER300)
 ####Now let's just make individual batches for each month/year combination
 
 for (i in c(1991,1992,1993,1994,1995,1996,1997,1998,1999,2000)){
-for (j in c("01","02","03","04","05","06","07","08","09","11","12")){
+for (j in c("01","02","03","04","05","06","07","08","09","10","11","12")){
     x<-(paste0(i,j))
     assign(paste0("x",i,j),MER[grep(x,MER)])
     
 }}
 
 x199101
+
+
+#Now do it with the files stored in a folder
+fileNames<-list.files("~/SmokeProject/MERRA_DATA_ORG_PRACT")
+for (i in c(1980,2004)){
+  for (j in c("01","10")){
+    x<-(paste0(i,j))
+    assign(paste0("x",i,j),fileNames[grep(x,fileNames)])
+    
+  }}
+
+
+x200410
+
+
+
+
 
