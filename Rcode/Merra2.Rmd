@@ -117,11 +117,60 @@ names(park_codes)<-"park"
 
 ```
 
+New data mean in Parks
+```{r}
+#exact_extract - https://cran.r-project.org/web/packages/exactextractr/readme/README.html * see for other summary stats
+poly<-sf::st_as_sfc(nps) #converts to new type of poly
+
+filenames <- list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/Merra2/",
+                        pattern='*.nc',full.names=TRUE)
+
+#the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere 
+bcphilic<-mean(brick("/Users/killion/Downloads/MERRA2_100.inst3_3d_aer_Nv.19901030.nc4.nc4", varname="BCPHILIC", level=72))
+bcphobic<-mean(brick("/Users/killion/Downloads/MERRA2_100.inst3_3d_aer_Nv.19901030.nc4.nc4", varname="BCPHOBIC", level=72))
+ocphilic<-mean(brick("/Users/killion/Downloads/MERRA2_100.inst3_3d_aer_Nv.19901030.nc4.nc4", varname="OCPHILIC", level=72))
+ocphobic<-mean(brick("/Users/killion/Downloads/MERRA2_100.inst3_3d_aer_Nv.19901030.nc4.nc4", varname="OCPHOBIC", level=72))
+
+all<-bcphilic+bcphobic+ocphilic+ocphobic
+
+
+#loop to calculate polygons means and save vector
+  for (i in 1:length (filenames)) {
+    raster<-raster(filenames[i], varname="DUSMASS25")#convert smoke data to raster
+    mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons. 
+   date<-str_sub(filenames[i], -13,-8) #strips down filename to just date
+  mean<-as.data.frame(mean) #convert to df
+  names(mean)<-date #rename column with date
+  date_file<-paste0("/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/loop_output_mean/",date)
+   newname<-paste0(date_file, ".csv")
+write.csv(mean, newname, row.names = FALSE) #save as csv
+}
+
+#loads those .csv and makes into single df
+list_dates = list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/loop_output_mean/", pattern="*.csv", full.names=TRUE)
+
+final_means<-list_dates %>%
+  map(read_csv) %>%
+  reduce(cbind)
+
+#append park code
+final_means<-data.frame(park=park_codes, final_means)
+
+#save
+write.csv(final_means, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/interm_data/final_means.csv", row.names = FALSE)
+
+```
+
+
+
 Mean PM2.5 in Parks 
 ```{r}
 
 #exact_extract - https://cran.r-project.org/web/packages/exactextractr/readme/README.html * see for other summary stats
 poly<-sf::st_as_sfc(nps) #converts to new type of poly
+
+filenames <- list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/Merra2/",
+                        pattern='*.nc',full.names=TRUE)
 
 #loop to calculate polygons means and save vector
   for (i in 1:length (filenames)) {
