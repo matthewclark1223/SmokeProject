@@ -126,6 +126,8 @@ filenames <- list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke
                         pattern='*.nc',full.names=TRUE)
 
 #the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere 
+
+#for a single day
 bcphilic<-mean(brick("/Users/killion/Downloads/MERRA2_100.inst3_3d_aer_Nv.19901030.nc4.nc4", varname="BCPHILIC", level=72))
 bcphobic<-mean(brick("/Users/killion/Downloads/MERRA2_100.inst3_3d_aer_Nv.19901030.nc4.nc4", varname="BCPHOBIC", level=72))
 ocphilic<-mean(brick("/Users/killion/Downloads/MERRA2_100.inst3_3d_aer_Nv.19901030.nc4.nc4", varname="OCPHILIC", level=72))
@@ -133,6 +135,8 @@ ocphobic<-mean(brick("/Users/killion/Downloads/MERRA2_100.inst3_3d_aer_Nv.199010
 
 all<-bcphilic+bcphobic+ocphilic+ocphobic
 
+#but then need to average across days
+#loop within loop?
 
 #loop to calculate polygons means and save vector
   for (i in 1:length (filenames)) {
