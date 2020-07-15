@@ -38,16 +38,16 @@ x199101
 
 
 #Now do it with the files stored in a folder
-fileNames<-list.files("~/SmokeProject/MERRA_DATA_ORG_PRACT")
-for (i in c(1980,2004)){
-  for (j in c("01","10")){
+fileNames<-list.files("~/SmokeProject/MERRA_DATA_ORG_PRACT") #this is a practice example of what the actual data foler will look like
+for (i in c(1980,2004)){ #this will have all the years whe we actually do it. The example folder only has 1980 and 2004
+  for (j in c("01","10")){ #same as above but for months
     x<-(paste0(i,j))
     assign(paste0("x",i,j),fileNames[grep(x,fileNames)])
     
   }}
 
 
-x200410
+x200410 #this will give you all the file names from the folder that are from oct 2004 regardless of the DAY
 
 
 
