@@ -47,9 +47,20 @@ for (i in c(1980,2004)){ #this will have all the years whe we actually do it. Th
   }}
 
 
-x200410 #this will give you all the file names from the folder that are from oct 2004 regardless of the DAY
+###same thing, but make a list of all the file names
+years<-c(1980,2004)
+months<-c("01","10")
+comb<-expand.grid(years,months)
+empty_list<-list() #create an empty list to fill with the file names
 
+for (i in 1:nrow(comb)){
+  for(j in years){
+    for(k in months){
+x<-(paste0(j,k))
+empty_list[[i]]<-fileNames[grep(x,fileNames)]
+names(empty_list)[i]<-paste0("x",j,k)
 
+}}}
 
 
 
