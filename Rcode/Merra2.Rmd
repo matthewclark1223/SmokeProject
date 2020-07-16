@@ -138,29 +138,8 @@ x200410<-paste0("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRA
 
 list_all<- list(x198001,x200410) #will need to output all lists above in for loop into another list
 
-
-<<<<<<< HEAD
-
-for (i in 1:length (list_all)) {
-    for (j in 1:length (list_all[i])){
-bcphilic<-mean(brick(list_all[[i]][[j]], varname="BCPHILIC", level=72)) #one day - first bracket is month, 2nd is day, within a day is 8 layers by hour
-bcphobic<-mean(brick(list_all[[i]][[j]], varname="BCPHOBIC", level=72))
-ocphilic<-mean(brick(list_all[[i]][[j]], varname="OCPHILIC", level=72))
-ocphobic<-mean(brick(list_all[[i]][[j]], varname="OCPHOBIC", level=72))
-all<-bcphilic+bcphobic+ocphilic+ocphobic # one day total value
-mean<-exact_extract(all, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
-n<-substr(list_all[[i]][[j]],94,100)
-    name<-paste0("/Users/killion/",n)
-    newname<-paste0(name, ".csv")
-write.csv(mean, newname, row.names = FALSE) #save as csv
-}
-}
-
-
 #the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere
 #for a single day
-
-<<<<<<< HEAD
 
 
 for (i in 1:length (list_all)) {
@@ -174,37 +153,17 @@ all<-bcphilic+bcphobic+ocphilic+ocphobic
 
 #Make list of all objects - assign(paste0(“day”,j), <- exact_extract(all, poly, 'mean') - 
 
-                                
-                                
-=======
-=======
-
-for (i in 1:length (list_all)) {
-    for (j in 1:length (list_all[i])){
- bcphilic<-mean(brick(list_all[[1]][[1]], varname="BCPHILIC", level=72)) #one day - first bracket is month, 2nd is day, within a day is 8 layers by hour
-bcphobic<-mean(brick(list_all[[1]][[1]], varname="BCPHOBIC", level=72))
-ocphilic<-mean(brick(list_all[[1]][[1]], varname="OCPHILIC", level=72))
-ocphobic<-mean(brick(list_all[[1]][[1]], varname="OCPHOBIC", level=72))
-
-all<-bcphilic+bcphobic+ocphilic+ocphobic
-
-
-
->>>>>>> b729be04dba11f65d98a2f237121faf221b173ce
 mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
-n<-substr(list_all[[1]][[1]],94,100)
+
+}
+
+#take mean of the assign list above
+#write csv
+  n<-substr(list_all[[1]][[1]],94,100)
     name<-paste0("/Users/killion/",n)
     newname<-paste0(name, ".csv")
 write.csv(mean, newname, row.names = FALSE) #save as csv
-<<<<<<< HEAD
-=======
 
-}}
->>>>>>> b729be04dba11f65d98a2f237121faf221b173ce
-
-    }
-#take mean of the assign list above
-#write csv
   }
 
 #loads those .csv and makes into single df
@@ -220,43 +179,6 @@ final_means<-data.frame(park=park_codes, final_means)
 #save
 write.csv(final_means, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/interm_data/final_means.csv", row.names = FALSE)
 
-<<<<<<< HEAD
-
-=======
-#the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere
-#for a single day
-
->>>>>>> 40a5e828ad5f8bc543e9edd6509d87e2f51aac2b
->>>>>>> b729be04dba11f65d98a2f237121faf221b173ce
-
-
-##OLD
-
-
-#loop to calculate polygons means and save vector
-  for (i in 1:length (filenames)) {
-    raster<-raster(filenames[i], varname="DUSMASS25")#convert smoke data to raster
-    mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
-   date<-str_sub(filenames[i], -13,-8) #strips down filename to just date
-  mean<-as.data.frame(mean) #convert to df
-  names(mean)<-date #rename column with date
-  date_file<-paste0("/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/loop_output_mean/",date)
-   newname<-paste0(date_file, ".csv")
-write.csv(mean, newname, row.names = FALSE) #save as csv
-}
-
-#loads those .csv and makes into single df
-list_dates = list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/loop_output_mean/", pattern="*.csv", full.names=TRUE)
-
-final_means<-list_dates %>%
-  map(read_csv) %>%
-  reduce(cbind)
-
-#append park code
-final_means<-data.frame(park=park_codes, final_means)
-
-#save
-write.csv(final_means, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/interm_data/final_means.csv", row.names = FALSE)
 
 ```
 
