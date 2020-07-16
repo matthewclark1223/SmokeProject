@@ -45,7 +45,7 @@ names(park_codes)<-"park"
 
 ```
 
-New data mean in Parks 
+Mean in Parks w/ New Data
 L71 will need to be hashed out when working with full data - it selects only the months which have data in our sample folder
 L93 values need to change based on the length of your new filepath
 ```{r}
