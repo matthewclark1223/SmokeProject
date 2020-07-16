@@ -160,6 +160,7 @@ write.csv(mean, newname, row.names = FALSE) #save as csv
 #the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere
 #for a single day
 
+<<<<<<< HEAD
 
 
 for (i in 1:length (list_all)) {
@@ -175,11 +176,31 @@ all<-bcphilic+bcphobic+ocphilic+ocphobic
 
                                 
                                 
+=======
+=======
+
+for (i in 1:length (list_all)) {
+    for (j in 1:length (list_all[i])){
+ bcphilic<-mean(brick(list_all[[1]][[1]], varname="BCPHILIC", level=72)) #one day - first bracket is month, 2nd is day, within a day is 8 layers by hour
+bcphobic<-mean(brick(list_all[[1]][[1]], varname="BCPHOBIC", level=72))
+ocphilic<-mean(brick(list_all[[1]][[1]], varname="OCPHILIC", level=72))
+ocphobic<-mean(brick(list_all[[1]][[1]], varname="OCPHOBIC", level=72))
+
+all<-bcphilic+bcphobic+ocphilic+ocphobic
+
+
+
+>>>>>>> b729be04dba11f65d98a2f237121faf221b173ce
 mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
 n<-substr(list_all[[1]][[1]],94,100)
     name<-paste0("/Users/killion/",n)
     newname<-paste0(name, ".csv")
 write.csv(mean, newname, row.names = FALSE) #save as csv
+<<<<<<< HEAD
+=======
+
+}}
+>>>>>>> b729be04dba11f65d98a2f237121faf221b173ce
 
     }
 #take mean of the assign list above
@@ -199,7 +220,14 @@ final_means<-data.frame(park=park_codes, final_means)
 #save
 write.csv(final_means, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/interm_data/final_means.csv", row.names = FALSE)
 
+<<<<<<< HEAD
 
+=======
+#the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere
+#for a single day
+
+>>>>>>> 40a5e828ad5f8bc543e9edd6509d87e2f51aac2b
+>>>>>>> b729be04dba11f65d98a2f237121faf221b173ce
 
 
 ##OLD
