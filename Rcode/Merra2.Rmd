@@ -123,7 +123,7 @@ poly<-sf::st_as_sfc(nps) #converts to new type of poly
 
 #Get Merra2 files
 
-fileNames<-list.files("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT")
+fileNames<-list.files("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT",full.names = TRUE)
 
 for (i in c(1980,2004)){ #this will have all the years whe we actually do it. The example folder only has 1980 and 2004
   for (j in c("01","10")){ #same as above but for months
@@ -131,19 +131,19 @@ for (i in c(1980,2004)){ #this will have all the years whe we actually do it. Th
   assign(paste0("x",i,j),fileNames[grep(x,fileNames)])
   }}
 
-#fix
-x198001<-paste0("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT/",x198001) #need full filepath - can you add in loop above??
-x200410<-paste0("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT/",x200410)
+#fix - may not have to do this now
+# x198001<-paste0("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT/",x198001) #need full filepath - can you add in loop above??
+# x200410<-paste0("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT/",x200410)
 
 
 list_all<- list(x198001,x200410) #will need to output all lists above in for loop into another list
 
 #the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere
 #for a single day
-
+empty_list<-list() 
 
 for (i in 1:length (list_all)) {
-    for (j in 1:length (list_all[i])){
+    for (j in 1:length (list_all[[i]])){
  bcphilic<-mean(brick(list_all[[i]][[j]], varname="BCPHILIC", level=72)) #one day - first bracket is month, 2nd is day, within a day is 8 layers by hour
 bcphobic<-mean(brick(list_all[[i]][[j]], varname="BCPHOBIC", level=72))
 ocphilic<-mean(brick(list_all[[i]][[j]], varname="OCPHILIC", level=72))
@@ -152,22 +152,25 @@ ocphobic<-mean(brick(list_all[[i]][[j]], varname="OCPHOBIC", level=72))
 all<-bcphilic+bcphobic+ocphilic+ocphobic
 
 #Make list of all objects - assign(paste0(“day”,j), <- exact_extract(all, poly, 'mean') - 
+empty_list[[j]]<-exact_extract(all, poly, 'mean') #intersects boundary
 
-mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
+    }
+  #take mean of the assign list above
 
-}
-
-#take mean of the assign list above
+out<-as.data.frame(empty_list)
+out_mean<-as.data.frame(rowMeans(out))
+   
 #write csv
-  n<-substr(list_all[[1]][[1]],94,100)
-    name<-paste0("/Users/killion/",n)
+  n<-substr(list_all[[i]][[j]],94,100) # !!!!!!!! you will have to change this based on the length of your filepaths
+  colnames(out_mean)[1] <- n #give values column name based on month
+   name<-paste0("/Users/killion/output_means/",n) #create empty folder to save to
     newname<-paste0(name, ".csv")
-write.csv(mean, newname, row.names = FALSE) #save as csv
+write.csv(out_mean, newname, row.names = FALSE) #save as csv
 
   }
 
 #loads those .csv and makes into single df
-list_dates = list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/loop_output_mean/", pattern="*.csv", full.names=TRUE)
+list_dates = list.files(path="/Users/killion/output_means/", pattern="*.csv", full.names=TRUE) #same folder you saved above output
 
 final_means<-list_dates %>%
   map(read_csv) %>%
@@ -177,7 +180,7 @@ final_means<-list_dates %>%
 final_means<-data.frame(park=park_codes, final_means)
 
 #save
-write.csv(final_means, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/interm_data/final_means.csv", row.names = FALSE)
+write.csv(final_means, "/Users/killion/final_means.csv", row.names = FALSE)
 
 
 ```
