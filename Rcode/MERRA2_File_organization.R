@@ -47,6 +47,8 @@ for (i in c(1980,2004)){ #this will have all the years whe we actually do it. Th
   }}
 
 
+
+
 ###same thing, but make a list of all the file names
 years<-c(1980,2004)  #all the years
 months<-c("01","10") #all the months
@@ -54,13 +56,11 @@ comb<-expand.grid(years,months) #just to get the number of unique combinations
 empty_list<-list() #create an empty list to fill with the file names
 
 for (i in 1:nrow(comb)){ #creates the number of list objects
-  for(j in years){
-    for(k in months){
-x<-(paste0(j,k))
-empty_list[[i]]<-fileNames[grep(x,fileNames)]  #fill the list with the file names
-names(empty_list)[i]<-paste0("x",j,k) #name the list objects
-
-}}}
-
-
+  year<-comb[i,]$Var1
+  month<-comb[i,]$Var2
+      x<-(paste0(year,month))
+      empty_list[[i]]<-fileNames[grep(x,fileNames)]  #fill the list with the file names
+      names(empty_list)[i]<-paste0("x",year,month) #name the list objects
+      
+    }
 
