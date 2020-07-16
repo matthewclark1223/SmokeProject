@@ -12,23 +12,20 @@ library(chron)
 library(lattice)
 library(RColorBrewer)
 
-<<<<<<< HEAD
 library(raster)
 library(rgdal)
 library(exactextractr)
 library(readr)
 library(plyr)
 library(purrr)
-=======
->>>>>>> e03f34af84288c827b58b471b39f1ef073f4dd5e
 ```
 
-*For MATRIX* 
-Open netCDF 
+*For MATRIX*
+Open netCDF
 ```{r}
 # set path and filename
 ncpath <- "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/Merra2/"
-ncname <- "MERRA2_100.tavgM_2d_aer_Nx.198001.SUB"  
+ncname <- "MERRA2_100.tavgM_2d_aer_Nx.198001.SUB"
 ncfname <- paste(ncpath, ncname, ".nc", sep="")
 dname <- "DUSMASS25"
 
@@ -44,7 +41,7 @@ print(c(nlon,nlat))
 time <- ncvar_get(ncin,"time")
 
 tunits <- ncatt_get(ncin,"time","units")
-nt <- dim(time) #dim() tells you number of timesteps 
+nt <- dim(time) #dim() tells you number of timesteps
 nt
 ```
 
@@ -85,7 +82,7 @@ image(lon,lat,tmp_array, col=rev(brewer.pal(10,"RdBu")))
 ```
 
 *For Raster*
-Stack netCDF 
+Stack netCDF
 ```{r}
 filenames <- list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/Merra2/",
                         pattern='*.nc',full.names=TRUE)
@@ -126,7 +123,7 @@ poly<-sf::st_as_sfc(nps) #converts to new type of poly
 
 #Get Merra2 files
 
-fileNames<-list.files("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT") 
+fileNames<-list.files("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT")
 
 for (i in c(1980,2004)){ #this will have all the years whe we actually do it. The example folder only has 1980 and 2004
   for (j in c("01","10")){ #same as above but for months
@@ -142,15 +139,16 @@ x200410<-paste0("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRA
 list_all<- list(x198001,x200410) #will need to output all lists above in for loop into another list
 
 
+<<<<<<< HEAD
 
 for (i in 1:length (list_all)) {
     for (j in 1:length (list_all[i])){
 bcphilic<-mean(brick(list_all[[i]][[j]], varname="BCPHILIC", level=72)) #one day - first bracket is month, 2nd is day, within a day is 8 layers by hour
 bcphobic<-mean(brick(list_all[[i]][[j]], varname="BCPHOBIC", level=72))
 ocphilic<-mean(brick(list_all[[i]][[j]], varname="OCPHILIC", level=72))
-ocphobic<-mean(brick(list_all[[i]][[j]], varname="OCPHOBIC", level=72)) 
+ocphobic<-mean(brick(list_all[[i]][[j]], varname="OCPHOBIC", level=72))
 all<-bcphilic+bcphobic+ocphilic+ocphobic # one day total value
-mean<-exact_extract(all, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons. 
+mean<-exact_extract(all, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
 n<-substr(list_all[[i]][[j]],94,100)
     name<-paste0("/Users/killion/",n)
     newname<-paste0(name, ".csv")
@@ -159,18 +157,58 @@ write.csv(mean, newname, row.names = FALSE) #save as csv
 }
 
 
-#the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere 
+#the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere
 #for a single day
 
 
 
-#but then need to average across days
-#loop within loop?
+for (i in 1:length (list_all)) {
+    for (j in 1:length (list_all[i])){
+ bcphilic<-mean(brick(list_all[[i]][[j]], varname="BCPHILIC", level=72)) #one day - first bracket is month, 2nd is day, within a day is 8 layers by hour
+bcphobic<-mean(brick(list_all[[i]][[j]], varname="BCPHOBIC", level=72))
+ocphilic<-mean(brick(list_all[[i]][[j]], varname="OCPHILIC", level=72))
+ocphobic<-mean(brick(list_all[[i]][[j]], varname="OCPHOBIC", level=72))
+
+all<-bcphilic+bcphobic+ocphilic+ocphobic
+
+#Make list of all objects - assign(paste0(“day”,j), <- exact_extract(all, poly, 'mean') - 
+
+                                
+                                
+mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
+n<-substr(list_all[[1]][[1]],94,100)
+    name<-paste0("/Users/killion/",n)
+    newname<-paste0(name, ".csv")
+write.csv(mean, newname, row.names = FALSE) #save as csv
+
+    }
+#take mean of the assign list above
+#write csv
+  }
+
+#loads those .csv and makes into single df
+list_dates = list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/loop_output_mean/", pattern="*.csv", full.names=TRUE)
+
+final_means<-list_dates %>%
+  map(read_csv) %>%
+  reduce(cbind)
+
+#append park code
+final_means<-data.frame(park=park_codes, final_means)
+
+#save
+write.csv(final_means, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-Signal/interm_data/final_means.csv", row.names = FALSE)
+
+
+
+
+##OLD
+
 
 #loop to calculate polygons means and save vector
   for (i in 1:length (filenames)) {
     raster<-raster(filenames[i], varname="DUSMASS25")#convert smoke data to raster
-    mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons. 
+    mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
    date<-str_sub(filenames[i], -13,-8) #strips down filename to just date
   mean<-as.data.frame(mean) #convert to df
   names(mean)<-date #rename column with date
@@ -196,7 +234,7 @@ write.csv(final_means, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke
 
 
 
-Mean PM2.5 in Parks 
+Mean PM2.5 in Parks
 ```{r}
 
 #exact_extract - https://cran.r-project.org/web/packages/exactextractr/readme/README.html * see for other summary stats
@@ -208,7 +246,7 @@ filenames <- list.files(path="/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke
 #loop to calculate polygons means and save vector
   for (i in 1:length (filenames)) {
     raster<-raster(filenames[i], varname="DUSMASS25")#convert smoke data to raster
-    mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons. 
+    mean<-exact_extract(raster, poly, 'mean') #extracts mean for each park. Uses cells that intersect polygons.
    date<-str_sub(filenames[i], -13,-8) #strips down filename to just date
   mean<-as.data.frame(mean) #convert to df
   names(mean)<-date #rename column with date
@@ -233,7 +271,7 @@ write.csv(final_means, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke
 ```
 
 
-Min PM2.5 in Parks 
+Min PM2.5 in Parks
 ```{r}
 
 #exact_extract - https://cran.r-project.org/web/packages/exactextractr/readme/README.html * see for other summary stats
@@ -242,7 +280,7 @@ poly<-sf::st_as_sfc(nps) #converts to new type of poly
 #loop to calculate polygons means and save vector
   for (i in 1:length (filenames)) {
     raster<-raster(filenames[i], varname="DUSMASS25")#convert smoke data to raster
-    min<-exact_extract(raster, poly, 'min') #extracts mean for each park. Uses cells that intersect polygons. 
+    min<-exact_extract(raster, poly, 'min') #extracts mean for each park. Uses cells that intersect polygons.
    date<-str_sub(filenames[i], -13,-8) #strips down filename to just date
   min<-as.data.frame(min) #convert to df
   names(min)<-date #rename column with date
@@ -267,7 +305,7 @@ write.csv(final_mins, "/Volumes/GoogleDrive/My Drive/Local/Projects/Smoke/Smoke-
 ```
 
 
-Max PM2.5 in Parks 
+Max PM2.5 in Parks
 ```{r}
 
 #exact_extract - https://cran.r-project.org/web/packages/exactextractr/readme/README.html * see for other summary stats
@@ -276,7 +314,7 @@ poly<-sf::st_as_sfc(nps) #converts to new type of poly
 #loop to calculate polygons means and save vector
   for (i in 1:length (filenames)) {
     raster<-raster(filenames[i], varname="DUSMASS25")#convert smoke data to raster
-    max<-exact_extract(raster, poly, 'max') #extracts mean for each park. Uses cells that intersect polygons. 
+    max<-exact_extract(raster, poly, 'max') #extracts mean for each park. Uses cells that intersect polygons.
    date<-str_sub(filenames[i], -13,-8) #strips down filename to just date
   max<-as.data.frame(max) #convert to df
   names(max)<-date #rename column with date
