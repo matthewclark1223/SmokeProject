@@ -116,52 +116,48 @@ names(park_codes)<-"park"
 
 New data mean in Parks
 ```{r}
-require(exactextractr)
 
-#exact_extract - https://cran.r-project.org/web/packages/exactextractr/readme/README.html * see for other summary stats
 poly<-sf::st_as_sfc(nps) #converts to new type of poly
 
-#Get Merra2 files
 
 fileNames<-list.files("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT",full.names = TRUE)
 
-for (i in c(1980,2004)){ #this will have all the years whe we actually do it. The example folder only has 1980 and 2004
-  for (j in c("01","10")){ #same as above but for months
-    x<-(paste0(i,j))
-  assign(paste0("x",i,j),fileNames[grep(x,fileNames)])
-  }}
+years<-c(1980,2004)  #all the years
+months<-c("01","10") #all the months
+comb<-expand.grid(years,months) #just to get the number of unique combinations
+list_all<-list() #create an empty list to fill with the file names
 
-#fix - may not have to do this now
-# x198001<-paste0("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT/",x198001) #need full filepath - can you add in loop above??
-# x200410<-paste0("/Users/killion/Documents/GitHub/SmokeProject/MERRA_DATA_ORG_PRACT/",x200410)
+for (i in 1:nrow(comb)){ #creates the number of list objects
+  year<-comb[i,]$Var1
+  month<-comb[i,]$Var2
+      x<-(paste0(year,month))
+      list_all[[i]]<-fileNames[grep(x,fileNames)]  #fill the list with the file names
+      names(list_all)[i]<-paste0("x",year,month) #name the list objects
+}
 
+# list_all<- list_all[c(1,4)] You will need to use this with our sample data folder
 
-list_all<- list(x198001,x200410) #will need to output all lists above in for loop into another list
-
-#the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere
-#for a single day
-empty_list<-list() 
+empty_list<-list()
 
 for (i in 1:length (list_all)) {
     for (j in 1:length (list_all[[i]])){
- bcphilic<-mean(brick(list_all[[i]][[j]], varname="BCPHILIC", level=72)) #one day - first bracket is month, 2nd is day, within a day is 8 layers by hour
+ bcphilic<-mean(brick(list_all[[i]][[j]], varname="BCPHILIC", level=72)) #one day - first bracket is month, 2nd is day, within a day is 8 layers by hour - the "level" dimension refers to veritcal layers where 72=surface and 1=top of atmosphere
 bcphobic<-mean(brick(list_all[[i]][[j]], varname="BCPHOBIC", level=72))
 ocphilic<-mean(brick(list_all[[i]][[j]], varname="OCPHILIC", level=72))
 ocphobic<-mean(brick(list_all[[i]][[j]], varname="OCPHOBIC", level=72))
 
 all<-bcphilic+bcphobic+ocphilic+ocphobic
 
-#Make list of all objects - assign(paste0(“day”,j), <- exact_extract(all, poly, 'mean') - 
 empty_list[[j]]<-exact_extract(all, poly, 'mean') #intersects boundary
 
     }
-  #take mean of the assign list above
-
+  
 out<-as.data.frame(empty_list)
-out_mean<-as.data.frame(rowMeans(out))
+out_mean<-as.data.frame(rowMeans(out)) #take mean of the assign list above
+
    
 #write csv
-  n<-substr(list_all[[i]][[j]],94,100) # !!!!!!!! you will have to change this based on the length of your filepaths
+  n<-substr(list_all[[i]][[j]],94,100) # !!!!!!!! you will have to change 94 and 100 based on the length of your filepaths - this selects just the year and month i.e. 20041008
   colnames(out_mean)[1] <- n #give values column name based on month
    name<-paste0("/Users/killion/output_means/",n) #create empty folder to save to
     newname<-paste0(name, ".csv")
@@ -180,7 +176,7 @@ final_means<-list_dates %>%
 final_means<-data.frame(park=park_codes, final_means)
 
 #save
-write.csv(final_means, "/Users/killion/final_means.csv", row.names = FALSE)
+write.csv(final_means, "/Users/killion/final_means2.csv", row.names = FALSE)
 
 
 ```
