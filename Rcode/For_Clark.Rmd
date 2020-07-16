@@ -46,7 +46,7 @@ names(park_codes)<-"park"
 ```
 
 New data mean in Parks 
-L71 will need to be unhashed when working with our sample data - it selects only the months which have data in folder
+L71 will need to be hashed out when working with full data - it selects only the months which have data in our sample folder
 L93 values need to change based on the length of your new filepath
 ```{r}
 
@@ -68,7 +68,7 @@ for (i in 1:nrow(comb)){ #creates the number of list objects
       names(list_all)[i]<-paste0("x",year,month) #name the list objects
 }
 
-# list_all<- list_all[c(1,4)] You will need to use this with our sample data folder
+list_all<- list_all[c(1,4)] #You don't need this for final run with all data
 
 empty_list<-list()
 
