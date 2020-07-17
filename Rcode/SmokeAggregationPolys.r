@@ -39,10 +39,10 @@ names(park_codes)<-"park"
 poly<-sf::st_as_sfc(nps) #converts to new type of poly
 
 
-fileNames<-list.files("~/SmokeProject/MERRA_DATA_ORG_PRACT",full.names = TRUE)
+fileNames<-list.files("/Users/Matthewclark989/Downloads/MERRA_all",full.names = TRUE)
 
-years<-c(1980,2004)  #all the years
-months<-c("01","10") #all the months
+years<-c(1980:2019)  #all the years
+months<-c("01","02","03","04","05","06","07","08","09","10","11","12") #all the months
 comb<-expand.grid(years,months) #just to get the number of unique combinations
 list_all<-list() #create an empty list to fill with the file names
 
@@ -54,7 +54,7 @@ for (i in 1:nrow(comb)){ #creates the number of list objects
   names(list_all)[i]<-paste0("x",year,month) #name the list objects
 }
 
-list_all<- list_all[c(1,4)] #You don't need this for final run with all data
+
 
 empty_list<-list()
 
@@ -76,7 +76,7 @@ for (i in 1:length (list_all)) {
   
   
   #write csv
-  n<-substr(list_all[[i]][[j]],97,103) # !!!!!!!! you will have to change 94 and 100 based on the length of your filepaths - this selects just the year and month i.e. 20041008
+  n<-substr(list_all[[i]][[j]],71,78) # !!!!!!!! you will have to change 94 and 100 based on the length of your filepaths - this selects just the year and month i.e. 20041008
   colnames(out_mean)[1] <- n #give values column name based on month
   name<-paste0("/Users/Matthewclark989/Documents/output_means/",n) #create empty folder to save to
   newname<-paste0(name, ".csv")
