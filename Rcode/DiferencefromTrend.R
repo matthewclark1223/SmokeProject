@@ -1,11 +1,13 @@
 library(tidyverse)
 library(lme4)
 library(rstan)
-Data<-read_csv("Data/MergedDataComplete.csv")[,-1]
-Data$date<-zoo::as.yearmon(paste0(Data$Month,Data$Year),"%m%Y")
-Data<-Data%>%group_by(UnitCode,Month)%>%mutate(ARVis = lag(RecreationVisits) )
-Data$VisChange<-(Data$RecreationVisits-Data$ARVis)/Data$ARVis
-Data<-na.omit(Data)
+Data<-read_csv("Data/MergedDataCompleteFINAL.csv")[,-1]
+Data[order(Data$UnitCode, Data$Date),]
+Data$Date<-zoo::as.yearmon(paste(Data$Year, Data$Month), "%Y %m")
+Data<-Data[order(Data$UnitCode, Data$Date),]
+#Data<-Data%>%group_by(UnitCode,Month)%>%mutate(ARVis = lag(RecreationVisits) )
+#Data$VisChange<-(Data$RecreationVisits-Data$ARVis)/Data$ARVis
+#Data<-na.omit(Data)
 #add smoke season
 #x<-Data%>%group_by(UnitCode,Season)%>%
  # summarise(ms=mean(Smoke))%>%ungroup()%>%
@@ -20,43 +22,52 @@ Data<-na.omit(Data)
 Data<-Data%>%filter( SeasType =="High")
 
 #filter by smoke affected regions
-Data<-Data%>%
-  filter(Region %in% c("Intermountain","Pacific West"))
+#Data<-Data%>%
+ # filter(Region %in% c("Intermountain","Pacific West"))
 
 
 #get vis and smoke trends
-fits <- lmList(Smoke ~ date | UnitCode, data=Data) 
-Data$trendsmoke<-predict(fits,date=allData$date)
+fits <- lmList(Smoke ~ Date | UnitCode, data=Data) 
+Data$trendsmoke<-predict(fits,date=Data$Date)
 
-fits <- lmList(RecreationVisits ~ date | UnitCode, data=Data) 
-Data$trendvis<-predict(fits,date=Data$date)
+fits <- lmList(RecreationVisits ~ Date | UnitCode, data=Data) 
+Data$trendvis<-predict(fits,date=Data$Date)
 
 Data$SmokeDiff<-scale(Data$Smoke-Data$trendsmoke)
 Data$VisDiff<-Data$RecreationVisits-Data$trendvis
 dat<-Data
 #plot it to make sure it worked
 Data%>%filter(UnitCode=="BIBE")%>%
-ggplot(.,aes(x=date,y=Smoke))+geom_point()+geom_smooth(se=F,method = "lm")+
-  geom_point(aes(x=date,y=trendsmoke),color="green")
+ggplot(.,aes(x=Date,y=Smoke))+geom_point()+geom_smooth(se=F,method = "lm")+
+  geom_point(aes(x=Date,y=trendsmoke),color="green")
 
 
-Data%>%filter(UnitCode=="BIBE")%>%
-  ggplot(.,aes(x=date,y=RecreationVisits))+geom_point()+geom_smooth(se=F,method = "lm")+
-  geom_point(aes(x=date,y=trendvis),color="green")+ggtitle("Yosemite NP")
+Data%>%filter(UnitCode=="YOSE")%>%
+  ggplot(.,aes(x=Date,y=RecreationVisits))+geom_point()+geom_smooth(se=F,method = "lm")+
+  geom_point(aes(x=Date,y=trendvis),color="green")+ggtitle("Yosemite NP")
 
 
 
 
 Data%>%
-  ggplot(.,aes(x=SmokeDiff,y=VisDiff))+
+  ggplot(.,aes(x=Smoke,y=VisDiff))+
   geom_point(aes(color=UnitCode))+
   geom_smooth(aes(color=UnitCode),se=F,method = "lm")+theme_classic()
 
 Data%>%
-  ggplot(.,aes(x=SmokeDiff,y=VisDiff))+
+  ggplot(.,aes(x=Smoke,y=VisDiff))+
   geom_point()+
-  geom_smooth(se=F,method = "lm")+theme_classic()+facet_wrap(~UnitCode)
+  geom_smooth(se=F)+theme_classic()+facet_wrap(~UnitCode,scales="free")
 
+Data%>%
+  ggplot(.,aes(x=MAXSmoke,y=VisDiff))+
+  geom_point()+
+  geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")
+
+Data%>%
+  ggplot(.,aes(x=MAXSmoke,y=RecreationVisits))+
+  geom_point()+
+  geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")
 
 
 
