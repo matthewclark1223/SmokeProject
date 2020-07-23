@@ -29,7 +29,9 @@ l<-stan( file="Residuals_Break_Point.stan" , data=data_list,chains=8,iter=5000,c
 
 print( l , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
+options(mc.cores=3)
 
+zz<-stan( file="~/SmokeProject/StanCode/Residuals_FIXED_BP.stan" , data=data_list,chains=3 )
 
 
 

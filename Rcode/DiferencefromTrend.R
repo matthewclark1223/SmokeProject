@@ -77,7 +77,7 @@ Data%>%
 Data%>%
   ggplot(.,aes(x=Smoke,y=RecreationVisits))+
   geom_point()+
-  geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")
+  geom_smooth(se=F)+theme_classic()+facet_wrap(~UnitCode,scales="free")
 
 
 Data%>%
