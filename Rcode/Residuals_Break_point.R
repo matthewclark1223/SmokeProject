@@ -25,7 +25,7 @@ data_list <- list(
 options(mc.cores=8)
 
 
-l<-stan( file="Residuals_Break_Point.stan" , data=data_list,chains=8,iter=5000,control(adapt_delta=0.99) ,warmup = 800 )
+l<-stan( file="Residuals_Break_Point.stan" , data=data_list,chains=8,iter=5000,control=list(adapt_delta=0.99) ,warmup = 800 )
 
 print( l , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
