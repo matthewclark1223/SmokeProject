@@ -2,22 +2,21 @@ library(tidyverse)
 library(lme4)
 library(rstan)
 Data<-read_csv("Data/MergedDataCompleteFINAL.csv")[,-1]
-Data[order(Data$UnitCode, Data$Date),]
 Data$Date<-zoo::as.yearmon(paste(Data$Year, Data$Month), "%Y %m")
 Data<-Data[order(Data$UnitCode, Data$Date),]
 #Data<-Data%>%group_by(UnitCode,Month)%>%mutate(ARVis = lag(RecreationVisits) )
 #Data$VisChange<-(Data$RecreationVisits-Data$ARVis)/Data$ARVis
 #Data<-na.omit(Data)
 #add smoke season
-#x<-Data%>%group_by(UnitCode,Season)%>%
- # summarise(ms=mean(Smoke))%>%ungroup()%>%
-  #group_by(UnitCode)%>%filter(ms==max(ms))%>%mutate(cc=paste0(UnitCode,Season))
+x<-Data%>%group_by(UnitCode,Season)%>%
+  summarise(ms=mean(Smoke))%>%ungroup()%>%
+  group_by(UnitCode)%>%filter(ms==max(ms))%>%mutate(cc=paste0(UnitCode,Season))
 
 
-#Data$SmokeSeas<-ifelse(Data$CatColS %in% x$cc,
- #                      "High","NotHigh")
+Data$SmokeSeas<-ifelse(Data$CatColS %in% x$cc,
+                       "High","NotHigh")
 
-#Data<-Data%>%filter( SmokeSeas =="High")
+Data<-Data%>%filter( SmokeSeas =="High")
 #filter by high season
 Data<-Data%>%filter( SeasType =="High")
 
@@ -49,30 +48,54 @@ Data%>%filter(UnitCode=="YOSE")%>%
 
 
 
-Data%>%
-  ggplot(.,aes(x=Smoke,y=VisDiff))+
-  geom_point(aes(color=UnitCode))+
-  geom_smooth(aes(color=UnitCode),se=F,method = "lm")+theme_classic()
+
 
 Data%>%
   ggplot(.,aes(x=Smoke,y=VisDiff))+
   geom_point()+
-  geom_smooth(se=F)+theme_classic()+facet_wrap(~UnitCode,scales="free")
+  geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")+
+  ggtitle("mean smoke")
 
 Data%>%
   ggplot(.,aes(x=MAXSmoke,y=VisDiff))+
   geom_point()+
-  geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")
+  geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")+
+  ggtitle("max smoke")
 
 Data%>%
-  ggplot(.,aes(x=MAXSmoke,y=RecreationVisits))+
+  ggplot(.,aes(x=Smoke,y=VisDiff))+
+  geom_point()+
+  geom_smooth(se=F)+theme_classic()+facet_wrap(~UnitCode,scales="free")+
+  ggtitle("mean smoke")
+
+Data%>%
+  ggplot(.,aes(x=MAXSmoke,y=VisDiff))+
+  geom_point()+
+  geom_smooth(se=F)+theme_classic()+facet_wrap(~UnitCode,scales="free")+
+  ggtitle("max smoke")
+
+Data%>%
+  ggplot(.,aes(x=Smoke,y=RecreationVisits))+
   geom_point()+
   geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")
 
 
+Data%>%
+  ggplot(.,aes(x=SmokeDiff,y=RecreationVisits))+
+  geom_point()+
+  geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")
+
+options(mc.cores=3)
+fit1<-rstanarm::stan_glmer(VisDiff~SmokeDiff|UnitCode,data=Data,chains=3)
+plot(fit1, regex_pars = "SmokeDiff UnitCode",
+     prob = 0.5, prob_outer = 0.9)
+plot(fit1, regex_pars = "stdsmoke UnitCode",
+          prob = 0.5, prob_outer = 0.9)
+
+bayesplot::color_scheme_set("viridisC")
+(trace <- plot(fit, "trace", pars = c("b[stdsmoke UnitCode:ZION]","b[stdsmoke UnitCode:YELL]","b[stdsmoke UnitCode:SEQU]","(Intercept)")))
 
 
-############################
 
 
 
