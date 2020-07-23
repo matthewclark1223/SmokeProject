@@ -6,7 +6,7 @@ dat<-dat[order(dat$UnitCode, dat$Date),]
 dat<-dat%>%filter( SeasType =="High")
 fits <- lmList(RecreationVisits ~ Date | UnitCode, data=dat) 
 dat$trendvis<-predict(fits,date=dat$Date)
-dat$VisDiff<-dat$RecreationVisits-dat$trendvis
+dat$VisDiff<-as.vector(dat$RecreationVisits-dat$trendvis)
 dat%>%filter(UnitCode=="YOSE")%>%
   ggplot(.,aes(x=Date,y=RecreationVisits))+geom_point()+geom_smooth(se=F,method = "lm")+
   geom_point(aes(x=Date,y=trendvis),color="green")+ggtitle("Yosemite NP")
