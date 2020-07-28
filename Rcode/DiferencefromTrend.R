@@ -46,14 +46,14 @@ Data%>%filter(UnitCode=="YOSE")%>%
   geom_point(aes(x=Date,y=trendvis),color="green")+ggtitle("Yosemite NP")
 
 
+x<-Data%>%group_by(UnitCode)%>%summarise(smoke=max(stdsmoke))%>%arrange(-smoke)
+names<-x[1:10,]$UnitCode
 
 
-
-
-Data%>%
+Data%>%filter(UnitCode %in% names)%>%
   ggplot(.,aes(x=Smoke,y=VisDiff))+
   geom_point()+
-  geom_smooth(se=F,method="lm")+theme_classic()+facet_wrap(~UnitCode,scales="free")+
+  geom_smooth(se=F)+theme_classic()+facet_wrap(~UnitCode)+
   ggtitle("mean smoke")
 
 Data%>%
