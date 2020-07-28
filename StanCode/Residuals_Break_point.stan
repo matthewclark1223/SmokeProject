@@ -24,7 +24,7 @@ model {
   slope2 ~ cauchy(-50,2.5); //prior for the slopes following Gelman 2008 cauchy(0,2.5)
   sigma ~ normal(350, 1);
   sigma_pr ~normal(115,1);
-  bkpoint~normal(1,0.01);
+  bkpoint~normal(1,0.5);
 
 
 for(i in 1:N){
