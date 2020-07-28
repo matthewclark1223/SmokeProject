@@ -4,12 +4,14 @@ dat<-read_csv("Data/MergedDataCompleteFINAL.csv")[,-1]
 dat$Date<-zoo::as.yearmon(paste(dat$Year, dat$Month), "%Y %m")
 dat<-dat[order(dat$UnitCode, dat$Date),]
 dat<-dat%>%filter( SeasType =="High")
-fits <- lmList(RecreationVisits ~ Date | UnitCode, data=dat) 
+fits <- lme4::lmList(RecreationVisits ~ Date | UnitCode, data=dat) 
 dat$trendvis<-predict(fits,date=dat$Date)
 dat$VisDiff<-as.vector(dat$RecreationVisits-dat$trendvis)
 dat%>%filter(UnitCode=="YOSE")%>%
   ggplot(.,aes(x=Date,y=RecreationVisits))+geom_point()+geom_smooth(se=F,method = "lm")+
   geom_point(aes(x=Date,y=trendvis),color="green")+ggtitle("Yosemite NP")
+
+
 
 
 
@@ -29,13 +31,13 @@ l<-stan( file="~/SmokeProject/StanCode/Residuals_FIXED_BP.stan" , data=data_list
 
 print( l , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
-options(mc.cores=3)
-
-zz<-stan( file="Residuals_Break_Point.stan" , data=data_list,chains=8,iter=8000,control=list(adapt_delta=0.99,max_treedepth = 15) ,warmup = 800 )
-
+#this converged
+zz<-stan( file="Residuals_Break_Point.stan" , data=data_list,chains=8,iter=8000,control=list(adapt_delta=0.99,max_treedepth = 10) ,warmup = 3000 )
 
 
+print( zz , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
 
+save(zz,file="Residuals_bkpoint.rda")
 
 
