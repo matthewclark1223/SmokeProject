@@ -40,3 +40,70 @@ for(i in 1:32){bkpts[i]<-paste0("bkpoint","[",i,"]")}
 
 bkpointplot<-rstan::plot(zz, pars = bkpts,
                         prob = 0.5, prob_outer = 0.9)
+
+
+
+
+dat%>%filter(UnitCode == "REDW")%>%
+ggplot(., aes(x=stdsmoke,y=VisDiff))+geom_point()+geom_smooth(se=F)
+
+
+
+
+dat%>%filter(UnitCode == "REDW")%>%
+  ggplot(., aes(x=stdsmoke,y=VisDiff))+geom_point()+
+geom_abline(intercept = (-5.65-415.10), slope = 0.29, color="blue", 
+              linetype="dashed", size=1)+ geom_vline(xintercept = 2.94)+
+  
+  geom_abline(intercept = (-5.65-415.10)+(0.29*2.94-(2.94*-405.09)), slope = -405.09, color="red", 
+              linetype="dashed", size=1 )
+
+Data$UnitCodeFactor<-as.integer(as.factor(Data$UnitCode))
+x<-as.data.frame(zz)
+x<-apply(x,2,mean)
+x<-as.data.frame(x)
+x<-data.frame(UnitCode= unique(dat$UnitCode), slope1=x[2:33,1],slope2=x[34:65,1],ran_int = x[67:98,1],bkpt=x[100:131,1],intercept=rep(x[1,1],32))
+
+dat%>%filter(UnitCode == "REDW")%>%
+  ggplot(., aes(x=stdsmoke,y=VisDiff))+geom_point()+
+  geom_abline(intercept = (-5.65-415.10), slope = 0.29, color="blue", 
+              linetype="dashed", size=1)+ geom_vline(xintercept = 2.94)+
+  
+  geom_abline(intercept = (-5.65-415.10)+(0.29*2.94-(2.94*-405.09)), slope = -405.09, color="red", 
+              linetype="dashed", size=1 )
+
+
+dat%>%filter(UnitCode == "REDW")%>%
+  ggplot(., aes(x=stdsmoke,y=VisDiff))+geom_point()+
+  geom_abline(data=x,intercept = (x[26,]$intercept-x[26,]$ran_int), slope =x[26,]$slope1, color="blue", 
+              linetype="dashed", size=1)+ geom_vline(xintercept = 2.94)+
+   geom_abline(data=x, intercept = (x[26,]$intercept-x[26,]$ran_int)+
+                (x[26,]$slope1*x[26,]$bkpt-(x[26,]$bkpt*x[26,]$slope2)), slope = x[26,]$slope2, color="red", 
+              linetype="dashed", size=1 )
+
+
+dat%>%filter(UnitCode == "CAVE")%>%
+  ggplot(., aes(x=stdsmoke,y=VisDiff))+geom_point()+
+  geom_abline(data=x,intercept = (x[7,]$intercept-x[7,]$ran_int), slope =x[7,]$slope1, color="blue", 
+              linetype="dashed", size=1)+ geom_vline(xintercept = 2.94)+
+  geom_abline(data=x, intercept = (x[7,]$intercept-x[7,]$ran_int)+
+                (x[7,]$slope1*x[7,]$bkpt-(x[7,]$bkpt*x[7,]$slope2)), slope = x[7,]$slope2, color="red", 
+              linetype="dashed", size=1 )
+
+
+dat%>%filter(UnitCode == "YOSE")%>%
+  ggplot(., aes(x=stdsmoke,y=VisDiff))+geom_point()+
+  geom_abline(data=x,intercept = (x[31,]$intercept-x[31,]$ran_int), slope =x[31,]$slope1, color="blue", 
+              linetype="dashed", size=1)+ geom_vline(xintercept = 2.94)+
+  geom_abline(data=x, intercept = (x[31,]$intercept-x[31,]$ran_int)+
+                (x[31,]$slope1*x[31,]$bkpt-(x[31,]$bkpt*x[31,]$slope2)), slope = x[31,]$slope2, color="red", 
+              linetype="dashed", size=1 )
+
+
+dat%>%filter(UnitCode == "OLYM")%>%
+  ggplot(., aes(x=stdsmoke,y=VisDiff))+geom_point()+
+  geom_abline(data=x,intercept = (x[23,]$intercept-x[23,]$ran_int), slope =x[23,]$slope1, color="blue", 
+              linetype="dashed", size=1)+ geom_vline(xintercept = 2.94)+
+  geom_abline(data=x, intercept = (x[23,]$intercept-x[23,]$ran_int)+
+                (x[23,]$slope1*x[23,]$bkpt-(x[23,]$bkpt*x[23,]$slope2)), slope = x[23,]$slope2, color="red", 
+              linetype="dashed", size=1 )

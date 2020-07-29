@@ -54,22 +54,14 @@ for(i in 1:nrow(Data)){
 
 cor(pred50,Data$VisDiff)
 
-plot(pred50,Data$VisDiff,xlim=c(-12000,9800))
-
-
-Data$stdsmoke>1
-
-
-quantile(Data$VisDiff)
-
 Data$pred50<-pred50
 
-ggplot(Data,aes(x=VisDiff,y=log(pred50)))+
-         geom_point(aes(color=UnitCode))+
+ggplot(xxx,aes(x=VisDiff,y=pred50))+
+         geom_point(aes(color=UnitCode))
          ylim(-12000,9800)
 
 
 
 
-
-
+xxx<-Data%>%filter(VisDiff<1000)%>%filter(stdsmoke>=0.5)
+cor(xxx$pred50,xxx$VisDiff)
