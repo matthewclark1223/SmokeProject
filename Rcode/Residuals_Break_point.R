@@ -27,17 +27,14 @@ data_list <- list(
 options(mc.cores=8)
 
 
-l<-stan( file="~/SmokeProject/StanCode/Residuals_FIXED_BP.stan" , data=data_list,chains=8,iter=5000,control=list(adapt_delta=0.99,max_treedepth = 15) ,warmup = 800 )
-
-print( l , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
 #this converged
-zz<-stan( file="Residuals_Break_Point.stan" , data=data_list,chains=8,iter=8000,control=list(adapt_delta=0.99,max_treedepth = 10) ,warmup = 3000 )
+zz<-stan( file="~/SmokeProject/StanCode/Residuals_Break_Point.stan" , data=data_list,chains=8,iter=8000,control=list(adapt_delta=0.99,max_treedepth = 10) ,warmup = 3000 )
 
 
 print( zz , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
 
-save(zz,file="Residuals_bkpoint.rda")
+save(zz,file="~/SmokeProject/ModelObjects/Residuals_bkpoint.rda")
 
 
