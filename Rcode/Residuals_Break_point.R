@@ -30,7 +30,7 @@ rstan::rstan_options(autowrite=TRUE)
 
 
 #this converged
-zz<-stan( file="~/SmokeProject/StanCode/Residuals_Break_Point.stan" , data=data_list,chains=8,iter=8000,control=list(adapt_delta=0.99,max_treedepth = 10) ,warmup = 3000 )
+zz<-stan( file="~/SmokeProject/StanCode/Residuals_Break_Point.stan" , data=data_list,chains=8,iter=10000,control=list(adapt_delta=0.99,max_treedepth = 12) ,warmup = 5000 )
 
 
 print( zz , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )

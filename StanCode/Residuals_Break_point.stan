@@ -13,18 +13,18 @@ parameters {
   real<lower=0> sigma_pr;
   real ran_intercept[Nprk];
   real<lower=0> sigma;
-  real<lower=-1, upper = 6>  bkpoint[Nprk];
+  real bkpoint[Nprk];
 
   
 }
 
 model {  
   intercept ~ normal(-5,0.5); //prior for the intercept following Gelman 2008 normal(0,1)
-  slope1 ~ normal(0,1); //prior for the slopes following Gelman 2008 cauchy(0,2.5)
-  slope2 ~ cauchy(-100,5); //prior for the slopes following Gelman 2008 cauchy(0,2.5)
+  slope1 ~ normal(0,0.2); //prior for the slopes following Gelman 2008 cauchy(0,2.5)
+  slope2 ~ cauchy(-50,10); //prior for the slopes following Gelman 2008 cauchy(0,2.5)
   sigma ~ normal(350, 1);
   sigma_pr ~normal(115,1);
-  bkpoint~cauchy(0.5,0.05);
+  bkpoint~normal(0.5,0.1);
 
 
 for(i in 1:N){
@@ -38,7 +38,7 @@ else{
 
 
 for(j in 1:Nprk){
-  ran_intercept[j]~normal(0,sigma_pr);
+  ran_intercept[j]~normal(-500,sigma_pr);
 }
 }
 
