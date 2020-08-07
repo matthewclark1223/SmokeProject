@@ -19,8 +19,8 @@ parameters {
 }
 
 model {  
-  intercept ~ normal(-5,0.5); //prior for the intercept following Gelman 2008 normal(0,1)
-  slope1 ~ normal(0,0.2); //prior for the slopes following Gelman 2008 cauchy(0,2.5)
+  intercept ~ normal(0,1); //prior for the intercept following Gelman 2008 normal(0,1)
+  slope1 ~ normal(0,0.5); //prior for the slopes following Gelman 2008 cauchy(0,2.5)
   slope2 ~ cauchy(-50,10); //prior for the slopes following Gelman 2008 cauchy(0,2.5)
   sigma ~ normal(350, 1);
   sigma_pr ~normal(115,1);

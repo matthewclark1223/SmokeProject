@@ -1,3 +1,4 @@
+library(tidyverse)
 mean_s_dat<-read.csv("~/SmokeProject/Data/final_means2.csv")
 Visdat<-read.csv("~/SmokeProject/Data/VisitationData.csv")
 mean_s_dat<-tidyr::gather(mean_s_dat,key="Date",value="Smoke",X19800131:X20191231)
@@ -20,6 +21,17 @@ max_s_dat$MAXSmoke<-max_s_dat$Smoke
 max_s_dat<-max_s_dat[,4:7]
 dat<-merge(dat,max_s_dat,by=c("Year","Month","UnitCode"))
 dat$stdsmokeMAX<-as.vector(scale(dat$MAXSmoke))
+
+#add median smoke
+med_s_dat<-read.csv("~/SmokeProject/Data/final_medians.csv")
+med_s_dat<-tidyr::gather(med_s_dat,key="Date",value="Smoke",X19800131:X20191231)
+med_s_dat$Year<-as.integer(substr(med_s_dat$Date,2,5))
+med_s_dat$Month<-as.integer(substr(med_s_dat$Date,6,7))
+med_s_dat$UnitCode<-med_s_dat$park
+med_s_dat$medSmoke<-med_s_dat$Smoke
+med_s_dat<-med_s_dat[,4:7]
+dat<-merge(dat,med_s_dat,by=c("Year","Month","UnitCode"))
+dat$stdsmokemed<-as.vector(scale(dat$medSmoke))
 
 #Create a season variable
 dat$Season<-ifelse(dat$Month %in% c(3:5),"Spring",
@@ -47,4 +59,4 @@ dat$SeasType<-ifelse(dat$CatColS %in% x$cc,
 
 
 #create the csv
-write.csv(dat, file="MergedDataCompleteFINAL.csv")
+write.csv(dat, file="Data/MergedDataCompleteFINAL.csv")
