@@ -44,16 +44,13 @@ bkpointplot<-rstan::plot(zz, pars = bkpts,
 
 
 Data$UnitCodeFactor<-as.integer(as.factor(Data$UnitCode))
-x<-as.data.frame(zz)
+x<-as.data.frame(zz) #zz is the model object 
 
-x<-apply(x,2,quantile,probs=c(0.25,0.5,0.75))
+x50<-as.data.frame(apply(x,2,quantile,probs=0.5)) #median par estimates
+x05<-as.data.frame(apply(x,2,quantile,probs=0.05)) #5% par estimates
+x95<-as.data.frame(apply(x,2,quantile,probs=0.95)) #95% par estimates
 
-x50<-as.data.frame(apply(x,2,quantile,probs=0.5))
-x05<-as.data.frame(apply(x,2,quantile,probs=0.05))
-x95<-as.data.frame(apply(x,2,quantile,probs=0.95))
-
-x<-apply(x,2,median)
-x<-as.data.frame(x)
+#put them all into a df
 x<-data.frame(UnitCode= unique(dat$UnitCode), 
               slope1_0.5=x50[2:33,1],slope1_0.05=x05[2:33,1],slope1_0.95=x95[2:33,1],
               slope2_0.5=x50[34:65,1],slope2_0.05=x05[34:65,1],slope2_0.95=x95[34:65,1],
@@ -179,4 +176,5 @@ tsp6<-tsplot("BIBE",2)
 gridExtra::grid.arrange(tsp1,tsp2,tsp3,tsp4,tsp5,tsp6,nrow=3)
 
 
+gridExtra::grid.arrange(bp31,tsp1,nrow=2)
 
