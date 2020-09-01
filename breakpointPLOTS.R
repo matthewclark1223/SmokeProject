@@ -42,6 +42,8 @@ bkpointplot<-rstan::plot(zz, pars = bkpts,
                          prob = 0.5, prob_outer = 0.9)
 
 
+gridExtra::grid.arrange(slope1plot,bkpointplot,slope2plot,nrow=1)
+
 
 Data$UnitCodeFactor<-as.integer(as.factor(Data$UnitCode))
 x<-as.data.frame(zz) #zz is the model object 
