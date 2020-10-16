@@ -43,7 +43,7 @@ data_list <- list(
   smoke = dat$medSmoke,
   pcode = as.numeric(as.factor(dat$UnitCode )))
 
-options(mc.cores=3)
+options(mc.cores=8)
 
 rstan::rstan_options(autowrite=TRUE)
 
@@ -74,9 +74,9 @@ for(i in timez){
   #make models for each 5 year period
   assign(paste0("mod",i),
          rstan::stan( file="~/SmokeProject/StanCode/ShiftingBPs.stan" , 
-                                      data=data_list,chains=3,iter=50,
+                                      data=data_list,chains=8,iter=5000,
                                       control=list(adapt_delta=0.95,max_treedepth = 12) ,
-                      warmup = 25 ))
+                      warmup = 2500 ))
   
   
 }
