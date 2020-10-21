@@ -12,7 +12,7 @@ parameters {
   real<lower=0> phi; //the overdispersion parameters
   real<lower=0> sigma_pr;
   real ran_intercept[Nprk];
-  real bkpoint;
+  real bkpoint[Nprk];
   
 }
 model {  
@@ -24,11 +24,11 @@ model {
   bkpoint~normal(0,1);
   
 for(i in 1:N){
-if(smoke[i]<bkpoint){
+if(smoke[i]<bkpoint[pcode[i]]){
   count[i] ~ neg_binomial_2(exp(intercept+slope1[pcode[i]]*smoke[i]+ran_intercept[pcode[i]]) ,phi);
 }
 else{
-  count[i] ~ neg_binomial_2(exp(intercept+slope1[pcode[i]]*bkpoint+(smoke[i]-bkpoint)*slope2[pcode[i]]+ran_intercept[pcode[i]]) ,phi);
+  count[i] ~ neg_binomial_2(exp(intercept+slope1[pcode[i]]*bkpoint[pcode[i]]+(smoke[i]-bkpoint[pcode[i]])*slope2[pcode[i]]+ran_intercept[pcode[i]]) ,phi);
 }
 }
 for(j in 1:Nprk){

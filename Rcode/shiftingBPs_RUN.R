@@ -33,7 +33,7 @@ ggplot(dat,aes(x=medSmoke,y=RecreationVisits,color=UnitCode))+
 
 data<-dat
 
-dat<-data%>%filter(halfDec =="1995_1999")
+dat<-data%>%filter(halfDec =="1980_1984")
 
 
 data_list <- list(
@@ -49,16 +49,19 @@ rstan::rstan_options(autowrite=TRUE)
 
 
 #run the moddy boi
-moddy<-rstan::stan( file="~/SmokeProject/StanCode/ShiftingBPs.stan" , 
-                    data=data_list,chains=3,iter=5000,
-                    control=list(adapt_delta=0.95,max_treedepth = 12) ,warmup = 2500 )
+mod1980_1984<-rstan::stan( file="~/SmokeProject/StanCode/ShiftingBPs.stan" , 
+                    data=data_list,chains=3,iter=8000,
+                    control=list(adapt_delta=0.95,max_treedepth = 14) ,warmup = 4000 )
 
 
-print( moddy , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
+print( mod1980_1984 , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
-#loop through each 5 year period
+
+shinystan::launch_shinystan(mod1980_1984)
+
+#loop through the rest of the 5 year periods
 timez<-unique(data$halfDec)
-
+timez<-timez[-1]
 for(i in timez){
   #make dataframes for each 5 year period
   
@@ -75,13 +78,11 @@ for(i in timez){
   assign(paste0("mod",i),
          rstan::stan( file="~/SmokeProject/StanCode/ShiftingBPs.stan" , 
                                       data=data_list,chains=8,iter=5000,
-                                      control=list(adapt_delta=0.95,max_treedepth = 12) ,
+                                      control=list(adapt_delta=0.95,max_treedepth = 15) ,
                       warmup = 2500 ))
   
   
 }
-
-
 
 
 
