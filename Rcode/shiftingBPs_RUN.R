@@ -33,7 +33,7 @@ ggplot(dat,aes(x=medSmoke,y=RecreationVisits,color=UnitCode))+
 
 data<-dat
 
-dat<-data%>%filter(halfDec =="1980_1984")
+dat<-data%>%filter(halfDec =="2015_2019")
 
 
 data_list <- list(
@@ -50,8 +50,8 @@ rstan::rstan_options(autowrite=TRUE)
 
 #run the moddy boi
 mod1980_1984<-rstan::stan( file="~/SmokeProject/StanCode/ShiftingBPs.stan" , 
-                    data=data_list,chains=3,iter=8000,
-                    control=list(adapt_delta=0.95,max_treedepth = 14) ,warmup = 4000 )
+                    data=data_list,chains=8,iter=4000,
+                    control=list(adapt_delta=0.99,max_treedepth = 15) ,warmup = 2000 )
 
 
 print( mod1980_1984 , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
