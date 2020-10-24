@@ -39,7 +39,8 @@ rstan::rstan_options(autowrite=TRUE)
 
 #run the moddy boi
 mod<-rstan::stan( file="~/SmokeProject/StanCode/Heierarchical_AR_Model.stan" , 
-                           data=data_list,chains=8,iter=5000 ,warmup = 2500 )
+                           data=data_list,chains=8,iter=5000 ,warmup = 2500 ,
+                  control=list(adapt_delta=0.99,max_treedepth = 15))
 
 
 print( mod , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
