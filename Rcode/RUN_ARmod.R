@@ -17,7 +17,6 @@ dat$halfDec<-ifelse(dat$Year %in% 1980:1984,"1980_1984",
 
 data<-dat
 
-dat<-dat%>%filter(halfDec =="2015_2019")
 
 dat$AR_Vis<-lag(dat$RecreationVisits,n=384)
 dat[385:1920,]$AR_Vis==dat[1:1536,]$RecreationVisits
