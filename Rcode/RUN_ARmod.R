@@ -17,12 +17,14 @@ dat$halfDec<-ifelse(dat$Year %in% 1980:1984,"1980_1984",
 
 data<-dat
 
-#dat<-data%>%filter(halfDec =="2015_2019")
+dat<-dat%>%filter(halfDec =="2015_2019")
 
 dat$AR_Vis<-lag(dat$RecreationVisits,n=384)
 dat[385:1920,]$AR_Vis==dat[1:1536,]$RecreationVisits
 
 dat<-na.omit(dat)
+
+dat<-dat%>%filter(halfDec =="2015_2019")
 
 data_list <- list(
   N = nrow(dat),
@@ -39,8 +41,8 @@ rstan::rstan_options(autowrite=TRUE)
 
 #run the moddy boi
 mod<-rstan::stan( file="~/SmokeProject/StanCode/Heierarchical_AR_Model.stan" , 
-                           data=data_list,chains=8,iter=5000 ,warmup = 2500 ,
-                  control=list(adapt_delta=0.99,max_treedepth = 15))
+                           data=data_list,chains=1,iter=50 ,warmup = 25 ,
+                  control=list(adapt_delta=0.95,max_treedepth = 10))
 
 
 print( mod , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
