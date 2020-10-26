@@ -51,10 +51,11 @@ print( mod_Basic , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
 
 shinystan::launch_shinystan(mod_Basic)
+save(mod_Basic,file="mod_Basic.rda")
 
 # breakpoint for smoke
 mod_BP<-rstan::stan( file="~/SmokeProject/StanCode/AR_Mod_1BP.stan " , 
-                        data=data_list,chains=1,iter=200 ,warmup = 100 ,
+                        data=data_list,chains=8,iter=4000 ,warmup = 2500 ,
                         control=list(adapt_delta=0.95,max_treedepth = 15))
 
 
@@ -66,7 +67,7 @@ shinystan::launch_shinystan(mod_BP)
 
 #independent bps
 mod_BP_rndm<-rstan::stan( file="~/SmokeProject/StanCode/AR_Mod_MultiBP.stan " , 
-                     data=data_list,chains=1,iter=200 ,warmup = 100 ,
+                     data=data_list,chains=8,iter=4000 ,warmup = 2500 ,
                      control=list(adapt_delta=0.95,max_treedepth = 15))
 
 
