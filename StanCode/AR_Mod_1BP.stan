@@ -15,7 +15,7 @@ parameters {
   real slope2[Nprk]; //the regression parameters
   real ran_intercept[Nprk];
   real<lower=0>  phi; //the overdispersion parameters
-  real bkpoint[Nprk];
+  real bkpoint;
 }
 
 model {
@@ -28,13 +28,13 @@ model {
   slope2 ~ cauchy(0,2.5);
  
   for (n in 1:N){
-    if(smoke[n]<bkpoint[pcode[n]]){
+    if(smoke[n]<bkpoint){
    count[n] ~ neg_binomial_2(exp(Intercept + AR_term[pcode[n]]*arVis[n]+
     slope1[pcode[n]]*smoke[n]+ran_intercept[pcode[n]]), phi);
   }
   else{
   count[n] ~ neg_binomial_2(exp(Intercept + AR_term[pcode[n]]*arVis[n]+
-  slope1[pcode[n]]*bkpoint[pcode[n]]+(smoke[n]-bkpoint[pcode[n]])*slope2[pcode[n]]+
+  slope1[pcode[n]]*bkpoint+(smoke[n]-bkpoint)*slope2[pcode[n]]+
   ran_intercept[pcode[n]]), phi);
 }
 }
