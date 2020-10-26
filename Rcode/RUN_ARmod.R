@@ -24,15 +24,18 @@ dat[385:1920,]$AR_Vis==dat[1:1536,]$RecreationVisits
 
 dat<-na.omit(dat)
 
-dat<-dat%>%filter(halfDec =="2015_2019")
+#dat<-dat%>%filter(halfDec =="2015_2019")
+
+stdize<-function(x){
+  (x-mean(x))/(2*sd(x))}
 
 data_list <- list(
   N = nrow(dat),
   Nprk = length(unique(dat$UnitCode)),
   count = dat$RecreationVisits,
-  arVis = dat$AR_Vis,
+  arVis = stdize(dat$AR_Vis),
   pcode = as.numeric(as.factor(dat$UnitCode )),
-  smoke = dat$medSmoke)
+  smoke = stdize(dat$medSmoke))
 
 
 options(mc.cores=8)
@@ -40,12 +43,12 @@ options(mc.cores=8)
 rstan::rstan_options(autowrite=TRUE)
 
 #run the moddy boi
-mod<-rstan::stan( file="~/SmokeProject/StanCode/Heierarchical_AR_Model.stan" , 
-                           data=data_list,chains=1,iter=50 ,warmup = 25 ,
+mod_Basic<-rstan::stan( file="~/SmokeProject/StanCode/Heierarchical_AR_Model.stan " , 
+                           data=data_list,chains=8,iter=4000 ,warmup = 2500 ,
                   control=list(adapt_delta=0.95,max_treedepth = 10))
 
 
-print( mod , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
+print( mod_Basic , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
 
-shinystan::launch_shinystan(mod)
+shinystan::launch_shinystan(mod_Basic)

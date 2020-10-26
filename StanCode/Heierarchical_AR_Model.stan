@@ -4,12 +4,12 @@ data {
   int Nprk;
   int pcode[N];
   real smoke[N];
-  int arVis[N];
+  real arVis[N];
 }
 
 parameters {
   real Intercept;
-  real AR_term;
+  real AR_term[Nprk];
   real<lower=0> sigma_pr;
   real slope1[Nprk]; //the regression parameters
   real ran_intercept[Nprk];
@@ -26,7 +26,7 @@ model {
   
  
   for (n in 1:N){
-   count[n] ~ neg_binomial_2(exp(Intercept + AR_term*arVis[n]+
+   count[n] ~ neg_binomial_2(exp(Intercept + AR_term[pcode[n]]*arVis[n]+
     slope1[pcode[n]]*smoke[n]+ran_intercept[pcode[n]]), phi);
   }
   for(j in 1:Nprk){
