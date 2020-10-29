@@ -55,8 +55,8 @@ options(mc.cores=4)
 rstan::rstan_options(autowrite=TRUE)
 
 #run the mod
-mod<-rstan::stan( file="~/SmokeProject/StanCode/AR_Mod_1BP.stan " , 
-                        data=data_list,chains=1,iter=2000,
+mod<-rstan::stan( file="~/SmokeProject/StanCode/AR_Only_RNdm_sl2.stan " , 
+                        data=data_list,chains=1,iter=200,
                         control=list(adapt_delta=0.95,max_treedepth = 10),
                   refresh= max(3000/20, 1),save_warmup=F)
 
