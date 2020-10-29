@@ -43,3 +43,38 @@ model {
   ran_intercept[j]~normal(0,sigma_pr);
   }
 }
+
+generated quantities {
+  
+  int<lower = 0> count_pred[N];
+  
+  for (i in 1:N){
+    
+    if(smoke[i]<bkpoint[pcode[i]]){
+   count_pred[i] = neg_binomial_2_rng(exp(Intercept + AR_term[pcode[i]]*arVis[i]+
+    slope1[pcode[i]]*smoke[i]+ran_intercept[pcode[i]]), phi);
+  }
+  else{
+  count_pred[i] = neg_binomial_2_rng(exp(Intercept + AR_term[pcode[i]]*arVis[i]+
+  slope1[pcode[i]]*bkpoint[pcode[i]]+(smoke[i]-bkpoint[pcode[i]])*slope2[pcode[i]]+
+  ran_intercept[pcode[i]]), phi);
+}
+    
+    
+    
+    
+
+  
+  
+   
+}
+}
+
+
+
+
+
+
+
+
+
