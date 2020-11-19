@@ -111,3 +111,31 @@ print( mod_BP_rndm , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
 shinystan::launch_shinystan(mod_BP_rndm)
 
+
+
+#try simple bp
+dat<-dat%>%filter(halfDec =="2015_2019")
+
+stdize<-function(x){
+  (x-mean(x))/(2*sd(x))}
+
+data_list <- list(
+  N = nrow(dat),
+  Nprk = length(unique(dat$UnitCode)),
+  count = dat$RecreationVisits,
+  arVis = stdize(dat$AR_Vis),
+  pcode = as.numeric(as.factor(dat$UnitCode )),
+  smoke = stdize(dat$medSmoke),
+  bkpoint=1)
+
+options(mc.cores=4)
+
+rstan::rstan_options(autowrite=TRUE)
+
+mod_BP_simple<-rstan::stan( file="~/SmokeProject/StanCode/ARMod_Simple.stan " , 
+                          data=data_list,chains=4,iter=200 ,
+                          control=list(adapt_delta=0.95,max_treedepth = 15),
+                          refresh= max(200/100, 1))
+
+
+
