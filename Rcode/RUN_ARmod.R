@@ -50,15 +50,15 @@ data_list <- list(
   pcode = as.numeric(as.factor(dat$UnitCode )),
   smoke = stdize(dat$medSmoke))
 
-options(mc.cores=4)
+options(mc.cores=6)
 
 rstan::rstan_options(autowrite=TRUE)
 
 #run the mod
 mod<-rstan::stan( file="~/SmokeProject/StanCode/AR_Only_RNdm_sl2.stan " , 
-                        data=data_list,chains=1,iter=200,
+                        data=data_list,chains=6,iter=3000,
                         control=list(adapt_delta=0.95,max_treedepth = 10),
-                  refresh= max(3000/20, 1),save_warmup=F)
+                  refresh= max(3000/20, 1),save_warmup=T)
 
 
 print( mod , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
@@ -102,12 +102,23 @@ shinystan::launch_shinystan(mod_BP)
 
 #independent bps
 mod_BP_rndm<-rstan::stan( file="~/SmokeProject/StanCode/AR_Mod_MultiBP.stan " , 
-                     data=data_list,chains=8,iter=4000 ,warmup = 2500 ,
-                     control=list(adapt_delta=0.95,max_treedepth = 15))
+                     data=data_list,chains=4,iter=3000,refresh= max(3000/100, 1),
+                     control=list(adapt_delta=0.99,max_treedepth = 18))
 
 
 print( mod_BP_rndm , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
 
 
 shinystan::launch_shinystan(mod_BP_rndm)
+
+save(mod_BP_rndm,file="mod_BP_rndm.rda")
+
+
+
+
+dat%>%filter(UnitCode=="ROMO")%>%
+  ggplot(., aes(x=stdize(medSmoke),y=RecreationVisits))+geom_point()+geom_smooth()
+
+
+
 

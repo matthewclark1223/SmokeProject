@@ -19,12 +19,12 @@ parameters {
 }
 
 model {
-  phi ~ cauchy(0, 2.5);
+  phi ~ normal(2,1);
   sigma_pr ~normal(0,1);
   Intercept ~ normal(0,1); //prior for the intercept following Gelman 2008
-  slope1 ~ cauchy(0,2.5);
-  AR_term ~ cauchy(0,2.5);
-  bkpoint~normal(0,1);
+  slope1 ~ normal(0,3);
+  AR_term ~ normal(0,1);
+  bkpoint~normal(0,2);
   slope2 ~ cauchy(0,2.5);
  
   for (n in 1:N){

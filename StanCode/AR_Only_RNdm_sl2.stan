@@ -15,7 +15,7 @@ parameters {
   real slope2[Nprk]; //the regression parameters
   real ran_intercept[Nprk];
   real<lower=0>  phi; //the overdispersion parameters
-  real bkpoint;
+  real bkpoint[Nprk];
 }
 
 model {
@@ -28,13 +28,13 @@ model {
   slope2 ~ cauchy(0,2.5);
  
   for (n in 1:N){
-    if(smoke[n]<bkpoint){
+    if(smoke[n]<bkpoint[pcode[n]]){
    count[n] ~ neg_binomial_2(exp(Intercept + AR_term[pcode[n]]*arVis[n]+
     slope1*smoke[n]+ran_intercept[pcode[n]]), phi);
   }
   else{
   count[n] ~ neg_binomial_2(exp(Intercept + AR_term[pcode[n]]*arVis[n]+
-  slope1*bkpoint+(smoke[n]-bkpoint)*slope2[pcode[n]]+
+  slope1*bkpoint[pcode[n]]+(smoke[n]-bkpoint[pcode[n]])*slope2[pcode[n]]+
   ran_intercept[pcode[n]]), phi);
 }
 }
@@ -45,20 +45,20 @@ model {
 }
 
 
-generated quantities {
+//generated quantities {
   
-  int<lower = 0> count_pred[N];
+//  int<lower = 0> count_pred[N];
   
-  for (i in 1:N){
+//  for (i in 1:N){
     
-    if(smoke[i]<bkpoint){
-   count_pred[i] = neg_binomial_2_rng(exp(Intercept + AR_term[pcode[i]]*arVis[i]+
-    slope1*smoke[i]+ran_intercept[pcode[i]]), phi);
-  }
-  else{
-  count_pred[i] = neg_binomial_2_rng(exp(Intercept + AR_term[pcode[i]]*arVis[i]+
-  slope1*bkpoint+(smoke[i]-bkpoint)*slope2[pcode[i]]+
-  ran_intercept[pcode[i]]), phi);
-}
-}}
+ //   if(smoke[i]<bkpoint){
+//   count_pred[i] = neg_binomial_2_rng(exp(Intercept + AR_term[pcode[i]]*arVis[i]+
+//    slope1*smoke[i]+ran_intercept[pcode[i]]), phi);
+//  }
+//  else{
+//  count_pred[i] = neg_binomial_2_rng(exp(Intercept + AR_term[pcode[i]]*arVis[i]+
+//  slope1*bkpoint+(smoke[i]-bkpoint)*slope2[pcode[i]]+
+//  ran_intercept[pcode[i]]), phi);
+//}
+//}}
 
