@@ -70,6 +70,8 @@ options(tinytex.verbose = TRUE)
 
 ### 2.1.1. Visitor Data
 
+Visitation data was obtained through the [National Park Service Visitor Use Statistics Portal](https://irma.nps.gov/STATS/). These data are generally collected via car counters, permit information, and concessionaire reporting. Methods of collection vary from park to park. Unit specific information can be found on the National Park Service Visitor Use Statistics Portal. Although collection methods are inconsistent across the sample, all data was taken as reported. We retrieved monthly data for all national park units in the Intermountain and Pacific West regions for years 1980 through 2019. To reduce issues regarding park seasonality, we then subset our data to only the three high season months associated with each park. For example, only Summer (June, July, Aug) data was used for Yellowstone National Park.
+
 ### 2.1.2. Visitation Fees
 
 Historic visitation fee data is not readily available from the National Park Service. The recreational visitor fees however, have been listed on the individual park websites historically. We accessed these historic webpages and aggregated the single visitor entry fee data using the [Internet Archive](https://archive.org/web/). We were able to access historic webpages for the years 1997-2018. Archived web pages were unavailable for years prior to 1997. For years 1980-1996, we performed trendline extension via linear regression to estimate the recreational visitor fee for each park, each year per the following:  
