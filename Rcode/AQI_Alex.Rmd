@@ -1,0 +1,65 @@
+---
+title: "AQI"
+author: "Alex Killion"
+date: "12/4/2020"
+output: html_document
+---
+
+```{r}
+temp <- list.files("/Users/killion/Documents/GitHub/SmokeProject/Data/AQI", pattern="*.csv", full.names = TRUE) #county AQI by day 1980-2020
+myfiles <- lapply(temp, read.csv)
+
+all <- do.call(rbind,myfiles) #create on dataframe
+
+library(dplyr)
+library(lubridate)
+
+all$Date <- ymd(all$Date) #reformat date
+
+all$State.Code<-as.numeric(all$State.Code)
+all$State.Code<-sprintf("%02d", all$State.Code)#convert state code to 2 digit to match .shp county file
+all$County.Code<-sprintf("%03d", all$County.Code)#convert county code to 3 digit to match .shp county file
+all$CODE<-paste0(all$State.Code, all$County.Code) #merge two codes to match to spatial data
+
+median<-all %>% #get monthly means by county
+  group_by(County=CODE, Year=year(Date), Month=month(Date)) %>%
+  summarise(Monthly_Med=median(AQI))
+
+library(sf)
+library(sp)
+library(rgeos)
+#intersect parks with counties to get county ID for park
+counties<-read_sf("/Users/killion/Documents/GitHub/SmokeProject/GIS/Counties/cb_2018_us_county_5m.shp")
+parks<-read_sf("/Users/killion/Documents/GitHub/SmokeProject/GIS/NPS_poly/NPS_poly.shp")
+
+parks_sp<-as_Spatial(parks) #convert filetype
+parks2 <- gBuffer(parks_sp, byid=TRUE, width=0)#add buffer so polygons don't intersect self
+
+parks3<-st_as_sf(parks2)#back convert file
+
+counties<-st_transform(counties, crs=st_crs(parks)) #match projection
+
+join<-st_join(parks3, counties, largest=TRUE) #add largest county id to each park
+
+join_df<-as.data.frame(join)
+
+#select only polygons designated as National Parks
+join_df<-join_df[join_df$UNIT_TYPE=="National Park",]
+
+#remove National Parks outside our Regions
+join_df<-join_df[join_df$REGION=="PW"|join_df$REGION=="IM",]
+join_df<-join_df[join_df$UNIT_CODE!="NPSA",] #Samoa
+join_df<-join_df[join_df$STATE!="HI",]
+
+join_df$County<-paste0(join_df$STATEFP, join_df$COUNTYFP) #create merged code to match AQI data
+
+#keep only columns needed
+parks_county<-join_df[,c(2,26)] #keep only park name and county/state ID
+
+#join dataframes
+
+final<-left_join(parks_county, median, by=c("County" = "County"))
+write.csv(final, "/Users/killion/Documents/GitHub/SmokeProject/Data/AQI_Final_Data.csv")
+
+```
+
