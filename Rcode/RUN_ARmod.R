@@ -50,15 +50,16 @@ data_list <- list(
   pcode = as.numeric(as.factor(dat$UnitCode )),
   smoke = stdize(dat$medSmoke))
 
-options(mc.cores=6)
+options(mc.cores=2)
 
 rstan::rstan_options(autowrite=TRUE)
 
 #run the mod
-mod<-rstan::stan( file="~/SmokeProject/StanCode/AR_Only_RNdm_sl2.stan " , 
-                        data=data_list,chains=6,iter=3000,
+
+mod<-rstan::stan( file="~/SmokeProject/StanCode/ARMod_Simple.stan " , 
+                        data=data_list,chains=1,iter=3000,
                         control=list(adapt_delta=0.95,max_treedepth = 10),
-                  refresh= max(3000/20, 1),save_warmup=T)
+                  refresh= max(300/20, 1),save_warmup=T)
 
 
 print( mod , probs=c( (1-0.89)/2 , 1-(1-0.89)/2 ) )
@@ -151,7 +152,8 @@ mod_BP_simple<-rstan::stan( file="~/SmokeProject/StanCode/ARMod_Simple.stan " ,
 dat%>%filter(UnitCode=="ROMO")%>%
   ggplot(., aes(x=stdize(medSmoke),y=RecreationVisits))+geom_point()+geom_smooth()
 
-
+dat%>%filter(UnitCode=="PINN")%>%
+  ggplot(., aes(x=stdize(Year),y=RecreationVisits))+geom_point()+geom_smooth()
 
 
 
