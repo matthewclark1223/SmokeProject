@@ -1,0 +1,47 @@
+---
+title: Estimating the Financial Impact of Wildfire Smoke on US National parks
+author:
+- affiliation: Boise State University - Human Environment Systems
+  name: Matt Clark
+- affiliation: University of Michigan
+  name: Alexander Killion
+- affiliation: Boise State University
+  name: Matthew A. Williamson
+- affiliation: Boise State University
+  name: Vicken Hillis
+- affiliation: Boise State University
+  name: Laura? 
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+keywords: Wildfire, Smoke, Recreation, Park Science
+bibliography: ../SmokePaper.bib
+abstract: abstract text
+fontsize: 12pt
+link-citations: yes
+output: 
+  pdf_document:
+    keep_tex: true
+    fig_caption: true
+    latex_engine: pdflatex
+    template: ~/SmokeProject/MarkdownDocuments/MillerTemplate.tex
+    
+---
+
+# Introduction
+Humanity must urgently adapt to our rapidly changing and increasingly hazardous climate [@IPCC]. Avoiding the worst-case projections of climate change will require adaptations at all levels of human society, from multinational governments to individuals [CITE?]. Governments and individuals are aware of this, but still are failing to act [@steg_limiting_2018]. Knowledge of adaptive strategies and their benefits is only weakly associated with actual adaptive behavior [@van_valkengoed_meta-analyses_2019]. While governments tend to implement adaptation policies in the wake of extreme events, less is known about how individuals are changing their day to day behaviors to adapt to their changing climates [@bierbaum_comprehensive_2013; @berrang-ford_tracking_2019; @berrang-ford_are_2011]. 
+
+A particularly salient environmental effect of climate change in the United States is the increase in wildfire frequency and severity over the last 50 years, primarily in the American West [@kitzberger_contingent_2007; @westerling_increasing_2016]. This trend is expected to worsen over the next 50 years as climate change accounts for approximately 50% of the increase in burned area [@westerling_increasing_2016; @abatzoglou_impact_2016; @yue_ensemble_2013; @wuebbles_climate_2017; @harvey_human-caused_2016; @peterson_new_2003; @barbero_climate_2015]. Along with an increase in wildfires in the West, is a projected increase in wildfire smoke [@schroeder_validation_2008]. Fire prone areas may experience a two-fold increase in wildfire smoke by 2100 [@hurteau_projected_2014].
+
+Wildfire smoke is a mixture of many gasses aerated by biomass combustion across a landscape [@naeher_woodsmoke_2007]. While many of these compounds have been shown to cause health problems in humans, organic carbon and black carbon particulate matter less than 2.5 $\mu$m in diameter (PM2.5) is particularly harmful to human health [@deryugina_mortality_2019]. PM2.5 Causes between 260,000 - 600,000 global deaths annually and significantly increasing community mortality even under acute exposure [@johnston_fay_h_estimated_2012; @naeher_woodsmoke_2007; @kloog_long-_2013].
+
+Wildfires now account for 50% of all PM2.5 in some western regions compared to less than 20% in 2010 [@burke_changing_2021]. As any level of ambient wildfire smoke increases community morbidity, public health agencies increasingly call for individuals to limit outdoor recreational behavior when wildfire smoke is present [@cascio_wildland_2018; @reid_colleen_e_critical_2016; @oneill_summary_2013].
+
+Recent literature reviews on recreational behavior have found a dearth of research describing how individuals respond to low air quality, as well as research which gives predictions for how climate change will affect the recreation landscape [@otoole_climate_2019;@zajchowski_air_2019-1]. Additionally, a survey of federal land managers indicated that decision makers in areas such as national parks feel that they have a shortage of information describing how air quality affects the recreational behavior of their visitors [@zajchowski_air_2019]. It is of particular importance to understand how individuals respond to wildfire smoke because of the highly variable nature of wildfires, their relationship to climate change, and the great distances that smoke can travel during and after wildfire events [@dombeck_wildfire_2004; @collins_regional_2006]. 
+
+This article uses ambient smoke and visitation data collected from national parks in the Western and Intermountain United States to answer whether individuals are adapting their recreation behavior in response to increasing wildfire smoke. The case study presented here aims to provide insights as to the overall trajectory of realized climate adaptation on the individual level.  
+
+
+
+
+\newpage
+
+# References
