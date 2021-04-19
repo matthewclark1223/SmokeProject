@@ -45,20 +45,20 @@ data_list <- list(
   pcode = as.numeric(as.factor(dat$UnitCode ))
   )
 
-options(mc.cores=4)
+options(mc.cores=10)
 
 rstan::rstan_options(autowrite=TRUE)
 
 mod<-rstan::stan( file="~/SmokeProject/StanCode/AROnly.stan " , 
-                  data=data_list,chains=3,iter=3000,
+                  data=data_list,chains=10,iter=8000,
                   control=list(adapt_delta=0.95,max_treedepth = 10),
                   refresh= max(300/20, 1),save_warmup=T)
-
+save(mod,file="modAROnly.rda")
 
 print( mod , probs=c( 0.05 , 0.95  ))
 
 y<-data_list$count #for pp checking in shinystan
-shinystan::launch_shinystan(mod)
+#shinystan::launch_shinystan(mod)
 z<-extract(mod)
 preds<-apply(z$count_pred,2,median)
 plot(y,preds)
@@ -94,14 +94,14 @@ data_list <- list(
   pcode = as.numeric(as.factor(dat$UnitCode ))
 )
 
-options(mc.cores=4)
+options(mc.cores=10)
 
 rstan::rstan_options(autowrite=TRUE)
 
 modSmoke1<-rstan::stan( file="~/SmokeProject/StanCode/AR_Mod_NOBP.stan " , 
-                        data=data_list,chains=3,iter=10000,
-                        control=list(adapt_delta=0.999,max_treedepth = 10),
-                        refresh= max(8000/20, 1),save_warmup=F)
+                        data=data_list,chains=10,iter=8000,
+                        control=list(adapt_delta=0.99,max_treedepth = 10),
+                        refresh= (8000/20),save_warmup=F)
 
 save(modSmoke1,file="modSmoke1.rda")
 
@@ -115,21 +115,22 @@ data_list <- list(
   count = dat$RecreationVisits,
   smoke = stdize(dat$medSmoke),
   arVis = stdize(dat$AR_Vis),
+  bkpoint = 0.5,
   arVis2 = stdize(dat$AR_Vis2),
   arVis3 = stdize(dat$AR_Vis3),
   pcode = as.numeric(as.factor(dat$UnitCode ))
 )
 
-options(mc.cores=4)
+options(mc.cores=10)
 
 rstan::rstan_options(autowrite=TRUE)
 
-modSmoke2<-rstan::stan( file="~/SmokeProject/StanCode/AR_Mod_MultiBP.stan " , 
-                  data=data_list,chains=1,iter=10000,
-                  control=list(adapt_delta=0.8,max_treedepth = 15),
-                  refresh= 1,save_warmup=F)
+modSmoke2<-rstan::stan( file="~/SmokeProject/StanCode/AR_Set_BP.stan " , 
+                  data=data_list,chains=10,iter=14000,
+                  control=list(adapt_delta=0.999,max_treedepth = 18),
+                  refresh= 14000/20,save_warmup=F)
 
-save(modSmoke2,file="modSmoke2.rda")
+save(modSmoke2,file="modSmokeSet0_5.rda")
 
 print( modSmoke2 , probs=c( 0.05 , 0.95  ))
 y<-data_list$count #for pp checking in shinystan
@@ -137,6 +138,40 @@ z<-extract(modSmoke2)
 preds<-apply(z$count_pred,2,median)
 plot(y,preds)
 cor(y,preds)
+
+### do a bp of 1
+##Now look at smoke breakpoint
+#data for modeling
+data_list <- list(
+  N = nrow(dat),
+  Nprk = length(unique(dat$UnitCode)),
+  count = dat$RecreationVisits,
+  smoke = stdize(dat$medSmoke),
+  arVis = stdize(dat$AR_Vis),
+  bkpoint = 1,  #this is the only change from above!
+  arVis2 = stdize(dat$AR_Vis2),
+  arVis3 = stdize(dat$AR_Vis3),
+  pcode = as.numeric(as.factor(dat$UnitCode ))
+)
+
+options(mc.cores=10)
+
+rstan::rstan_options(autowrite=TRUE)
+
+modSmoke3<-rstan::stan( file="~/SmokeProject/StanCode/AR_Set_BP.stan " , 
+                        data=data_list,chains=10,iter=14000,
+                        control=list(adapt_delta=0.999,max_treedepth = 18),
+                        refresh= 14000/20,save_warmup=F)
+
+save(modSmoke3,file="modSmokeSet1.rda")
+
+print( modSmoke3 , probs=c( 0.05 , 0.95  ))
+y<-data_list$count #for pp checking in shinystan
+z<-extract(modSmoke3)
+preds<-apply(z$count_pred,2,median)
+plot(y,preds)
+cor(y,preds)
+
 
 
 

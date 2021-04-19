@@ -19,18 +19,18 @@ parameters {
   real slope2[Nprk]; //the regression parameters
   real ran_intercept[Nprk];
   real<lower=0>  phi; //the overdispersion parameters
-  real<lower=-0.15, upper=10> bkpoint[Nprk];
+  real<lower=-1, upper=10> bkpoint[Nprk];
 }
 
 model {
   phi ~ cauchy(0, 2.5);
   sigma_pr ~normal(0,1);
   Intercept ~ normal(0,1); //prior for the intercept following Gelman 2008
-  slope1 ~ normal(0,1);
+  slope1 ~ cauchy(0,2.5);
   AR_term ~ cauchy(0,2.5);
   AR_term2 ~ cauchy(0,2.5);
   AR_term3 ~ cauchy(0,2.5);
-  bkpoint~cauchy(0,1);
+  bkpoint~normal(0,3);
   slope2 ~ cauchy(0,2.5);
  
   for (n in 1:N){

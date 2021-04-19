@@ -26,7 +26,7 @@ model {
   phi ~ cauchy(0, 2.5);
   sigma_pr ~normal(0,1);
   Intercept ~ normal(0,1); //prior for the intercept following Gelman 2008
-  slope1 ~ normal(0,1);
+  slope1 ~ cauchy(0,2.5);
   AR_term ~ cauchy(0,2.5);
   AR_term2 ~ cauchy(0,2.5);
   AR_term3 ~ cauchy(0,2.5);
