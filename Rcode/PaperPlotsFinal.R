@@ -9,9 +9,13 @@ stdize<-function(x){
 dat$Date<-zoo::as.yearmon(paste(dat$Year, dat$Month), "%Y %m")
 dat$stdsmokemed<-stdize(dat$medSmoke)
 
-cols <- c("0.5" = "#402141ff", 
+cols <- c("0.5" = "#c33e56ff", 
           "1.0" = "#832b5aff",
-          "1.5" = "#c33e56ff")
+          "1.5" = "#402141ff")
+
+cols2<-c("0.5" = "#37a7abff", 
+         "1.0" = "#36679eff",
+         "1.5" = "#3d3369ff")
 
 mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                 plot.title = element_text( size=18, color="black",face="bold"),
@@ -32,33 +36,45 @@ ggplot(data=dat,aes(x=Date,y=medSmoke,by=UnitCode))+
   
 
 #make bp example data
-ind<-seq(-3,3,0.01)
-slp<- -2
+ind<-seq(-1,3,0.01)
+slp<- -0.1
 bp<-0.5
-dep0.5<-ifelse(ind<=bp,-0.25,
-            (-0.25-bp*slp)+slp*ind) 
+dep0.5<-ifelse(ind<=bp,-0.1,
+            (-0.1-bp*slp)+slp*ind) 
 
 bp<-1
 dep1<-ifelse(ind<=bp,0,
                (0-bp*slp)+slp*ind)
 
 bp<-1.5
-dep1.5<-ifelse(ind<=bp,0.25,
-               (0.25-bp*slp)+slp*ind)
+dep1.5<-ifelse(ind<=bp,0.1,
+               (0.1-bp*slp)+slp*ind)
 
 bpdat<-data.frame(ind,dep0.5,dep1,dep1.5)
 
 bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   bpdat$bp<-recode(bpdat$bp, dep0.5 = "0.5",dep1 = "1.0",dep1.5 = "1.5")
 
-  
-ggplot(data=bpdat,aes(x=ind,y=dep,color=bp))+geom_line(size=3)+
-  scale_color_manual(values=cols)+
-  scale_y_continuous(breaks=c(0),labels="Intercept")+
-  scale_x_continuous(breaks=c(0,0.5, 1.0, 1.5))+
-  labs(color = "Breakpoint")+xlab("Smoke (standardized)")+ylab("Visitation")+
-  geom_segment(x = 0.5,xend=0.5,y=-5.25,yend=-0.25,color="#402141ff",linetype="dashed",size=1)+
-  geom_segment(x = 1,xend=1,y=-5.25,yend=0,color="#832b5aff",linetype="dashed",size=1)+
-  geom_segment(x = 1.5,xend=1.5,y=-5.25,yend=0.25,color="#c33e56ff",linetype="dashed",size=1)+
-  theme_classic()+mytheme
+  #reds version
+#ggplot(data=bpdat,aes(x=ind,y=dep,color=bp))+geom_line(size=3)+
+ # scale_color_manual(values=cols)+
+#  scale_y_continuous(breaks=c(0),labels="Intercept")+
+ # scale_x_continuous(breaks=c(0,0.5, 1.0, 1.5))+
+#  labs(color = "Breakpoint")+xlab("Smoke (standardized)")+ylab("Visitation")+
+#  geom_segment(x = 0.5,xend=0.5,y=-5.25,yend=-0.25,color="#c33e56ff",linetype="dashed",size=1)+
+#  geom_segment(x = 1,xend=1,y=-5.25,yend=0,color="#832b5aff",linetype="dashed",size=1)+
+ # geom_segment(x = 1.5,xend=1.5,y=-5.25,yend=0.25,color="#402141ff",linetype="dashed",size=1)+
+  #theme_classic()+mytheme
 
+
+  ggplot(data=bpdat,aes(x=ind,y=dep,color=bp))+geom_line(size=3)+
+    scale_color_manual(values=cols2)+
+    scale_y_continuous(breaks=c(0),labels="Intercept", limits = c(-0.5,0.3))+
+    scale_x_continuous(breaks=c(0,0.5, 1.0, 1.5))+
+    labs(color = "Breakpoint")+xlab("Smoke (standardized)")+ylab("Visitation")+
+    geom_segment(x = 0.5,xend=0.5,y=-5.25,yend=-0.1,color="#37a7abff",linetype="dashed",size=1)+
+    geom_segment(x = 1,xend=1,y=-5.25,yend=0,color="#36679eff",linetype="dashed",size=1)+
+    geom_segment(x = 1.5,xend=1.5,y=-5.25,yend=0.1,color="#3d3369ff",linetype="dashed",size=1)+
+    theme_classic()+mytheme+theme(legend.position = "none") 
+  
+  
