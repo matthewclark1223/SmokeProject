@@ -25,6 +25,11 @@ mytheme<- theme(panel.grid.major = element_blank(), panel.grid.minor = element_b
                 legend.title = element_text(colour="black", size=18),
                 legend.text = element_text( size = 14))
 
+
+
+
+
+
 #Plot of smoke change over time
 ggplot(data=dat,aes(x=Date,y=medSmoke,by=UnitCode))+
   geom_smooth(method="gam",se=F,color="black")+
@@ -34,6 +39,18 @@ ggplot(data=dat,aes(x=Date,y=medSmoke,by=UnitCode))+
   annotate("segment", x = 2017, xend = 2018, y = 6e-10, yend = 9e-10, colour = "black", size=1.5, arrow=arrow())+
   theme_classic()+mytheme+ylab("Median Smoke Value")
   
+
+#show std scale
+fit<-lm(formula = stdsmokemed ~ medSmoke, data = dat)
+
+stdd<-function(x){
+  predict.lm(fit,newdata=data.frame(medSmoke=x))
+}
+
+ggplot(data=dat,aes(x=Date,y=medSmoke,by=UnitCode))+
+  geom_point(alpha=0.5)+
+  theme_classic()+mytheme+ylab("Median Smoke Value")+
+scale_y_continuous(sec.axis =sec_axis(trans = stdd ,name="Standardized"))
 
 #make bp example data
 ind<-seq(-1,3,0.01)
@@ -76,5 +93,12 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
     geom_segment(x = 1,xend=1,y=-5.25,yend=0,color="#36679eff",linetype="dashed",size=1)+
     geom_segment(x = 1.5,xend=1.5,y=-5.25,yend=0.1,color="#3d3369ff",linetype="dashed",size=1)+
     theme_classic()+mytheme+theme(legend.position = "none") 
+  
+  
+  
+  
+  ggplot(data=dat,aes(x=medSmoke,y=stdsmokemed))+
+           geom_point(alpha=0.5)+
+           theme_classic()+mytheme+ylab("Median Smoke Value")
   
   
