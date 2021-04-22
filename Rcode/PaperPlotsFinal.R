@@ -46,9 +46,9 @@ fit<-lm(formula = stdsmokemed ~ medSmoke, data = dat)
 stdd<-function(x){
   predict.lm(fit,newdata=data.frame(medSmoke=x))
 }
-
-ggplot(data=dat,aes(x=Date,y=medSmoke,by=UnitCode))+
-  geom_point(alpha=0.5)+
+smokePlt<-dat%>%filter(SeasType=="High")%>%
+ggplot(.,aes(x=Date,y=medSmoke,by=UnitCode))+
+  geom_point(alpha=0.4,size=4)+
   theme_classic()+mytheme+ylab("Median Smoke Value")+
 scale_y_continuous(sec.axis =sec_axis(trans = stdd ,name="Standardized"))
 
@@ -84,10 +84,14 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   #theme_classic()+mytheme
 
 
-  ggplot(data=bpdat,aes(x=ind,y=dep,color=bp))+geom_line(size=3)+
+  bpPlot<-ggplot(data=bpdat,aes(x=ind,y=dep,color=bp))+geom_line(size=3)+
     scale_color_manual(values=cols2)+
     scale_y_continuous(breaks=c(0),labels="Intercept", limits = c(-0.5,0.3))+
     scale_x_continuous(breaks=c(0,0.5, 1.0, 1.5))+
+    geom_text(x=0,y=0.2,label="Slope 1",color="black",fontface="bold",size=6)+
+    geom_text(x=2.5,y=0.1,label="Slope 2",color="black",fontface="bold",size=6)+
+    annotate("segment", x = 0, xend = 0, y = 0.175, yend = 0.12, colour = "black", size=1.5, arrow=arrow())+
+    annotate("segment", x = 2.5, xend = 2.4, y = 0.075, yend = 0.02, colour = "black", size=1.5, arrow=arrow())+
     labs(color = "Breakpoint")+xlab("Smoke (standardized)")+ylab("Visitation")+
     geom_segment(x = 0.5,xend=0.5,y=-5.25,yend=-0.1,color="#37a7abff",linetype="dashed",size=1)+
     geom_segment(x = 1,xend=1,y=-5.25,yend=0,color="#36679eff",linetype="dashed",size=1)+
@@ -96,9 +100,6 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   
   
   
-  
-  ggplot(data=dat,aes(x=medSmoke,y=stdsmokemed))+
-           geom_point(alpha=0.5)+
-           theme_classic()+mytheme+ylab("Median Smoke Value")
+
   
   

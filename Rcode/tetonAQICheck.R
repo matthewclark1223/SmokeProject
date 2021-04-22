@@ -62,6 +62,16 @@ fit<-lm(medaqi~medSmoke,data=y)
 summary(fit)
 
 
+##added same as above but std smoke
+y<-smoke%>%filter(UnitCode == "GRTE")%>%filter(Year %in% 2007:2019)%>%select(stdsmokemed,Year,Month)
+y<-na.omit(merge(y,datt,by=c("Month","Year"),all.y=T))
+plot(y$medaqi,y$stdsmokemed)
+fit<-lm(medaqi~stdsmokemed,data=y)
+summary(fit)
+predict(fit, data.frame(stdsmokemed=20))
+###
+
+
 hist(smoke$medSmoke)
 smoke$aqi<-predict(fit, smoke)
 quantile(predict(fit, smoke))
