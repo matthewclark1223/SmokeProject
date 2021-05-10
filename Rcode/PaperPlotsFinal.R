@@ -46,10 +46,18 @@ fit<-lm(formula = stdsmokemed ~ medSmoke, data = dat)
 stdd<-function(x){
   predict.lm(fit,newdata=data.frame(medSmoke=x))
 }
+
+HS<-dat%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode!="LAVO")%>%filter(UnitCode!="KICA")
+HSL<-dat%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode=="LAVO")
+HSK<-dat%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode=="KICA")
+
 smokePlt<-dat%>%filter(SeasType=="High")%>%
 ggplot(.,aes(x=Date,y=medSmoke,by=UnitCode))+
-  geom_point(alpha=0.4,size=4)+
-  theme_classic()+mytheme+ylab("Median Smoke Value")+
+  geom_point(alpha=0.4,size=3)+
+    geom_text(data=HS,aes(x=Date-2.1,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3,fontface="bold")+
+    geom_text(data=HSK,aes(x=Date-2.7,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3,fontface="bold")+
+    geom_text(data=HSL,aes(x=Date-2.9,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3,fontface="bold")+
+    theme_classic()+mytheme+ylab("Median Smoke Value")+
 scale_y_continuous(sec.axis =sec_axis(trans = stdd ,name="Standardized"))
 
 #make bp example data
