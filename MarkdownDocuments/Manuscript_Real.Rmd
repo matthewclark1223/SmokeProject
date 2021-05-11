@@ -1,5 +1,5 @@
 ---
-title: Estimating the Financial Impact of Wildfire Smoke on US National parks
+title: Breakpoint Models Show No Evidence of Recreational Adaptation to Increasing Wildfire Smoke in the American West
 author:
 - affiliation: Boise State University - Human Environment Systems
   name: Matt Clark
@@ -13,7 +13,7 @@ author:
   name: Laura? 
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 keywords: Wildfire, Smoke, Recreation, Park Science
-bibliography: ../SmokePaper.bib
+bibliography: [../SmokePaper.bib, ../OtherRefs.bib]
 abstract: abstract text
 fontsize: 12pt
 link-citations: yes
@@ -23,23 +23,104 @@ output:
     fig_caption: true
     latex_engine: pdflatex
     template: ~/SmokeProject/MarkdownDocuments/MillerTemplate.tex
+header-includes:
+- \usepackage{pdfpages}
+- \usepackage[font={footnotesize}]{caption}
     
 ---
+```{r packages, include=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(rmarkdown)
+library(bookdown)
+library(formattable)
+library(kableExtra)
+library(dplyr)
+library(magrittr)
+library(prettydoc)
+library(htmltools)
+library(knitcitations)
+library(devtools)
+library(tidyverse)
+library(scales)
+library(extrafont)
+```
+
+```{r setup, include=FALSE, cache=TRUE, message = FALSE, warning=FALSE}
+# Chunk options: see http://yihui.name/knitr/options/ ###
+
+## Text results
+#opts_chunk$set(echo = TRUE, warning = TRUE, message = TRUE, include = TRUE)
+
+## Code decoration
+#opts_chunk$set(tidy = TRUE, tidy.opts = list(blank = FALSE, width.cutoff = 60), highlight = TRUE)
+
+## Caching code
+knitr::opts_chunk$set(cache = 2, cache.path = "Cache/")
+
+## Plots
+#opts_chunk$set(fig.path = "Figures_MS/", dev=c('pdf', 'png'), dpi = 300)
+
+## Locate figures as close as possible to requested position (=code)
+knitr::opts_chunk$set(fig.pos = 'H')
+
+setwd("C:/Users/Matthewclark989/Documents/SmokeProject")
+```
+
+```{r plotzsrc, include=FALSE, cache=TRUE, message = FALSE, warning=FALSE}
+source("~/SmokeProject/Rcode/PaperPlotsFinal.R")
+#source("~/SmokeProject/Rcode/PosteriorPlots.r")
+
+```
 
 # Introduction
-Humanity must urgently adapt to our rapidly changing and increasingly hazardous climate [@IPCC]. Avoiding the worst-case projections of climate change will require adaptations at all levels of human society, from multinational governments to individuals [CITE?]. Governments and individuals are aware of this, but still are failing to act [@steg_limiting_2018]. Knowledge of adaptive strategies and their benefits is only weakly associated with actual adaptive behavior [@van_valkengoed_meta-analyses_2019]. While governments tend to implement adaptation policies in the wake of extreme events, less is known about how individuals are changing their day to day behaviors to adapt to their changing climates [@bierbaum_comprehensive_2013; @berrang-ford_tracking_2019; @berrang-ford_are_2011]. 
+Humanity must urgently adapt to our increasingly variable and hazardous climate [@IPCC]. Avoiding the worst-case projections of climate change will require adaptations at all levels of human society, from multinational governments to individuals [@IPCC]. Governments and individuals are aware of this, but still are failing to act [@steg_limiting_2018]. Knowledge of adaptive strategies and their benefits does not directly lead to adaptive behavior [@van_valkengoed_meta-analyses_2019]. While governments tend to implement climate adaptation policies in the wake of extreme events, less is known about how individuals are reacting and possibly adapting to a changing climate [@bierbaum_comprehensive_2013; @berrang-ford_tracking_2019; @berrang-ford_are_2011]. 
 
-A particularly salient environmental effect of climate change in the United States is the increase in wildfire frequency and severity over the last 50 years, primarily in the American West [@kitzberger_contingent_2007; @westerling_increasing_2016]. This trend is expected to worsen over the next 50 years as climate change accounts for approximately 50% of the increase in burned area [@westerling_increasing_2016; @abatzoglou_impact_2016; @yue_ensemble_2013; @wuebbles_climate_2017; @harvey_human-caused_2016; @peterson_new_2003; @barbero_climate_2015]. Along with an increase in wildfires in the West, is a projected increase in wildfire smoke [@schroeder_validation_2008]. Fire prone areas may experience a two-fold increase in wildfire smoke by 2100 [@hurteau_projected_2014].
+A particularly salient environmental effect of climate change in the United States is the increasing wildfire frequency and severity over the last 40 years, primarily in the American West [@kitzberger_contingent_2007; @westerling_increasing_2016]. Because climate change accounts for approximately half of the increase in burned area during this time, fires are expected to worsen over the next 40 years as the climate continues to warm. [@westerling_increasing_2016; @abatzoglou_impact_2016; @yue_ensemble_2013; @wuebbles_climate_2017; @harvey_human-caused_2016; @peterson_new_2003; @barbero_climate_2015]. Accompanying the increase in wildfires in the West, is a projected increase in wildfire smoke [@schroeder_validation_2008]. Fire prone areas may experience a two-fold increase in wildfire smoke by 2100 [@hurteau_projected_2014].
 
-Wildfire smoke is a mixture of many gasses aerated by biomass combustion across a landscape [@naeher_woodsmoke_2007]. While many of these compounds have been shown to cause health problems in humans, organic carbon and black carbon particulate matter less than 2.5 $\mu$m in diameter (PM2.5) is particularly harmful to human health [@deryugina_mortality_2019]. PM2.5 Causes between 260,000 - 600,000 global deaths annually and significantly increasing community mortality even under acute exposure [@johnston_fay_h_estimated_2012; @naeher_woodsmoke_2007; @kloog_long-_2013].
+![image alt text](../Figures/smkplt.png)
 
-Wildfires now account for 50% of all PM2.5 in some western regions compared to less than 20% in 2010 [@burke_changing_2021]. As any level of ambient wildfire smoke increases community morbidity, public health agencies increasingly call for individuals to limit outdoor recreational behavior when wildfire smoke is present [@cascio_wildland_2018; @reid_colleen_e_critical_2016; @oneill_summary_2013].
+Wildfire smoke is a complex mixture of gasses aerated by biomass combustion across the landscape [@naeher_woodsmoke_2007]. While many of these compounds have been shown to cause health problems in humans, organic carbon and black carbon particulate matter less than 2.5 $\mu$m in diameter (PM2.5) is particularly harmful to human health [@deryugina_mortality_2019]. PM2.5 Causes between 260,000 - 600,000 global deaths annually and significantly increasing community mortality even under acute exposure [@johnston_fay_h_estimated_2012; @naeher_woodsmoke_2007; @kloog_long-_2013].
 
-Recent literature reviews on recreational behavior have found a dearth of research describing how individuals respond to low air quality, as well as research which gives predictions for how climate change will affect the recreation landscape [@otoole_climate_2019;@zajchowski_air_2019-1]. Additionally, a survey of federal land managers indicated that decision makers in areas such as national parks feel that they have a shortage of information describing how air quality affects the recreational behavior of their visitors [@zajchowski_air_2019]. It is of particular importance to understand how individuals respond to wildfire smoke because of the highly variable nature of wildfires, their relationship to climate change, and the great distances that smoke can travel during and after wildfire events [@dombeck_wildfire_2004; @collins_regional_2006]. 
+Wildfires now account for 50% of all atmospheric PM2.5 in some Western regions compared to less than 20% in 2010 [@burke_changing_2021]. As any level of ambient PM2.5 increases community morbidity, public health agencies increasingly call for individuals to limit outdoor recreational behavior when wildfire smoke is present [@cascio_wildland_2018; @reid_colleen_e_critical_2016; @oneill_summary_2013].
 
-This article uses ambient smoke and visitation data collected from national parks in the Western and Intermountain United States to answer whether individuals are adapting their recreation behavior in response to increasing wildfire smoke. The case study presented here aims to provide insights as to the overall trajectory of realized climate adaptation on the individual level.  
+Recent literature reviews on recreational behavior have found a dearth of research describing how individuals respond to low air quality, as well as research which gives predictions for how climate change will affect the recreation landscape [@otoole_climate_2019;@zajchowski_air_2019-1]. Additionally, a survey of federal land managers indicated that decision makers in areas such as national parks feel that they have a shortage of information describing how air quality affects the recreational behavior of their visitors [@zajchowski_air_2019]. 
+
+It is of particular importance to understand how individuals are responding to wildfire smoke because it may provide a test case for how individuals will adapt to climate change generally. This article uses ambient smoke and visitation data collected from national parks in the Western and Intermountain United States to answer whether individuals are adapting their recreation behavior in response to increasing wildfire smoke. We use a hierarchical break-point modeling approach to test for linear and threshold effects of smoke on national park visitation. The case study presented here aims to provide insights as to the overall trajectory of realized climate adaptation on the individual level.  
+
+# Methods
+## Data Collection
+
+### Visitation Data
+Visitation data was obtained through the [National Park Service Visitor Use Statistics Portal](https://irma.nps.gov/STATS/). These data are generally collected via car counters, permit information, and concessionaire reporting. Methods of collection vary from park to park. Unit specific information can be found on the National Park Service Visitor Use Statistics Portal. Although collection methods are inconsistent across the sample, all data was taken as reported. We retrieved monthly data for all national park units in the Intermountain and Pacific West regions for years 1980 through 2019. To reduce issues regarding park seasonality, we then subset our data to only the three month high season associated with each park. For example, only Summer (June, July, Aug) data was used for Yellowstone National Park. 
+
+### SmokeData
+Alex to fill in this part
+
+## Analyses
+
+### Modeling
+Threshold effects are common in ecology and human behavioral sciences [@muradian2001ecological; @huggett2005concept; @macy1991chains]. Toms & Lesperance [-@toms2003piecewise] show that breakpoint models are an effective tool to identify these thresholds and gather inference about the effects of predictors before and after in natural systems. Here we develop a breakpoint model to identify if a threshold exists for visitation response to ambient smoke and if so, what the effect of smoke is on visitation to national parks in the American West. 
+
+![image alt text](../Figures/bpplot.png)
+
+$$f\]n =\textbackslash begin \{ cases \}a \&\textbackslash text \{ if \$n =0 \$\} \textbackslash \textbackslash r\textbackslash cdot f\] \{n -1\} \&\textbackslash text \{ else \}\textbackslash end \{ cases \$$ 
 
 
+
+
+### Validation
+Text about model checking
+
+# Results
+
+![image alt text](../Figures/slpz1.png)
+
+![image alt text](../Figures/slpz2.png)
+
+# Discussion
+We probably need national level policy to protect people [@rai_policy_2020]. There is huge variation in the way states react and plan for climate change [@hu_evaluating_2018].
+
+because of the highly variable nature of wildfires, their relationship to climate change, and the great distances that smoke can travel during and after wildfire events [@dombeck_wildfire_2004; @collins_regional_2006]. 
 
 
 \newpage
