@@ -26,6 +26,8 @@ output:
 header-includes:
 - \usepackage{pdfpages}
 - \usepackage[font={footnotesize}]{caption}
+- \usepackage{bm}
+- \usepackage{amsmath}
     
 ---
 ```{r packages, include=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
@@ -75,17 +77,17 @@ source("~/SmokeProject/Rcode/PaperPlotsFinal.R")
 # Introduction
 Humanity must urgently adapt to our increasingly variable and hazardous climate [@IPCC]. Avoiding the worst-case projections of climate change will require adaptations at all levels of human society, from multinational governments to individuals [@IPCC]. Governments and individuals are aware of this, but still are failing to act [@steg_limiting_2018]. Knowledge of adaptive strategies and their benefits does not directly lead to adaptive behavior [@van_valkengoed_meta-analyses_2019]. While governments tend to implement climate adaptation policies in the wake of extreme events, less is known about how individuals are reacting and possibly adapting to a changing climate [@bierbaum_comprehensive_2013; @berrang-ford_tracking_2019; @berrang-ford_are_2011]. 
 
-A particularly salient environmental effect of climate change in the United States is the increasing wildfire frequency and severity over the last 40 years, primarily in the American West [@kitzberger_contingent_2007; @westerling_increasing_2016]. Because climate change accounts for approximately half of the increase in burned area during this time, fires are expected to worsen over the next 40 years as the climate continues to warm. [@westerling_increasing_2016; @abatzoglou_impact_2016; @yue_ensemble_2013; @wuebbles_climate_2017; @harvey_human-caused_2016; @peterson_new_2003; @barbero_climate_2015]. Accompanying the increase in wildfires in the West, is a projected increase in wildfire smoke [@schroeder_validation_2008]. Fire prone areas may experience a two-fold increase in wildfire smoke by 2100 [@hurteau_projected_2014].
+A particularly salient environmental effect of climate change in the United States is the increasing wildfire frequency and severity over the last 40 years, primarily in the American West [@kitzberger_contingent_2007; @westerling_increasing_2016]. Because climate change accounts for approximately half of the increase in burned area during this time, fires are expected to worsen over the next 40 years as the climate continues to warm. [@westerling_increasing_2016; @abatzoglou_impact_2016; @yue_ensemble_2013; @wuebbles_climate_2017; @harvey_human-caused_2016; @peterson_new_2003; @barbero_climate_2015]. Accompanying the increase in wildfires in the West, is a projected increase in wildfire smoke [@schroeder_validation_2008]. Fire-prone areas may experience a two-fold increase in wildfire smoke by 2100 [@hurteau_projected_2014].
 
 ![image alt text](../Figures/smkplt.png)
 
-Wildfire smoke is a complex mixture of gasses aerated by biomass combustion across the landscape [@naeher_woodsmoke_2007]. While many of these compounds have been shown to cause health problems in humans, organic carbon and black carbon particulate matter less than 2.5 $\mu$m in diameter (PM2.5) is particularly harmful to human health [@deryugina_mortality_2019]. PM2.5 Causes between 260,000 - 600,000 global deaths annually and significantly increasing community mortality even under acute exposure [@johnston_fay_h_estimated_2012; @naeher_woodsmoke_2007; @kloog_long-_2013].
+Wildfire smoke is a complex mixture of gasses aerated by biomass combustion across the landscape [@naeher_woodsmoke_2007]. While many of these compounds have been shown to cause health problems in humans, organic carbon and black carbon particulate matter less than 2.5 $\mu$m in diameter ($\text{PM}_{2.5}$) is particularly harmful to human health [@deryugina_mortality_2019]. $\text{PM}_{2.5}$ Causes between 260,000 - 600,000 global deaths annually and significantly increasing community mortality even under acute exposure [@johnston_fay_h_estimated_2012; @naeher_woodsmoke_2007; @kloog_long-_2013].
 
-Wildfires now account for 50% of all atmospheric PM2.5 in some Western regions compared to less than 20% in 2010 [@burke_changing_2021]. As any level of ambient PM2.5 increases community morbidity, public health agencies increasingly call for individuals to limit outdoor recreational behavior when wildfire smoke is present [@cascio_wildland_2018; @reid_colleen_e_critical_2016; @oneill_summary_2013].
+Wildfires now account for 50% of all atmospheric $\text{PM}_{2.5}$ in some Western regions compared to less than 20% in 2010 [@burke_changing_2021]. As any level of ambient $\text{PM}_{2.5}$ increases community morbidity, public health agencies increasingly call for individuals to limit outdoor recreational behavior when wildfire smoke is present [@cascio_wildland_2018; @reid_colleen_e_critical_2016; @oneill_summary_2013].
 
 Recent literature reviews on recreational behavior have found a dearth of research describing how individuals respond to low air quality, as well as research which gives predictions for how climate change will affect the recreation landscape [@otoole_climate_2019;@zajchowski_air_2019-1]. Additionally, a survey of federal land managers indicated that decision makers in areas such as national parks feel that they have a shortage of information describing how air quality affects the recreational behavior of their visitors [@zajchowski_air_2019]. 
 
-It is of particular importance to understand how individuals are responding to wildfire smoke because it may provide a test case for how individuals will adapt to climate change generally. This article uses ambient smoke and visitation data collected from national parks in the Western and Intermountain United States to answer whether individuals are adapting their recreation behavior in response to increasing wildfire smoke. We use a hierarchical break-point modeling approach to test for linear and threshold effects of smoke on national park visitation. The case study presented here aims to provide insights as to the overall trajectory of realized climate adaptation on the individual level.  
+It is of particular importance to understand how individuals are responding to wildfire smoke because it may provide a test case for how individuals will adapt to climate change generally. This article uses ambient smoke and visitation data collected from national parks in the Western and Intermountain United States from 1980-2019 to answer whether individuals are adapting their recreation behavior in response to increasing wildfire smoke. We hypothesize that the effect of ambient smoke on national park visitation may be nonlinear, only showing a measurable impact in the upper ranges of the observed smoke values. Threshold effects such as this are common in ecology and human behavioral sciences [@muradian2001ecological; @huggett2005concept; @macy1991chains]. Toms & Lesperance [-@toms2003piecewise] show that breakpoint models are an effective tool to account for these thresholds and gather inference about the effects of predictors before and after in natural systems. Here we develop a series of three hierarchical breakpoint models to determine if threshold effects are present in national park visitation response to ambient smoke and if so, what the effect of smoke is on visitation to national parks in the American West. The case study presented here aims to provide insights as to the overall trajectory of realized climate adaptation on the individual level.  
 
 # Methods
 ## Data Collection
@@ -99,14 +101,49 @@ Alex to fill in this part
 ## Analyses
 
 ### Modeling
-Threshold effects are common in ecology and human behavioral sciences [@muradian2001ecological; @huggett2005concept; @macy1991chains]. Toms & Lesperance [-@toms2003piecewise] show that breakpoint models are an effective tool to identify these thresholds and gather inference about the effects of predictors before and after in natural systems. Here we develop a breakpoint model to identify if a threshold exists for visitation response to ambient smoke and if so, what the effect of smoke is on visitation to national parks in the American West. 
+We first account for underlying change in national park visitation from 1980-2019 by developing a temporal autoregressive model which we validate and build upon to answer our main research question. This baseline autoregressive model uses the visitation data from the three previous years to predict the visitation to a given park in a given month. This formulation of an autoregressive model is commonly referred to as an AR(*k*) model, with this particular instance holding that *k* = 3 [@standev2021stancore]. We chose a *k* value of 3 as the added within-sample predictive value of increasing *k* diminished considerably for any greater value. 
+
+We formulated this baseline autoregressive model using a bayesian heierarchical framework. This approach is appropriate here as it allows us to account between park variation in visitation trends while acknowledging the interconnectedness of these trends through partial pooling [@statrethinkingbook]. For each park ($j$) we estimate a parameter value ($\bm{\nu1...k}$) representing the trend in visitation from one, two, and three years prior ($t-1,2,...k$), to the month we are estimating ($i$). Finally, we estimate both global ($\alpha0$) and park specific ($\bm{\beta0}_{j}$) intercepts. We modeled these data using a negative binomial distribution to allow us to estimate an overdispersion paremeter ($\phi$) rather than assuming the dispersion is equal to the mean.  
+
+
+$$ y_{ij} \sim NegBinom(\mu_{ij},\phi) $$
+
+\begin{equation}
+\text{log}(\mu_{ij}) = 
+\alpha0+\bm{\beta0}_{j}+\bm{\nu1}_{j}*\text{vis}_{i,t-1}+ \\
+\bm{\nu2}_{j}*\text{vis}_{i,t-2}+\bm{\nu3}_{j}*\text{vis}_{i,t-3}  
+\end{equation}
+
+
+  
+
+$$\bm{\beta0}_{j} \sim Norm(0,\sigma_{j})$$
+
+teeeext
+
 
 ![image alt text](../Figures/bpplot.png)
 
-$$f\]n =\textbackslash begin \{ cases \}a \&\textbackslash text \{ if \$n =0 \$\} \textbackslash \textbackslash r\textbackslash cdot f\] \{n -1\} \&\textbackslash text \{ else \}\textbackslash end \{ cases \$$ 
+$$ y_{ij} \sim NegBinom(\mu_{ij},\phi) $$
 
 
 
+\begin{equation}
+\text{log}(\mu_{ij}) = 
+\begin{cases} 
+\alpha0+\bm{\beta0}_{j}+\bm{\beta1}_{j}*\text{smoke}_{i}+\bm{\nu1}_{j}*\text{vis}_{i,t-1}+ \\
+\bm{\nu2}_{j}*\text{vis}_{i,t-2}+\bm{\nu3}_{j}*\text{vis}_{i,t-3} & \text{if } \text{smoke}_{i} < \text{BP} \\ \\
+\beta0+\bm{\beta0}_{j}+\bm{\beta1}_{j}*\text{BP}+(\text{smoke}_{i}-\text{BP})*\bm{\beta2}_{j}+  \\ \bm{\nu1}_{j}*\text{vis}_{i,t-1}+\bm{\nu2}_{j}*\text{vis}_{i,t-2}+\bm{\nu3}_{j}*\text{vis}_{i,t-3}        & \text{if } \text{smoke}_{i} \geq \text{BP}
+\end{cases}
+\end{equation}
+  
+  
+
+ 
+
+
+$$\bm{\beta0}_{j} \sim Norm(0,\sigma_{j})$$
+ 
 
 ### Validation
 Text about model checking
