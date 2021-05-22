@@ -1,5 +1,5 @@
 library(tidyverse)
-dat<-read_csv("Data/MergedDataCompleteFINAL.csv")[,-1]
+dat<-read_csv("~/SmokeProject/Data/MergedDataCompleteFINAL.csv")[,-1]
 #filter to only high season data
 #dat<-dat%>%filter(SeasType =="High")
 
@@ -96,8 +96,8 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
     scale_color_manual(values=cols2)+
     scale_y_continuous(breaks=c(0),labels="Intercept", limits = c(-0.5,0.3))+
     scale_x_continuous(breaks=c(0,0.5, 1.0, 1.5))+
-    geom_text(x=0,y=0.2,label="Slope 1",color="black",fontface="bold",size=6)+
-    geom_text(x=2.5,y=0.1,label="Slope 2",color="black",fontface="bold",size=6)+
+    geom_text(x=0,y=0.2,label="Slope~(beta)~1",color="black",fontface="bold",size=6,parse=TRUE)+
+    geom_text(x=2.5,y=0.1,label="Slope~(beta)~2",color="black",fontface="bold",size=6,parse=TRUE)+
     annotate("segment", x = 0, xend = 0, y = 0.175, yend = 0.12, colour = "black", size=1.5, arrow=arrow())+
     annotate("segment", x = 2.5, xend = 2.4, y = 0.075, yend = 0.02, colour = "black", size=1.5, arrow=arrow())+
     labs(color = "Breakpoint")+xlab("Smoke (standardized)")+ylab("Visitation")+
@@ -107,7 +107,30 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
     theme_classic()+mytheme+theme(legend.position = "none") 
   
   
+  #validation plot
+  load("~/SmokeProject/ModelObjects/modAROnly.rda")
+  y<-data_list$count #for pp checking in shinystan
+  #shinystan::launch_shinystan(mod)
+  z<-extract(mod)
+  preds<-apply(z$count_pred,2,median)
+  plot(y,preds)
+  cor(y,preds)
   
+  dat$PredVis<-preds
+  
+  dat$Date <- as.Date(paste(dat$Year, dat$Month, sep="-"), "%Y-%M")
+  
+  dat%>%filter(UnitCode =="GLAC")%>%
+    ggplot(.,aes(x=Date))+geom_point(aes(y=RecreationVisits),color="blue")+geom_point(aes(y=PredVis),color="red")
 
+  ggplot(dat,aes(x=RecreationVisits,y=PredVis))+
+    geom_abline(intercept = 0, slope = 1,linetype="dashed",color="#525252",size=1.5 )+
+    geom_point(alpha=0.5)+theme_classic()+mytheme+
+    ylab("Predicted Visitation")+xlab("Actual Visitation")+
+    geom_text(x=5000,y=20000,color="black",label=paste0("R^2 == ", round(cor(y,preds)^2,digits = 2)),parse=TRUE)
+     
+  
+  
+  
   
   

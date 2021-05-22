@@ -173,6 +173,6 @@ plot(y,preds)
 cor(y,preds)
 
 
-
-
-
+median(z$phi)
+median(z$Intercept)
+median(z$AR_term[30])
