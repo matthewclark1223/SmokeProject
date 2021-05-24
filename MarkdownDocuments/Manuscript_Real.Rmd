@@ -140,18 +140,25 @@ $$\bm{\beta0}_{j} \sim Norm(0,\sigma)$$
 Following the recommendation given by Gelman et al. [-@gelman2008weakly] for producing stable, conservative estimates, we specified long-tailed regularizing priors for all autoregressive terms, the global intercept value, and the overdispersion parameter. We used normally distributed regularizing priors for estimating the variance parameter ($\sigma$) and the pre and post-breakpoint smoke effects to allow for more efficient sampling while generative within-sample predictions at high smoke values.  
 
 ### Validation
-Due to the considerable computational time (about 1 day) needed to run the program described above, we validated the results of both the autoregressive-only and breakpoint models using within-sample posterior predictive checks. All models were first inspected to ensure adequate mixing of Markov chains and $\hat{R}$ values below 1.05 for all parameter estimates.  
+Due to the considerable computational time (about 1 day) needed to run the program described above, we validated the results of both the autoregressive-only and breakpoint models using within-sample posterior predictive checks. All models were first inspected to ensure adequate mixing of Markov chains, $\hat{R}$ values below 1.05 for all parameter estimates, and the absence of divergent transitions after warm up.  
+
+We examined the within-sample predictive capacity of the autoregressive only model to be sure we adequately accounted for baseline changes in visitation before building on this model to test for the effects of smoke on visitation. This baseline model allowed us to account for approximately 40% of all variation in the data, with the bulk of the error occurring when actual visitation was very high or very low (Fig 3).  
 
 ![image alt text](../Figures/ARVal.png)
 
 # Results
-While some between-park variation exists, our overall study shows no evidence for recreational visitor response to wildfire smoke in national parks in the American West. 
+While some between-park variation exists, our overall study shows no evidence for recreational visitor response to wildfire smoke in national parks in the American West. Figures 4 and 5 show the parameter estimates for the pre and post breakpoint smoke effects respectively. In all three breakpoint models, only two parks have 90% credible intervals that do not overlap zero for slope 1, both of which have opposite signs (Fig. 4). This trend is paralleled for slope 2 in the two lower breakpoint models and all 90% credibility intervals overlap 0 for slope 2 in the model with the most extreme breakpoint (Fig. 5). 
+
+Intuitively, the within-sample $R^2$ increases only slightly when accounting for smoke effects, from 0.40 to 0.41 compared to the autoregressive only model. This suggests that ambiant smoke in national parks in the American West is not driving any measurable changes in visitation even at sustained and dangerous levels. We then conclude that visitors are not altering recreation behavior in response to smoke and therefore no critical threshold for adaptation is detectable in these data. 
 
 ![image alt text](../Figures/slpz1.png)
 
 ![image alt text](../Figures/slpz2.png)
 
 # Discussion
+We demonstrate that given the data available to us, we detect no visitor adaptation to increasing wildfire smoke in national parks in the American West. This result is troubling on both immediatly and in the long-term. We discuss earlier the public health dangers of wildfire smoke, and in particular $\text{PM}_{2.5}$.  
+
+
 We probably need national level policy to protect people [@rai_policy_2020]. There is huge variation in the way states react and plan for climate change [@hu_evaluating_2018].
 
 because of the highly variable nature of wildfires, their relationship to climate change, and the great distances that smoke can travel during and after wildfire events [@dombeck_wildfire_2004; @collins_regional_2006]. 

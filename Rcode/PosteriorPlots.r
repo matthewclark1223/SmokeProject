@@ -58,7 +58,7 @@ slp1plot<-slpz%>%
   ggplot(., aes(y = mid ,x=UnitCodeRev,ymin=lower,ymax=upper,color=Model))+ggtitle("")+#maybe put A/B here for panel lable
   geom_linerange( mapping=aes(x=UnitCodeRev, ymin=bottom, ymax=top,color=Model), size=0.25,position = position_dodge(width = 0.5),alpha=0.8) +##change deets
   geom_pointrange(position = position_dodge(width = 0.5),size=1,alpha=0.8)+xlab("NPS Unit Code")+
-  scale_color_manual(name="Breakpoint",labels=c("0.5","1.0","1.5") ,values=cols2)+facet_wrap(~half,scales="free")+ylab("Standardized Effect Size")+
+  scale_color_manual(name="Breakpoint",labels=c("1.5","1.0","0.5") ,values=cols2)+facet_wrap(~half,scales="free")+ylab("Standardized Effect Size")+
   coord_flip()+geom_hline(yintercept=0,linetype="dashed",color="darkgrey" )+
   theme_classic()+mytheme+theme(strip.background = element_blank(),
                                              strip.text.x = element_blank())+
@@ -106,7 +106,7 @@ slp2plot<-slpz2%>%
   ggplot(., aes(y = mid ,x=UnitCodeRev,ymin=lower,ymax=upper,color=Model))+ggtitle("")+
   geom_linerange( mapping=aes(x=UnitCodeRev, ymin=bottom, ymax=top,color=Model), size=0.25,position = position_dodge(width = 0.5),alpha=0.8) +##change deets
   geom_pointrange(position = position_dodge(width = 0.5),size=1,alpha=0.8)+xlab("NPS Unit Code")+
-  scale_color_manual(name="Breakpoint",labels=c("0.5","1.0","1.5") ,values=cols2)+facet_wrap(~half,scales="free")+ylab("Standardized Effect Size")+
+  scale_color_manual(name="Breakpoint",labels=c("1.5","1.0","0.5") ,values=cols2)+facet_wrap(~half,scales="free")+ylab("Standardized Effect Size")+
   coord_flip()+geom_hline(yintercept=0,linetype="dashed",color="darkgrey" )+
   theme_classic()+mytheme+theme(strip.background = element_blank(),
                                 strip.text.x = element_blank())+

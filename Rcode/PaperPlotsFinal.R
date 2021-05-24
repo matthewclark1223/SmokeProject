@@ -132,5 +132,23 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   
   
   
+  y<-data_list$count #for pp checking in shinystan
+  #shinystan::launch_shinystan(mod)
+  z<-extract(modSmoke2)
+  preds<-apply(z$count_pred,2,median)
+  plot(y,preds)
+  cor(y,preds)
   
+  dat$PredVis<-preds
+  
+  dat$Date <- as.Date(paste(dat$Year, dat$Month, sep="-"), "%Y-%M")
+  
+  dat%>%filter(UnitCode =="GLAC")%>%
+    ggplot(.,aes(x=Date))+geom_point(aes(y=RecreationVisits),color="blue")+geom_point(aes(y=PredVis),color="red")
+  
+  ggplot(dat,aes(x=RecreationVisits,y=PredVis))+
+    geom_abline(intercept = 0, slope = 1,linetype="dashed",color="#525252",size=1.5 )+
+    geom_point(alpha=0.5)+theme_classic()+mytheme+
+    ylab("Predicted Visitation")+xlab("Actual Visitation")+
+    geom_text(x=5000,y=20000,color="black",label=paste0("R^2 == ", round(cor(y,preds)^2,digits = 2)),parse=TRUE)
   
