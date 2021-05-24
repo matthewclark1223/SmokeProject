@@ -101,7 +101,7 @@ Alex to fill in this part
 ## Analyses
 
 ### Modeling
-We first account for underlying change in national park visitation from 1980-2019 by developing a temporal autoregressive model which we validate and build upon to answer our main research question. This baseline autoregressive model uses the visitation data from the three previous years to predict the visitation to a given park in a given month. This formulation of an autoregressive model is commonly referred to as an AR(*k*) model, with this particular instance holding that *k* = 3 [@standev2021stancore]. We chose a *k* value of 3 as the added within-sample predictive value of increasing *k* diminished considerably for any greater value. 
+We first account for underlying change in national park visitation from 1980-2019 by developing a temporal autoregressive model which we validate and build upon to answer our main research question. This baseline autoregressive model uses the visitation data from the three previous years to predict the visitation to a given park in a given month. This formulation of an autoregressive model is commonly referred to as an AR(*k*) model, with this particular instance holding that *k* = 3 [@standev2021stancore]. We chose a *k* of 3 as the added within-sample predictive value of increasing *k* diminished considerably for any greater value. 
 
 We formulated this baseline autoregressive model using a Bayesian hierarchical framework. This approach is appropriate here as it allows us to account between park variation in visitation trends while acknowledging the interconnectedness of these trends through partial pooling [@statrethinkingbook]. For each park ($j$) we estimate a parameter value ($\bm{\nu1...k}$) representing the trend in visitation from one, two, and three years prior ($t-1,2,...k$), to the month we are estimating ($i$). Finally, we estimate both global ($\alpha0$) and park specific ($\bm{\beta0}_{j}$) intercepts to yield equation 1 below. We modeled these data using a negative binomial distribution to allow us to estimate an overdispersion parameter ($\phi$) rather than assuming the dispersion is equal to the mean.  
 
@@ -116,9 +116,9 @@ $$ y_{ij} \sim NegBinom(\mu_{ij},\phi) $$
 
 $$\bm{\beta0}_{j} \sim Norm(0,\sigma)$$
 
-After validating that the model above captures the baseline trends in national park visitation from 1980-2019, we built upon it to estimate the if a critical threshold for visitation response to wildfire smoke exists in these data and if so, what the impact of wildfire smoke is on visitation post-threshold. To do this, we developed a series of three breakpoint models, allowing for three increasingly extreme breakpoints (i.e. critical thresholds). We standardized these smoke data, and thus the thresholds as well, by dividing by two standard deviations following the recommendation made by Gelman [-@gelman2008scaling]. A threshold of 1.0 can then be interpreted as two standard deviations above the mean value of smoke in the data. A visual comparison of the observed actual smoke values and standardized values can be seen in Fig. 1. 
+After validating that the model above captures the baseline trends in national park visitation from 1980-2019, we built upon it to estimate if a critical threshold for visitation response to wildfire smoke exists in these data and if so, what the impact of wildfire smoke is on visitation post-threshold. To do this, we developed a series of three breakpoint models, allowing for three increasingly extreme breakpoints (i.e. critical thresholds). We standardized these smoke data, and thus the thresholds as well, by dividing by two standard deviations following the recommendation made by Gelman [-@gelman2008scaling]. A threshold of 1.0 can then be interpreted as two standard deviations above the mean value of smoke in the data. A visual comparison of the observed actual smoke values and standardized values can be seen in Fig. 1. 
 
-As shown conceptually in Fig. 2, we estimated the effect of smoke on visitation before ($\bm{\beta1}$) and after ($\bm{\beta2}$) each breakpoint (BP). Just as with the autoregressive terms, we estimated unique paramater values for each park ($j$) in a heierarchical framework. The complete model used for each of the three breakpoint values is then as seen in equation 2.   
+As shown conceptually in Fig. 2, we estimated the effect of smoke on visitation before ($\bm{\beta1}$) and after ($\bm{\beta2}$) each breakpoint (BP). Just as with the autoregressive terms, we estimated unique parameter values for each park ($j$) in a hierarchical framework. The complete model used for each of the three breakpoint values is then as seen in equation 2.   
 
 
 
@@ -149,20 +149,23 @@ We examined the within-sample predictive capacity of the autoregressive only mod
 # Results
 While some between-park variation exists, our overall study shows no evidence for recreational visitor response to wildfire smoke in national parks in the American West. Figures 4 and 5 show the parameter estimates for the pre and post breakpoint smoke effects respectively. In all three breakpoint models, only two parks have 90% credible intervals that do not overlap zero for slope 1, both of which have opposite signs (Fig. 4). This trend is paralleled for slope 2 in the two lower breakpoint models and all 90% credibility intervals overlap 0 for slope 2 in the model with the most extreme breakpoint (Fig. 5). 
 
-Intuitively, the within-sample $R^2$ increases only slightly when accounting for smoke effects, from 0.40 to 0.41 compared to the autoregressive only model. This suggests that ambiant smoke in national parks in the American West is not driving any measurable changes in visitation even at sustained and dangerous levels. We then conclude that visitors are not altering recreation behavior in response to smoke and therefore no critical threshold for adaptation is detectable in these data. 
+Intuitively, the within-sample $R^2$ increases only slightly when accounting for smoke effects, from 0.40 to 0.41 compared to the autoregressive only model. This suggests that ambient smoke in national parks in the American West is not driving any measurable changes in visitation even at sustained and dangerous levels. We then conclude that visitors are not altering recreation behavior in response to smoke and therefore no critical threshold for adaptation is detectable in these data. 
 
 ![image alt text](../Figures/slpz1.png)
 
 ![image alt text](../Figures/slpz2.png)
 
 # Discussion
-We demonstrate that given the data available to us, we detect no visitor adaptation to increasing wildfire smoke in national parks in the American West. This result is troubling on both immediatly and in the long-term. We discuss earlier the public health dangers of wildfire smoke, and in particular $\text{PM}_{2.5}$.  
+We demonstrate that given the data available to us, we detect no visitor adaptation to increasing wildfire smoke in national parks in the American West. This result is troubling both immediately and in the long-term. We discuss earlier the public health dangers of wildfire smoke, and in particular $\text{PM}_{2.5}$. These results suggest that..  
 
 
 We probably need national level policy to protect people [@rai_policy_2020]. There is huge variation in the way states react and plan for climate change [@hu_evaluating_2018].
 
 because of the highly variable nature of wildfires, their relationship to climate change, and the great distances that smoke can travel during and after wildfire events [@dombeck_wildfire_2004; @collins_regional_2006]. 
 
+A key limitation of this study is the lack of availability of fine scale visitation data to US national parks. Daily visitation data would allow us to identify a more complete picture of if and how visitors respond to smoke events day to day. Current data at the monthly scale allows us to investigate the big picture trends in visitor behavior, but future research would benefit greatly from daily count data. 
+
+It is possible that individuals postpone visits to national parks by days or weeks when smoke is present, behavior which our study current study would be unable to capture. It is also possibly that this trend would not hold for recreation on all public lands. US national parks draw a great number non-local visitors, many of whom are coming from other states or countries and are likely visiting for the first time [@schuett2010visits]. We speculate that these visitors are less likely to change their plans due to wildfire smoke than individuals recreating locally or repeatedly in one location. We propose that this unique feature of national parks makes their visitors particularly less adaptive to changing climatic conditions. Another path for future research might investigate if the trend shown here holds for other public lands with different visitor profiles.
 
 \newpage
 
