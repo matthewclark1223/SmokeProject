@@ -76,11 +76,11 @@ setwd("C:/Users/Matthewclark989/Documents/SmokeProject")
 ```
 
 # Introduction
-Climate change has already begun to dramatically change the social-ecological landscapes in which humans have learned to operate [@IPCC]. All levels of human society must urgently adapt to these new realities if we are to continue to thrive over the coming millenia [@IPCC]. As a society, we are aware of this, but still are failing to respond adequately [@steg_limiting_2018]. Even when adaptive strategies and their benefits are known, we do not demonstrate adaptive behaviors [@van_valkengoed_meta-analyses_2019]. While research has shown that extreme events tend to spur climate adaptation at the government level, less is known about how individuals are reacting and possibly adapting to a changing climate [@bierbaum_comprehensive_2013; @berrang-ford_tracking_2019; @berrang-ford_are_2011]. 
+Climate change has already begun to dramatically change the social-ecological landscapes in which humans have learned to operate [@IPCC]. All levels of human society must urgently adapt to these new realities if we are to continue to thrive over the coming decades[@IPCC]. As a society, we are aware of this, but still are failing to respond adequately [@steg_limiting_2018]. Even when adaptive strategies and their benefits are known, we do not demonstrate adaptive behaviors [@van_valkengoed_meta-analyses_2019]. While research has shown that extreme events tend to spur climate adaptation at the government level, less is known about how individuals are reacting and possibly adapting to a changing climate [@bierbaum_comprehensive_2013; @berrang-ford_tracking_2019; @berrang-ford_are_2011]. 
 
-A particularly salient environmental effect of climate change in the United States is the increasing wildfire frequency and severity over the last 40 years, primarily in the American West [@kitzberger_contingent_2007; @westerling_increasing_2016]. As climate change accounts for approximately half of the increase in burned area during this time, fires are expected to worsen over the next 40 years as the climate continues to warm [@westerling_increasing_2016; @abatzoglou_impact_2016; @yue_ensemble_2013; @wuebbles_climate_2017; @harvey_human-caused_2016; @peterson_new_2003; @barbero_climate_2015]. Accompanying the increase in wildfires in the American West, is a projected increase in wildfire smoke [@schroeder_validation_2008]. Fire-prone areas may experience a two-fold increase in wildfire smoke by 2100 [@hurteau_projected_2014].
+A particularly salient environmental effect of climate change in the United States is the increasing wildfire frequency and severity over the last 40 years, primarily in the American West [@kitzberger_contingent_2007; @westerling_increasing_2016]. As climate change accounts for approximately half of the increase in burned area during this time, fires are expected to worsen over the next 40 years as the climate continues to warm [@westerling_increasing_2016; @abatzoglou_impact_2016; @yue_ensemble_2013; @wuebbles_climate_2017; @harvey_human-caused_2016; @peterson_new_2003; @barbero_climate_2015]. Accompanying the increase in wildfires in the American West, is a projected increase in wildfire smoke [@schroeder_validation_2008]. Fire-prone areas may experience a two-fold increase in wildfire smoke by 2100 [@hurteau_projected_2014]. referred to 
 
-![image alt text. Righ-hand y axis shows the standardized values of smoke ](../Figures/smkplt.png)
+![Smoke observations in each of the 32 national parks included in this study from 1980-2019. Smoke events greater than 5 on our standardized scale (10 standard deviations above the mean) are labeled. The right-hand y-axis shows the standardized values of smoke referred to when describing the chosen critical thresholds. Smoke values on the left-hand y-axis are....ALEX..](../Figures/smkplt.png)
 
 Wildfire smoke is a complex mixture of gasses aerated by biomass combustion across the landscape [@naeher_woodsmoke_2007]. While many of these compounds have been shown to cause health problems in humans, organic carbon and black carbon particulate matter less than 2.5 $\mu$m in diameter ($\text{PM}_{2.5}$) is particularly harmful to human health [@deryugina_mortality_2019]. $\text{PM}_{2.5}$ causes between 260,000 - 600,000 global deaths annually and significantly increases community mortality even under acute exposure [@johnston_fay_h_estimated_2012; @naeher_woodsmoke_2007; @kloog_long-_2013].
 
@@ -123,7 +123,7 @@ As shown conceptually in Fig. 2, we estimated the effect of smoke on visitation 
 
 
 
-![image alt text](../Figures/bpplot2.png)
+![Conceptual diagram showing the design of the three breakpoint models used in this analysis. Note that slope 1 is not necessarily 0 in the design of these models. All three models also do not necessarily have different intercepts. The lines showing the three different breakpoints are separated along the y-axis only for visual clarity.](../Figures/bpplot2.png)
 
 $$ y_{ij} \sim NegBinom(\mu_{ij},\phi) $$
 
@@ -145,16 +145,16 @@ Due to the considerable computational time (about 1 day) needed to run the progr
 
 We examined the within-sample predictive capacity of the autoregressive only model to be sure we adequately accounted for baseline changes in visitation before building on this model to test for the effects of smoke on visitation. This baseline model allowed us to account for approximately 40% of all variation in the data, with the bulk of the error occurring when actual visitation was very high or very low (Fig 3).  
 
-![image alt text](../Figures/ARVal.png)
+![Scatterplot showing the within-sample predictive accuracy of the autoregressive baseline model used in this study. This model accounts for 40% of all variation in the data.](../Figures/ARVal.png)
 
 # Results
 While some between-park variation exists, our overall study shows no evidence for recreational visitor response to wildfire smoke in national parks in the American West. Figures 4 and 5 show the parameter estimates for the pre and post breakpoint smoke effects respectively. In all three breakpoint models, only two parks have 90% credible intervals that do not overlap zero for slope 1, both of which have opposite signs (Fig. 4). This trend is paralleled for slope 2 in the two lower breakpoint models and all 90% credibility intervals overlap 0 for slope 2 in the model with the most extreme breakpoint (Fig. 5). 
 
 Intuitively, the within-sample $R^2$ increases only slightly when accounting for smoke effects, from 0.40 to 0.41 compared to the autoregressive only model. This suggests that ambient smoke in national parks in the American West is not driving any measurable changes in visitation even at sustained and dangerous levels. We then conclude that visitors are not altering recreation behavior in response to smoke and therefore no critical threshold for adaptation is detectable in these data. 
 
-![image alt text](../Figures/slpz1.png)
+![Posterior parameter estimates for slope 1 for each of the 32 national parks included in this study for each of the three breakpoint models. Points represent the median prediction. Thick lines show the 50% credibility intervals and thin lines show the 90% intervals.](../Figures/slpz1.png)
 
-![image alt text](../Figures/slpz2.png)
+![Posterior parameter estimates for slope 2 for each of the 32 national parks included in this study for each of the three breakpoint models. Points represent the median prediction. Thick lines show the 50% credibility intervals and thin lines show the 90% intervals.](../Figures/slpz2.png)
 
 # Discussion
 Given the data available to us, we detect no visitor adaptation to increasing wildfire smoke in national parks in the American West. This result is troubling both immediately and in the long-term. As discussed above, $\text{PM}_{2.5}$ significantly increases community morbidity even under acute exposure. In concert with showing no overall trends in behavioral adaptation, these data provide specific instances of historic smoke events where visitation did not deviate from normal.  
