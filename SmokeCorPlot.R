@@ -22,3 +22,4 @@ ggplot(BSD,aes(x=smokeCol*1e5,y=smokeSurf*1e8))+
   ylab("Surface Monthly Mean e-8")+xlab("Column Monthly Mean e-5")+
   geom_text(x=0.5,y=1.5,color="black",label=paste0("cor = ", round(smokecor,digits = 2)),size=8)
 
+
