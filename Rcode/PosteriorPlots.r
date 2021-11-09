@@ -7,7 +7,7 @@ load("~/SmokeProject/ModelObjects/modSmokeSet1.rda")#modSmoke3
 load("~/SmokeProject/ModelObjects/modSmokeSet1_5.rda")#modSmoke4
 
 #0.5
-z<-extract(modSmoke2)
+z<-rstan::extract(modSmoke2)
 sl20.5<-as.data.frame(z$slope1)
 names(sl20.5)<-unique(as.factor(dat$UnitCode ))
 sl20.5$Model<-rep("bp0.5",nrow(sl20.5))

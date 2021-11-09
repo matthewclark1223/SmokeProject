@@ -3,6 +3,7 @@ library(rstan)
 library(ggridges)
 dat<-read_csv("Data/MergedDataCompleteFINAL.csv")[,-1]
 
+
 data<-dat
 
 #create a 1 year AR lag

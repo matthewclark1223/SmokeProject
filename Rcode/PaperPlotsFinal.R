@@ -47,16 +47,18 @@ stdd<-function(x){
   predict.lm(fit,newdata=data.frame(medSmoke=x))
 }
 
-HS<-dat%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode!="LAVO")%>%filter(UnitCode!="KICA")
-HSL<-dat%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode=="LAVO")
-HSK<-dat%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode=="KICA")
+HS<-dat%>%mutate(ParkName= gsub(" NP","",dat$ParkName))%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode!="LAVO")%>%filter(UnitCode!="KICA")
+HSL<-dat%>%mutate(ParkName= gsub(" NP","",dat$ParkName))%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode=="LAVO")
+HSK<-dat%>%mutate(ParkName= gsub(" NP","",dat$ParkName))%>%filter(SeasType=="High")%>%filter(stdsmokemed>5)%>%filter(UnitCode=="KICA")
 
-smokePlt<-dat%>%filter(SeasType=="High")%>%
+
+smokePlt<-dat%>%
+  filter(SeasType=="High")%>%
 ggplot(.,aes(x=Date,y=medSmoke,by=UnitCode))+
   geom_point(alpha=0.4,size=3)+
-    geom_text(data=HS,aes(x=Date-2.1,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3,fontface="bold")+
-    geom_text(data=HSK,aes(x=Date-2.7,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3,fontface="bold")+
-    geom_text(data=HSL,aes(x=Date-2.9,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3,fontface="bold")+
+    geom_text(data=HS,aes(x=Date-2.1,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3.5,fontface="bold")+
+    geom_text(data=HSK,aes(x=Date-2.7,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3.5,fontface="bold")+
+    geom_text(data=HSL,aes(x=Date-2.9,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3.5,fontface="bold")+
     theme_classic()+mytheme+ylab("Median Smoke Value")+
 scale_y_continuous(sec.axis =sec_axis(trans = stdd ,name="Standardized"))
 
@@ -107,11 +109,53 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
     theme_classic()+mytheme+theme(legend.position = "none") 
   
   
+  ###make data list used for modeling
+  #create a 1 year AR lag
+  dat$AR_Vis<-lag(dat$RecreationVisits,n=384)
+  x<-dat[385:1920,]$AR_Vis==dat[1:1536,]$RecreationVisits
+  which(x != TRUE)
+  
+  #create a 2 year AR lag
+  dat$AR_Vis2<-lag(dat$RecreationVisits,n=768)
+  x<-dat[769:1920,]$AR_Vis2==dat[1:1152,]$RecreationVisits
+  which(x != TRUE)
+  
+  #create a 3 year AR lag
+  dat$AR_Vis3<-lag(dat$RecreationVisits,n=1152)
+  x<-dat[1153:1920,]$AR_Vis3==dat[1:768,]$RecreationVisits
+  which(x != TRUE)
+  
+ 
+  
+  #get ridof the 1st 3 years of data
+  dat<-na.omit(dat)
+  
+  #filter to only high season data
+  dat<-dat%>%filter(SeasType =="High")
+  
+  #stdize function as per Gelman reccomendation
+  stdize<-function(x){
+    (x-mean(x))/(2*sd(x))}
+  
+  #data for modeling
+  data_list <- list(
+    N = nrow(dat),
+    Nprk = length(unique(dat$UnitCode)),
+    count = dat$RecreationVisits,
+    #smoke = stdize(dat$medSmoke),
+    arVis = stdize(dat$AR_Vis),
+    arVis2 = stdize(dat$AR_Vis2),
+    arVis3 = stdize(dat$AR_Vis3),
+    pcode = as.numeric(as.factor(dat$UnitCode ))
+  )
+  
+  
+  
   #validation plot
   load("~/SmokeProject/ModelObjects/modAROnly.rda")
   y<-data_list$count #for pp checking in shinystan
   #shinystan::launch_shinystan(mod)
-  z<-extract(mod)
+  z<-rstan::extract(mod)
   preds<-apply(z$count_pred,2,median)
   plot(y,preds)
   cor(y,preds)
@@ -134,7 +178,7 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   
   y<-data_list$count #for pp checking in shinystan
   #shinystan::launch_shinystan(mod)
-  z<-extract(modSmoke2)
+  z<-rstan::extract(modSmoke2)
   preds<-apply(z$count_pred,2,median)
   plot(y,preds)
   cor(y,preds)
@@ -151,4 +195,127 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
     geom_point(alpha=0.5)+theme_classic()+mytheme+
     ylab("Predicted Visitation")+xlab("Actual Visitation")+
     geom_text(x=5000,y=20000,color="black",label=paste0("R^2 == ", round(cor(y,preds)^2,digits = 2)),parse=TRUE)
+  
+  
+  #####
+  #Plot actual model lines
+  #Just start from begnning
+  dat<-read_csv("~/SmokeProject/Data/MergedDataCompleteFINAL.csv")[,-1]
+  #filter to only high season data
+  #dat<-dat%>%filter(SeasType =="High")
+  
+  #stdize function as per Gelman reccomendation
+  stdize<-function(x){
+    (x-mean(x))/(2*sd(x))}
+  dat$Date<-zoo::as.yearmon(paste(dat$Year, dat$Month), "%Y %m")
+  dat$stdsmokemed<-stdize(dat$medSmoke)
+  dat$AR_Vis<-lag(dat$RecreationVisits,n=384)
+  x<-dat[385:1920,]$AR_Vis==dat[1:1536,]$RecreationVisits
+  which(x != TRUE)
+  
+  #create a 2 year AR lag
+  dat$AR_Vis2<-lag(dat$RecreationVisits,n=768)
+  x<-dat[769:1920,]$AR_Vis2==dat[1:1152,]$RecreationVisits
+  which(x != TRUE)
+  
+  #create a 3 year AR lag
+  dat$AR_Vis3<-lag(dat$RecreationVisits,n=1152)
+  x<-dat[1153:1920,]$AR_Vis3==dat[1:768,]$RecreationVisits
+  which(x != TRUE)
+  
+  
+  
+  #get ridof the 1st 3 years of data
+  dat<-na.omit(dat)
+  #filter to only high season data
+  dat<-dat%>%filter(SeasType =="High")
+  
+  load("~/SmokeProject/ModelObjects/modSmokeSet0_5.rda")
+  z<-rstan::extract(modSmoke2)
+  slp1s<-apply(z$slope1,2,median)
+  slp2s<-apply(z$slope2,2,median)
+  int<-rep(median(z$Intercept),32)
+  rints<-apply(z$ran_intercept,2,median)
+  dt<-data.frame(UnitCode=sort(unique(dat$UnitCode)),slp1s=slp1s,slp2s=slp2s,
+                 int=int,rints=rints)
+  
+  
+ xx<-dat%>%group_by(UnitCode)%>%
+   summarize(minsmoke=min(stdsmokemed),maxsmoke=max(stdsmokemed)) 
+ 
+smokeranges<-data.frame(UnitCode=NA,Value=NA)
+ for(i in 1:32){
+ l<-seq(xx[[i,2]],xx[[i,3]],by=0.01)
+   l<-data.frame(UnitCode=rep(xx[[i,1]],length(l)),Value=l)
+   smokeranges<-rbind(smokeranges,l)
+ }
+ smokeranges<-smokeranges[-1,] 
+ smokeranges<-smokeranges[rep(seq_len(nrow(smokeranges)), each = 100), ]
+row.names(smokeranges)<-NULL
+
+smokeranges$draw<-rep(1:100)
+smokeranges$prknum<-as.integer(as.factor(smokeranges$UnitCode))
+###ADD Prediction from posterior here!!!!!
+
+smkeq<-function(prknum, value,draw){
+  if(value<0.5){
+    pred = exp(z$Intercept[draw]+ z$slope1[draw,prknum]*value+z$ran_intercept[draw,prknum])
+  }
+  if(value>=0.5){
+    pred = exp(z$Intercept[draw]+ z$slope1[draw,prknum]*0.5+(value-0.5)*z$slope2[draw,prknum]+
+                 z$ran_intercept[draw,prknum])
+  }
+  #pred=rnbinom(1,mu=pred,size=z$phi[draw])
+  return(pred)
+}
+ 
+smkeq(32,-0.07159349,5757)
+set.seed(1)
+smokeranges$pred<-rep(NA,nrow(smokeranges))
+samps<-rep(sample(x=1:length(z$Intercept),size=100),9205)
+for(i in 1:nrow(smokeranges)){
+  smokeranges[i,]$pred<-smkeq(prknum=smokeranges[i,]$prknum,value= smokeranges[i,]$Value,draw=samps[i]  )
+  #print(i) #nrow ~900,000
+}
+
+#write.csv(smokeranges,file="MarginalEffectsSmoke.csv")
+
+
+ dtsub<-dt%>%filter(UnitCode %in%c("GLAC","GRTE","CRLA","REDW"))
+ datsub<-dat%>%filter(UnitCode %in%c("GLAC","GRTE","CRLA","REDW"))
+ srsub<-smokeranges%>%filter(UnitCode %in%c("GLAC","GRTE","CRLA","REDW"))
+ 
+#Need to cut the lines pre/post bp using geom_segment
+
+  
+  
+ggplot(data=datsub, aes(x=stdsmokemed,y=RecreationVisits))+ 
+  geom_line(data=srsub,aes(x=Value,y=pred,by=as.character(draw)),alpha=0.5,color="darkgrey")+
+  geom_point()+
+  #ylim(range(datsub$RecreationVisits))+
+  facet_wrap(~UnitCode,scales="free")+theme_classic()
+  
+srsub %>%
+  group_by(UnitCode,Value) %>%
+  tidybayes::median_qi(pred) %>%
+  ggplot(aes(x = Value, y = pred, ymin = .lower, ymax = .upper)) +
+  tidybayes::geom_lineribbon(fill = "gray65")+
+  facet_wrap(~UnitCode,scales="free")+theme_classic()
+
+srsub %>%
+ggplot(.,aes(x=Value,y=pred))+
+  tidybayes::stat_lineribbon(.width = c(.5, .90)) +
+  scale_fill_brewer()+
+  facet_wrap(~UnitCode,scales="free")+theme_classic()
+  
+##This is the one
+srsub %>%
+  ggplot(.,aes(x=Value,y=pred))+
+  tidybayes::stat_lineribbon(aes(fill_ramp = stat(.width)), .width = ppoints(50), fill = "#2171b5") +
+  ggdist::scale_fill_ramp_continuous(range = c(0.8, 0))+
+  ylim(range(0,50000))+
+  geom_point(data=datsub, aes(x=stdsmokemed,y=RecreationVisits))+
+  facet_wrap(~UnitCode,scales="free")+theme_classic()
+  
+  
   
