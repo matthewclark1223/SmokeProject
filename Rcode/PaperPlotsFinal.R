@@ -55,12 +55,13 @@ HSK<-dat%>%mutate(ParkName= gsub(" NP","",dat$ParkName))%>%filter(SeasType=="Hig
 smokePlt<-dat%>%
   filter(SeasType=="High")%>%
 ggplot(.,aes(x=Date,y=medSmoke,by=UnitCode))+
-  geom_point(alpha=0.4,size=3)+
-    geom_text(data=HS,aes(x=Date-2.1,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3.5,fontface="bold")+
-    geom_text(data=HSK,aes(x=Date-2.7,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3.5,fontface="bold")+
-    geom_text(data=HSL,aes(x=Date-2.9,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=3.5,fontface="bold")+
-    theme_classic()+mytheme+ylab("Median Smoke Value")+
-scale_y_continuous(sec.axis =sec_axis(trans = stdd ,name="Standardized"))
+  geom_point(alpha=0.4,size=2.5)+
+    geom_text(data=HS,aes(x=Date-2.4,y=medSmoke+1e-9,label=paste(ParkName,paste0(Month,"/",Year))),size=2.8,fontface="bold")+
+    geom_text(data=HSK,aes(x=Date-3,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=2.8,fontface="bold")+
+    geom_text(data=HSL,aes(x=Date-3.2,y=medSmoke,label=paste(ParkName,paste0(Month,"/",Year))),size=2.8,fontface="bold")+
+    theme_classic()+mytheme+#ylab("Monthly Median Black Carbon Density ")+
+    labs(y = bquote('Median Black Carbon'~(Kg/M^-2)), x = "Month")+
+scale_y_continuous(sec.axis =sec_axis(trans = stdd ,name="Standardized (2 SD)"))
 
 #make bp example data
 ind<-seq(-1,3,0.01)
@@ -116,14 +117,14 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   which(x != TRUE)
   
   #create a 2 year AR lag
-  dat$AR_Vis2<-lag(dat$RecreationVisits,n=768)
-  x<-dat[769:1920,]$AR_Vis2==dat[1:1152,]$RecreationVisits
-  which(x != TRUE)
+  #dat$AR_Vis2<-lag(dat$RecreationVisits,n=768)
+  #x<-dat[769:1920,]$AR_Vis2==dat[1:1152,]$RecreationVisits
+  #which(x != TRUE)
   
   #create a 3 year AR lag
-  dat$AR_Vis3<-lag(dat$RecreationVisits,n=1152)
-  x<-dat[1153:1920,]$AR_Vis3==dat[1:768,]$RecreationVisits
-  which(x != TRUE)
+  #dat$AR_Vis3<-lag(dat$RecreationVisits,n=1152)
+  #x<-dat[1153:1920,]$AR_Vis3==dat[1:768,]$RecreationVisits
+  #which(x != TRUE)
   
  
   
@@ -144,8 +145,8 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
     count = dat$RecreationVisits,
     #smoke = stdize(dat$medSmoke),
     arVis = stdize(dat$AR_Vis),
-    arVis2 = stdize(dat$AR_Vis2),
-    arVis3 = stdize(dat$AR_Vis3),
+   # arVis2 = stdize(dat$AR_Vis2),
+    #arVis3 = stdize(dat$AR_Vis3),
     pcode = as.numeric(as.factor(dat$UnitCode ))
   )
   
@@ -170,6 +171,7 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   ggplot(dat,aes(x=RecreationVisits,y=PredVis))+
     geom_abline(intercept = 0, slope = 1,linetype="dashed",color="#525252",size=1.5 )+
     geom_point(alpha=0.5)+theme_classic()+mytheme+
+    scale_x_continuous(labels = scales::comma)+scale_y_continuous(labels = scales::comma)+
     ylab("Predicted Visitation")+xlab("Actual Visitation")+
     geom_text(x=5000,y=20000,color="black",label=paste0("R^2 == ", round(cor(y,preds)^2,digits = 2)),parse=TRUE)
      
@@ -214,14 +216,14 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   which(x != TRUE)
   
   #create a 2 year AR lag
-  dat$AR_Vis2<-lag(dat$RecreationVisits,n=768)
-  x<-dat[769:1920,]$AR_Vis2==dat[1:1152,]$RecreationVisits
-  which(x != TRUE)
+  #dat$AR_Vis2<-lag(dat$RecreationVisits,n=768)
+  #x<-dat[769:1920,]$AR_Vis2==dat[1:1152,]$RecreationVisits
+  #which(x != TRUE)
   
   #create a 3 year AR lag
-  dat$AR_Vis3<-lag(dat$RecreationVisits,n=1152)
-  x<-dat[1153:1920,]$AR_Vis3==dat[1:768,]$RecreationVisits
-  which(x != TRUE)
+  #dat$AR_Vis3<-lag(dat$RecreationVisits,n=1152)
+  #x<-dat[1153:1920,]$AR_Vis3==dat[1:768,]$RecreationVisits
+  #which(x != TRUE)
   
   
   
@@ -279,43 +281,50 @@ for(i in 1:nrow(smokeranges)){
 }
 
 #write.csv(smokeranges,file="MarginalEffectsSmoke.csv")
+smokeranges<-read.csv("MarginalEffectsSmoke.csv")
 
+dat%>%group_by(UnitCode)%>%
+  summarise(x=median(stdsmokemed))%>%arrange(desc(x) )
 
- dtsub<-dt%>%filter(UnitCode %in%c("GLAC","GRTE","CRLA","REDW"))
- datsub<-dat%>%filter(UnitCode %in%c("GLAC","GRTE","CRLA","REDW"))
- srsub<-smokeranges%>%filter(UnitCode %in%c("GLAC","GRTE","CRLA","REDW"))
+dat$NAME<-str_remove(dat$ParkName, " NP")
+dat$NAME<-str_remove(dat$NAME, " & PRES")
+
+ dtsub<-dt%>%filter(UnitCode %in%c("GRTE","REDW","GLAC","GRSA"))
+ datsub<-dat%>%filter(UnitCode %in%c("GRTE","REDW","GLAC","GRSA"))
+ srsub<-smokeranges%>%filter(UnitCode %in%c("GRTE","REDW","GLAC","GRSA"))
  
+ srsub$NAME<-ifelse(srsub$UnitCode=="GRTE","Grand Teton",
+                    ifelse(srsub$UnitCode=="REDW","Redwood",
+                           ifelse(srsub$UnitCode=="GLAC","Glacier","Great Sand Dunes")))
 #Need to cut the lines pre/post bp using geom_segment
 
   
   
-ggplot(data=datsub, aes(x=stdsmokemed,y=RecreationVisits))+ 
-  geom_line(data=srsub,aes(x=Value,y=pred,by=as.character(draw)),alpha=0.5,color="darkgrey")+
-  geom_point()+
-  #ylim(range(datsub$RecreationVisits))+
-  facet_wrap(~UnitCode,scales="free")+theme_classic()
-  
-srsub %>%
-  group_by(UnitCode,Value) %>%
-  tidybayes::median_qi(pred) %>%
-  ggplot(aes(x = Value, y = pred, ymin = .lower, ymax = .upper)) +
-  tidybayes::geom_lineribbon(fill = "gray65")+
-  facet_wrap(~UnitCode,scales="free")+theme_classic()
 
-srsub %>%
-ggplot(.,aes(x=Value,y=pred))+
-  tidybayes::stat_lineribbon(.width = c(.5, .90)) +
-  scale_fill_brewer()+
-  facet_wrap(~UnitCode,scales="free")+theme_classic()
   
 ##This is the one
+ ann_text <- data.frame(Value = 1.20,pred = 30500,lab = "Breakpoint is 0.5",
+                        NAME = "Grand Teton")
+ 
+ 
 srsub %>%
   ggplot(.,aes(x=Value,y=pred))+
   tidybayes::stat_lineribbon(aes(fill_ramp = stat(.width)), .width = ppoints(50), fill = "#2171b5") +
-  ggdist::scale_fill_ramp_continuous(range = c(0.8, 0))+
-  ylim(range(0,50000))+
-  geom_point(data=datsub, aes(x=stdsmokemed,y=RecreationVisits))+
-  facet_wrap(~UnitCode,scales="free")+theme_classic()
+  ggdist::scale_fill_ramp_continuous(range = c(0.95, 0),name="Credibility\nInterval" )+
+  scale_y_continuous(labels =  scales::comma  )+
+  geom_point(data=datsub, aes(x=stdsmokemed,y=RecreationVisits),alpha=0.6)+
+  facet_wrap(~NAME,scales="free_x")+theme_minimal()+
+  geom_vline(xintercept=0.5,color="darkgray",alpha=0.9,linetype=2)+
+  ylab("Monthly Recreational Visits")+xlab("Smoke (Standardized)")+
+  theme(strip.text = element_text(size=12,face="bold"))+mytheme+
+  annotate("segment", x=-Inf, xend=Inf, y=-Inf, yend=-Inf)+
+  annotate("segment", x=-Inf, xend=-Inf, y=-Inf, yend=Inf)+
+  geom_text(data = ann_text,label = "Breakpoint is 0.5", fontface="bold",size=3 )+
+  geom_segment(x = 0.8, xend = 0.51, y = 30000, yend=  28000,
+    arrow = arrow(length = unit(0.03, "npc")),size=1,
+    data = data.frame(NAME = "Grand Teton")) +
+  theme(axis.title.y = element_text(vjust=2))
+  
   
   
   
