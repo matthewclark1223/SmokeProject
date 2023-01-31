@@ -1,7 +1,7 @@
 library(tidyverse)
 library(rstan)
 library(ggridges)
-dat<-read_csv("Data/MergedDataCompleteFINAL.csv")[,-1]
+dat<-read_csv("Data/MergedDataCompleteFINAL2.csv")[,-1]
 
 
 data<-dat
@@ -54,7 +54,7 @@ mod<-rstan::stan( file="~/SmokeProject/StanCode/AROnly.stan " ,
                   data=data_list,chains=7,iter=5000, ##10
                   control=list(adapt_delta=0.95,max_treedepth = 10),
                   refresh= max(5000/20, 1),save_warmup=T)
-save(mod,file="modAROnly.rda") #runs with no errors
+save(mod,file="modAROnly2.rda") #runs with no errors
 
 print( mod , probs=c( 0.05 , 0.95  ))
 
@@ -105,10 +105,10 @@ rstan::rstan_options(autowrite=TRUE)
 
 modSmoke2<-rstan::stan( file="~/SmokeProject/StanCode/AR_Set_BP.stan " , 
                   data=data_list,chains=7,iter=5000, #10, 14000
-                  control=list(adapt_delta=0.99,max_treedepth = 10), #0.999, 10
+                  control=list(adapt_delta=0.99,max_treedepth = 15), #0.999, 10
                   refresh= 5000/20,save_warmup=F)
 
-save(modSmoke2,file="modSmokeSet0_5.rda")
+save(modSmoke2,file="modSmokeSet0_52.rda")
 
 print( modSmoke2 , probs=c( 0.05 , 0.95  ))
 y<-data_list$count #for pp checking in shinystan
@@ -138,10 +138,10 @@ rstan::rstan_options(autowrite=TRUE)
 
 modSmoke3<-rstan::stan( file="~/SmokeProject/StanCode/AR_Set_BP.stan " , 
                         data=data_list,chains=7,iter=5000,
-                        control=list(adapt_delta=0.99,max_treedepth = 10),
+                        control=list(adapt_delta=0.99,max_treedepth = 15),
                         refresh= 5000/20,save_warmup=F)
 
-save(modSmoke3,file="modSmokeSet1.rda")
+save(modSmoke3,file="modSmokeSet12.rda")
 
 print( modSmoke3 , probs=c( 0.05 , 0.95  ))
 y<-data_list$count #for pp checking in shinystan
@@ -174,10 +174,10 @@ rstan::rstan_options(autowrite=TRUE)
 
 modSmoke5<-rstan::stan( file="~/SmokeProject/StanCode/AR_Set_BP.stan" , 
                         data=data_list,chains=7,iter=5000,
-                        control=list(adapt_delta=0.99,max_treedepth = 10),
+                        control=list(adapt_delta=0.99,max_treedepth = 15),
                         refresh= 5000/20,save_warmup=F)
 
-save(modSmoke5,file="modSmokeSet0.rda")
+save(modSmoke5,file="modSmokeSet02.rda")
 
 print( modSmoke6 , probs=c( 0.05 , 0.95  ))
 y<-data_list$count #for pp checking in shinystan
@@ -214,16 +214,16 @@ modSmoke6<-rstan::stan( file="~/SmokeProject/StanCode/AR_Set_BP.stan" ,
 dat$stdARM<-stdize(dat$AR_Vis)
 fit<-stan_glmer.nb(RecreationVisits~(stdsmokemed+
                                        stdARM|UnitCode),
-                   iter=5000,chains=7,data=dat)
+                   iter=7000,chains=7,data=dat)
 
-save(fit,file="SmokeAR_NoBp.rda")
-
-
+save(fit,file="SmokeAR_NoBp2.rda")
 
 
-###
+
+
+### see how much better this model does than autoregressive alone. 
 
 
 y<-posterior_predict(fit,dat)
 y<-apply(y,2,median)
-(cor(y,dat$RecreationVisits))^2
+(cor(y,dat$RecreationVisits))^2 #get the R^2

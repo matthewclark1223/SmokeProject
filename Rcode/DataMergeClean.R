@@ -8,6 +8,7 @@ mean_s_dat$Month<-as.integer(substr(mean_s_dat$Date,6,7))
 mean_s_dat$UnitCode<-mean_s_dat$park
 mean_s_dat<-mean_s_dat[,3:6]
 dat<-merge(Visdat,mean_s_dat,by=c("Year","Month","UnitCode"))
+dat$RecreationVisits<-gsub(",","",dat$RecreationVisits)
 dat$RecreationVisits<-as.numeric(dat$RecreationVisits)
 dat$stdsmoke<-as.vector(scale(dat$Smoke))
 
@@ -59,4 +60,4 @@ dat$SeasType<-ifelse(dat$CatColS %in% x$cc,
 
 
 #create the csv
-write.csv(dat, file="Data/MergedDataCompleteFINAL.csv")
+write.csv(dat, file="Data/MergedDataCompleteFINAL2.csv")

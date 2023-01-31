@@ -153,7 +153,7 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   
   
   #validation plot
-  load("~/SmokeProject/ModelObjects/modAROnly.rda")
+  load("~/SmokeProject/ModelObjects/modAROnly2.rda")
   y<-data_list$count #for pp checking in shinystan
   #shinystan::launch_shinystan(mod)
   z<-rstan::extract(mod)
@@ -173,7 +173,7 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
     geom_point(alpha=0.5)+theme_classic()+mytheme+
     scale_x_continuous(labels = scales::comma)+scale_y_continuous(labels = scales::comma)+
     ylab("Predicted Visitation")+xlab("Actual Visitation")+
-    geom_text(x=5000,y=20000,color="black",label=paste0("R^2 == ", round(cor(y,preds)^2,digits = 2)),parse=TRUE)
+    geom_text(x=500000,y=1000000,color="black",label=paste0("R^2 == ", round(cor(y,preds)^2,digits = 2)),parse=TRUE)
      
   
   
@@ -202,7 +202,7 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   #####
   #Plot actual model lines
   #Just start from begnning
-  dat<-read_csv("~/SmokeProject/Data/MergedDataCompleteFINAL.csv")[,-1]
+  dat<-read_csv("~/SmokeProject/Data/MergedDataCompleteFINAL2.csv")[,-1]
   #filter to only high season data
   #dat<-dat%>%filter(SeasType =="High")
   
@@ -232,7 +232,7 @@ bpdat<-gather(bpdat,key="bp",value="dep",dep0.5,dep1,dep1.5)
   #filter to only high season data
   dat<-dat%>%filter(SeasType =="High")
   
-  load("~/SmokeProject/ModelObjects/modSmokeSet0_5.rda")
+  load("~/SmokeProject/ModelObjects/modSmokeSet0_52.rda")
   z<-rstan::extract(modSmoke2)
   slp1s<-apply(z$slope1,2,median)
   slp2s<-apply(z$slope2,2,median)
@@ -271,20 +271,22 @@ smkeq<-function(prknum, value,draw){
   return(pred)
 }
  
-smkeq(32,-0.07159349,5757)
+smkeq(26,-0.0742863,5757)
 set.seed(1)
 smokeranges$pred<-rep(NA,nrow(smokeranges))
-samps<-rep(sample(x=1:length(z$Intercept),size=100),9205)
+samps<-rep(sample(x=1:length(z$Intercept),size=100),13632) #this number is just the length of smokeranges/100
 for(i in 1:nrow(smokeranges)){
   smokeranges[i,]$pred<-smkeq(prknum=smokeranges[i,]$prknum,value= smokeranges[i,]$Value,draw=samps[i]  )
   #print(i) #nrow ~900,000
 }
 
-#write.csv(smokeranges,file="MarginalEffectsSmoke.csv")
+write.csv(smokeranges,file="MarginalEffectsSmoke.csv")
 smokeranges<-read.csv("MarginalEffectsSmoke.csv")
 
 dat%>%group_by(UnitCode)%>%
   summarise(x=median(stdsmokemed))%>%arrange(desc(x) )
+
+dat%>%group_by(UnitCode)%>%filter(stdsmokemed>0.5)%>%count()%>%arrange(desc(n) )
 
 dat$NAME<-str_remove(dat$ParkName, " NP")
 dat$NAME<-str_remove(dat$NAME, " & PRES")
@@ -309,11 +311,11 @@ dat$NAME<-str_remove(dat$NAME, " & PRES")
  
 srsub %>%
   ggplot(.,aes(x=Value,y=pred))+
-  tidybayes::stat_lineribbon(aes(fill_ramp = stat(.width)), .width = ppoints(50), fill = "#2171b5") +
+  tidybayes::stat_lineribbon(aes(fill_ramp = stat(.width)), .width = ppoints(5), fill = "#2171b5") +#50
   ggdist::scale_fill_ramp_continuous(range = c(0.95, 0),name="Credibility\nInterval" )+
   scale_y_continuous(labels =  scales::comma  )+
   geom_point(data=datsub, aes(x=stdsmokemed,y=RecreationVisits),alpha=0.6)+
-  facet_wrap(~NAME,scales="free_x")+theme_minimal()+
+  facet_wrap(~NAME,scales="free")+theme_minimal()+
   geom_vline(xintercept=0.5,color="darkgray",alpha=0.9,linetype=2)+
   ylab("Monthly Recreational Visits")+xlab("Smoke (Standardized)")+
   theme(strip.text = element_text(size=12,face="bold"))+mytheme+
@@ -326,5 +328,43 @@ srsub %>%
   theme(axis.title.y = element_text(vjust=2))
   
   
-  
-  
+  ### exploratory, delete probably, just changint parks around
+
+
+dtsub<-dt%>%filter(UnitCode %in%c("CRLA","LAVO","GLAC","REDW", "KICA","SEQU"))
+datsub<-dat%>%filter(UnitCode %in%c("CRLA","LAVO","GLAC","REDW", "KICA","SEQU"))
+srsub<-smokeranges%>%filter(UnitCode %in%c("CRLA","LAVO","GLAC","REDW", "KICA","SEQU"))
+
+srsub$NAME<-ifelse(srsub$UnitCode=="CRLA","Crater Lake",
+                   ifelse(srsub$UnitCode=="REDW","Redwood",
+                          ifelse(srsub$UnitCode=="GLAC","Glacier",
+                                 ifelse(srsub$UnitCode=="KICA","Kings Canyon",
+                                        ifelse(srsub$UnitCode=="LAVO","Lassen Volcanic","Sequoia")))))
+#Need to cut the lines pre/post bp using geom_segment
+
+
+
+
+
+##This is the one
+ann_text <- data.frame(Value = 3.50,pred = 800000,lab = "Breakpoint is 0.5",
+                       NAME = "Glacier")
+
+
+srsub %>%
+  ggplot(.,aes(x=Value,y=pred))+
+  tidybayes::stat_lineribbon(aes(fill_ramp = stat(.width)), .width = ppoints(5), fill = "#2171b5") +#50
+  ggdist::scale_fill_ramp_continuous(range = c(0.95, 0.1),name="Credibility\nInterval" )+
+  scale_y_continuous(labels =  scales::comma  )+
+  geom_point(data=datsub, aes(x=stdsmokemed,y=RecreationVisits),alpha=0.6)+
+  facet_wrap(~NAME,scales="free")+theme_minimal()+
+  geom_vline(xintercept=0.5,color="darkgray",alpha=0.9,linetype=2)+
+  ylab("Monthly Recreational Visits")+xlab("Smoke (Standardized)")+
+  theme(strip.text = element_text(size=12,face="bold"))+mytheme+
+  annotate("segment", x=-Inf, xend=Inf, y=-Inf, yend=-Inf)+
+  annotate("segment", x=-Inf, xend=-Inf, y=-Inf, yend=Inf)+
+  geom_text(data = ann_text,label = "Breakpoint is 0.5", fontface="bold",size=3 )+
+  geom_segment(x = 1.8, xend = 0.55, y = 802000, yend=  800000,
+               arrow = arrow(length = unit(0.03, "npc")),size=1,
+               data = data.frame(NAME = "Glacier")) +
+  theme(axis.title.y = element_text(vjust=2))
