@@ -186,28 +186,6 @@ preds<-apply(z$count_pred,2,median)
 plot(y,preds)
 cor(y,preds)
 
-#Try low bp
-### Try a bp of 0
-data_list <- list(
-  N = nrow(dat),
-  Nprk = length(unique(dat$UnitCode)),
-  count = dat$RecreationVisits,
-  smoke = stdize(dat$medSmoke),
-  arVis = stdize(dat$AR_Vis),
-  bkpoint = -0.25,
-  #arVis2 = stdize(dat$AR_Vis2),
-  #arVis3 = stdize(dat$AR_Vis3),
-  pcode = as.numeric(as.factor(dat$UnitCode ))
-)
-
-options(mc.cores=7)
-
-rstan::rstan_options(autowrite=TRUE)
-
-modSmoke6<-rstan::stan( file="~/SmokeProject/StanCode/AR_Set_BP.stan" , 
-                        data=data_list,chains=7,iter=5000,
-                        control=list(adapt_delta=0.99,max_treedepth = 10),
-                        refresh= 5000/20,save_warmup=F)
 
 
 #### Smoke, no bp
